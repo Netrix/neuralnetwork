@@ -1,37 +1,40 @@
 # This file contains a list of people who've made non-trivial
-# contribution to the Google C++ Testing Framework project.  People
+# contribution to the Google C++ Mocking Framework project.  People
 # who commit code to the project are encouraged to add their names
 # here.  Please keep the list sorted by first names.
 
-Ajay Joshi <jaj@google.com>
-Balázs Dán <balazs.dan@gmail.com>
-Bharat Mediratta <bharat@menalto.com>
+Benoit Sigoure <tsuna@google.com>
+Bogdan Piloca <boo@google.com>
 Chandler Carruth <chandlerc@google.com>
-Chris Prince <cprince@google.com>
-Chris Taylor <taylorc@google.com>
-Dan Egnor <egnor@google.com>
-Eric Roman <eroman@chromium.org>
-Hady Zalek <hady.zalek@gmail.com>
+Dave MacLachlan <dmaclach@gmail.com>
+David Anderson <danderson@google.com>
+Dean Sturtevant
+Gene Volovich <gv@cite.com>
+Hal Burch <gmock@hburch.com>
 Jeffrey Yasskin <jyasskin@google.com>
-Jói Sigurðsson <joi@google.com>
+Jim Keller <jimkeller@google.com>
+Joe Walnes <joe@truemesh.com>
+Jon Wray <jwray@google.com>
 Keir Mierle <mierle@gmail.com>
 Keith Ray <keith.ray@gmail.com>
-Kenton Varda <kenton@google.com>
+Kostya Serebryany <kcc@google.com>
+Lev Makhlis
 Manuel Klimek <klimek@google.com>
+Mario Tanev <radix@google.com>
+Mark Paskin
 Markus Heule <markus.heule@gmail.com>
-Mika Raento <mikie@iki.fi>
-Miklós Fazekas <mfazekas@szemafor.com>
-Pasi Valminen <pasi.valminen@gmail.com>
-Patrick Hanna <phanna@google.com>
-Patrick Riley <pfr@google.com>
-Peter Kaminski <piotrk@google.com>
-Preston Jackson <preston.a.jackson@gmail.com>
-Rainer Klaffenboeck <rainer.klaffenboeck@dynatrace.com>
-Russ Cox <rsc@google.com>
+Matthew Simmons <simmonmt@acm.org>
+Mike Bland <mbland@google.com>
+Neal Norwitz <nnorwitz@gmail.com>
+Nermin Ozkiranartli <nermin@google.com>
+Owen Carlsen <ocarlsen@google.com>
+Paneendra Ba <paneendra@google.com>
+Paul Menage <menage@google.com>
+Piotr Kaminski <piotrk@google.com>
 Russ Rufer <russ@pentad.com>
-Sean Mcafee <eefacm@gmail.com>
-Sigurður Ásgeirsson <siggi@google.com>
-Tracy Bialik <tracy@pentad.com>
+Sverre Sundsdal <sundsdal@gmail.com>
+Takeshi Yoshino <tyoshino@google.com>
 Vadim Berman <vadimb@google.com>
 Vlad Losev <vladl@google.com>
+Wolfgang Klier <wklier@google.com>
 Zhanyong Wan <wan@google.com>
