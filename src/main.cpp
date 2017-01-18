@@ -14,9 +14,22 @@ struct TrainingEntity
     std::vector<Type> output;
 };
 
+struct IConstNodeBuilder
+{
+};
+
+struct IVariableNodeBuilder
+{
+};
 
 struct IBinaryNodeBuilder
 {
+    IBinaryNodeBuilder* setFirstInput(BinaryNode, std::string const& operation);
+    IBinaryNodeBuilder* setSecondInput(BinaryNode, std::string const& operation);
+    IVariableNodeBuilder* setFirstInput(Variable);
+    IVariableNodeBuilder* setSecondInput(Variable);
+    IConstNodeBuilder* setFirstInput(Const);
+    IConstNodeBuilder* setSecondInput(Const);
 };
 
 struct BinaryNode{};
@@ -26,7 +39,7 @@ struct ForwardNetwork{};
 
 struct NetworkBuilder
 {
-    std::unique_ptr<IBinaryNodeBuilder> setRootNode(BinaryNode, std::string const& nodeName);
+    IBinaryNodeBuilder* setRootNode(BinaryNode, std::string const& operation);
 
     std::unique_ptr<BackPropagationNetwork> buildBackPropagationNetwork();   // should verify entire tree and return ready to work tree
 
