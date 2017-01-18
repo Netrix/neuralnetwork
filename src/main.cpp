@@ -15,6 +15,25 @@ struct TrainingEntity
 };
 
 
+struct IBinaryNodeBuilder
+{
+};
+
+struct BinaryNode{};
+
+struct BackPropagationNetwork{};
+struct ForwardNetwork{};
+
+struct NetworkBuilder
+{
+    std::unique_ptr<IBinaryNodeBuilder> setRootNode(BinaryNode, std::string const& nodeName);
+
+    std::unique_ptr<BackPropagationNetwork> buildBackPropagationNetwork();   // should verify entire tree and return ready to work tree
+
+    std::unique_ptr<ForwardNetwork> buildForwardNetwork();
+};
+
+
 int main()
 {
     std::vector<TrainingEntity<double>> TRAIN_DATA = {
@@ -64,5 +83,6 @@ int main()
 
     auto network = builder.build();
 
+    // epoch learn above data
     std::cout << "Hello" << std::endl;
 }
