@@ -3,6 +3,7 @@ project(neural-networks)
 add_definitions(-std=c++14)
 
 set(FILES
+    ArrayView.hpp
     NotNull.hpp
     BuilderStorage.cpp
     BuilderStorage.hpp

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "NodeBuilder.hpp"
+#include "ArrayView.hpp"
 #include "NotNull.hpp"
 #include "NodeTags.hpp"
 #include <array>
@@ -25,9 +26,12 @@ struct BinaryNodeBuilder : NodeBuilder
     void setFirstInput(NotNull<ConstNodeBuilder>);
     void setSecondInput(NotNull<ConstNodeBuilder>);
 
+    ArrayView<BinaryNodeBuilder*> getOperations();
+
 private:
     BuilderStorage& m_builderStorage;
     std::string m_operation;
 
+    std::array<BinaryNodeBuilder*, 2> m_operationBuilders{};    // Should be changed to OperationNodeBuilder
     std::array<NodeBuilder*, 2> m_inputBuilders{};
 };
