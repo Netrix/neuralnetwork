@@ -1,4 +1,6 @@
 project(neural-networks)
 
+add_definitions(-std=c++14)
+
 set(FILES main.cpp)
-add_executable(${CMAKE_PROJECT_NAME} ${FILES})
+add_executable(${PROJECT_NAME} ${FILES})

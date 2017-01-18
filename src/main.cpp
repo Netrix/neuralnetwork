@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <memory>
 
 template<class Type>
 struct Multiplication
@@ -14,6 +15,57 @@ struct TrainingEntity
     std::vector<Type> output;
 };
 
+//
+
+template<class Type>
+struct NotNull
+{
+    NotNull(Type* pointer)
+        : m_pointer(pointer)
+    {
+        assert(pointer != nullptr);
+    }
+
+    NotNull(std::nullptr_t) = delete;
+
+    Type* operator->()
+    {
+        return m_pointer;
+    }
+
+    Type const* operator->() const
+    {
+        return m_pointer;
+    }
+
+    Type& operator*()
+    {
+        return *m_pointer;
+    }
+
+    Type const& operator*() const
+    {
+        return *m_pointer;
+    }
+
+    Type** operator&()
+    {
+        return *m_pointer;
+    }
+
+    Type* const* operator&() const
+    {
+        return *m_pointer;
+    }
+
+private:
+    Type* m_pointer;
+};
+
+struct BinaryNode{};
+struct Variable{};
+struct Const{};
+
 struct IConstNodeBuilder
 {
 };
@@ -24,15 +76,16 @@ struct IVariableNodeBuilder
 
 struct IBinaryNodeBuilder
 {
-    IBinaryNodeBuilder* setFirstInput(BinaryNode, std::string const& operation);
-    IBinaryNodeBuilder* setSecondInput(BinaryNode, std::string const& operation);
-    IVariableNodeBuilder* setFirstInput(Variable);
-    IVariableNodeBuilder* setSecondInput(Variable);
-    IConstNodeBuilder* setFirstInput(Const);
-    IConstNodeBuilder* setSecondInput(Const);
+    NotNull<IBinaryNodeBuilder> setFirstInput(BinaryNode, std::string const& operation);
+    NotNull<IBinaryNodeBuilder> setSecondInput(BinaryNode, std::string const& operation);
+    NotNull<IVariableNodeBuilder> setFirstInput(Variable);
+    NotNull<IVariableNodeBuilder> setSecondInput(Variable);
+    NotNull<IConstNodeBuilder> setFirstInput(Const);
+    NotNull<IConstNodeBuilder> setSecondInput(Const);
+    void setFirstInput(NotNull<IConstNodeBuilder>);
+    void setSecondInput(NotNull<IConstNodeBuilder>);
 };
 
-struct BinaryNode{};
 
 struct BackPropagationNetwork{};
 struct ForwardNetwork{};
@@ -46,7 +99,7 @@ struct NetworkBuilder
         std::vector<std::unique_ptr<IBinaryNodeBuilder>> operations; // should have generic operations later
     };
 
-    IBinaryNodeBuilder* setRootNode(BinaryNode, std::string const& operation);
+    NotNull<IBinaryNodeBuilder> setRootNode(BinaryNode, std::string const& operation);
 
     std::unique_ptr<BackPropagationNetwork> buildBackPropagationNetwork();   // should verify entire tree and return ready to work tree
 
@@ -68,44 +121,44 @@ int main()
     };
 
     NetworkBuilder builder;
-    auto yNode = builder.setRootNode(Binary, "add");
-    auto ySubNode = addNode->setFirstInput(BinaryNode, "add");  // n1 + n2 + 2 -> n3 -> y
-    
-    auto n1wMulNode = ySubNode->setFirstInput(BinaryNode, "mul");
-    auto n2wMulNode = ySubNode->setSecondInput(BinaryNode, "mul");
-    yNode->setSecondInput(Variable); // w30
+    auto yNode = builder.setRootNode(BinaryNode{}, "add");
+    auto ySubNode = yNode->setFirstInput(BinaryNode{}, "add");  // n1 + n2 + 2 -> n3 -> y
 
-    n1wMulNode->setFirstInput(Variable); // w31
-    n2wMulNode->setFirstInput(Variable); // w32
+    auto n1wMulNode = ySubNode->setFirstInput(BinaryNode{}, "mul");
+    auto n2wMulNode = ySubNode->setSecondInput(BinaryNode{}, "mul");
+    yNode->setSecondInput(Variable{}); // w30
 
-    auto n1Node = n1wMulNode->setSecondInput(BinaryNode, "sum");
-    auto n2Node = n2wMulNode->setSecondInput(BinaryNode, "sum");
+    n1wMulNode->setFirstInput(Variable{}); // w31
+    n2wMulNode->setFirstInput(Variable{}); // w32
 
-    auto n1SubNode = n1Node->setFirstInput(BinaryNode, "sum");
-    auto n2SubNode = n2Node->setFirstInput(BinaryNode, "sum");
+    auto n1Node = n1wMulNode->setSecondInput(BinaryNode{}, "sum");
+    auto n2Node = n2wMulNode->setSecondInput(BinaryNode{}, "sum");
 
-    n1Node->setSecondInput(Variable); // w10
-    n2Node->setSecondInput(Variable); // w20
+    auto n1SubNode = n1Node->setFirstInput(BinaryNode{}, "sum");
+    auto n2SubNode = n2Node->setFirstInput(BinaryNode{}, "sum");
 
-    auto x1w11MulNode = n1SubNode->setFirstInput(BinaryNode, "mul");
-    auto x2w12MulNode = n1SubNode->setSecondInput(BinaryNode, "mul");
+    n1Node->setSecondInput(Variable{}); // w10
+    n2Node->setSecondInput(Variable{}); // w20
 
-    auto x1w21MulNode = n2SubNode->setFirstInput(BinaryNode, "mul");
-    auto x2w22MulNode = n2SubNode->setSecondInput(BinaryNode, "mul");
+    auto x1w11MulNode = n1SubNode->setFirstInput(BinaryNode{}, "mul");
+    auto x2w12MulNode = n1SubNode->setSecondInput(BinaryNode{}, "mul");
 
-    auto x1Node = x1w11MulNode->setFirstInput(Const);
-    x1w11MulNode->setSecondInput(Variable); // w11
+    auto x1w21MulNode = n2SubNode->setFirstInput(BinaryNode{}, "mul");
+    auto x2w22MulNode = n2SubNode->setSecondInput(BinaryNode{}, "mul");
 
-    auto x2Node = x2w12MulNode->setFirstInput(Const);
-    x2w12MulNode->setSecondInput(Variable); // w12
+    auto x1Node = x1w11MulNode->setFirstInput(Const{});
+    x1w11MulNode->setSecondInput(Variable{}); // w11
+
+    auto x2Node = x2w12MulNode->setFirstInput(Const{});
+    x2w12MulNode->setSecondInput(Variable{}); // w12
 
     x1w21MulNode->setFirstInput(x1Node);
-    x1w21MulNode->setSecondInput(Variable); // w21
+    x1w21MulNode->setSecondInput(Variable{}); // w21
 
     x2w22MulNode->setFirstInput(x2Node);
-    x2w22MulNode->setSecondInput(Variable); // w22
+    x2w22MulNode->setSecondInput(Variable{}); // w22
 
-    auto network = builder.build();
+    auto network = builder.buildBackPropagationNetwork();
 
     // epoch learn above data
     std::cout << "Hello" << std::endl;
