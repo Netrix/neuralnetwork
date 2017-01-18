@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <memory>
+#include <cassert>
 
 template<class Type>
 struct Multiplication
@@ -66,24 +67,70 @@ struct BinaryNode{};
 struct Variable{};
 struct Const{};
 
-struct ConstNodeBuilder
+struct ConstNodeBuilder;
+struct VariableNodeBuilder;
+struct BinaryNodeBuilder;
+
+struct BuilderStorage
+{
+    std::vector<std::unique_ptr<ConstNodeBuilder>> consts;
+    std::vector<std::unique_ptr<VariableNodeBuilder>> variables;
+    std::vector<std::unique_ptr<BinaryNodeBuilder>> operations; // should have generic operations later
+};
+
+struct NodeBuilder
 {
 };
 
-struct VariableNodeBuilder
+struct ConstNodeBuilder : NodeBuilder
 {
 };
 
-struct BinaryNodeBuilder
+struct VariableNodeBuilder : NodeBuilder
 {
-    NotNull<BinaryNodeBuilder> setFirstInput(BinaryNode, std::string const& operation);
-    NotNull<BinaryNodeBuilder> setSecondInput(BinaryNode, std::string const& operation);
+};
+
+struct BinaryNodeBuilder : NodeBuilder
+{
+    BinaryNodeBuilder(BuilderStorage& builderStorage, std::string const& operation)
+        : m_builderStorage(builderStorage)
+        , m_operation(operation)
+    {
+    }
+
+    NotNull<BinaryNodeBuilder> setFirstInput(BinaryNode, std::string const& operation)
+    {
+        assert(m_inputBuilders[0] == nullptr);
+        auto l_builder = std::make_unique<BinaryNodeBuilder>(m_builderStorage, operation);
+        m_inputBuilders[0] = l_builder.get();
+        m_builderStorage.operations.push_back(std::move(l_builder));
+        return m_builderStorage.operations.back().get();
+    }
+
+    NotNull<BinaryNodeBuilder> setSecondInput(BinaryNode, std::string const& operation)
+    {
+        assert(m_inputBuilders[1] == nullptr);
+        auto l_builder = std::make_unique<BinaryNodeBuilder>(m_builderStorage, operation);
+        m_inputBuilders[1] = l_builder.get();
+        m_builderStorage.operations.push_back(std::move(l_builder));
+        return m_builderStorage.operations.back().get();
+    }
+
     NotNull<VariableNodeBuilder> setFirstInput(Variable);
     NotNull<VariableNodeBuilder> setSecondInput(Variable);
     NotNull<ConstNodeBuilder> setFirstInput(Const);
     NotNull<ConstNodeBuilder> setSecondInput(Const);
     void setFirstInput(NotNull<ConstNodeBuilder>);
     void setSecondInput(NotNull<ConstNodeBuilder>);
+
+private:
+    void setFirstInput(NodeBuilder*)
+
+private:
+    BuilderStorage& m_builderStorage;
+    std::string m_operation;
+
+    std::array<NodeBuilder*, 2> m_inputBuilders{};
 };
 
 
@@ -92,14 +139,12 @@ struct ForwardNetwork{};
 
 struct NetworkBuilder
 {
-    struct BuilderStorage
+    NotNull<BinaryNodeBuilder> setRootNode(BinaryNode, std::string const& operation)
     {
-        std::vector<std::unique_ptr<ConstNodeBuilder>> consts;
-        std::vector<std::unique_ptr<VariableNodeBuilder>> variables;
-        std::vector<std::unique_ptr<BinaryNodeBuilder>> operations; // should have generic operations later
-    };
-
-    NotNull<BinaryNodeBuilder> setRootNode(BinaryNode, std::string const& operation);
+        auto l_builder = std::make_unique<BinaryNodeBuilder>(m_storage, operation);
+        m_storage.operations.push_back(std::move(l_builder));
+        return m_storage.operations.back().get();
+    }
 
     std::unique_ptr<BackPropagationNetwork> buildBackPropagationNetwork();   // should verify entire tree and return ready to work tree
 
