@@ -39,11 +39,22 @@ struct ForwardNetwork{};
 
 struct NetworkBuilder
 {
+    struct BuilderStorage
+    {
+        std::vector<std::unique_ptr<IConstNodeBuilder>> consts;
+        std::vector<std::unique_ptr<IVariableNodeBuilder>> variables;
+        std::vector<std::unique_ptr<IBinaryNodeBuilder>> operations; // should have generic operations later
+    };
+
     IBinaryNodeBuilder* setRootNode(BinaryNode, std::string const& operation);
 
     std::unique_ptr<BackPropagationNetwork> buildBackPropagationNetwork();   // should verify entire tree and return ready to work tree
 
     std::unique_ptr<ForwardNetwork> buildForwardNetwork();
+
+private:
+    BuilderStorage m_storage;
+    IBinaryNodeBuilder* m_root; // should be generic operation later // should be able to get topology from here to get forward list to do operations
 };
 
 
