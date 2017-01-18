@@ -66,24 +66,24 @@ struct BinaryNode{};
 struct Variable{};
 struct Const{};
 
-struct IConstNodeBuilder
+struct ConstNodeBuilder
 {
 };
 
-struct IVariableNodeBuilder
+struct VariableNodeBuilder
 {
 };
 
-struct IBinaryNodeBuilder
+struct BinaryNodeBuilder
 {
-    NotNull<IBinaryNodeBuilder> setFirstInput(BinaryNode, std::string const& operation);
-    NotNull<IBinaryNodeBuilder> setSecondInput(BinaryNode, std::string const& operation);
-    NotNull<IVariableNodeBuilder> setFirstInput(Variable);
-    NotNull<IVariableNodeBuilder> setSecondInput(Variable);
-    NotNull<IConstNodeBuilder> setFirstInput(Const);
-    NotNull<IConstNodeBuilder> setSecondInput(Const);
-    void setFirstInput(NotNull<IConstNodeBuilder>);
-    void setSecondInput(NotNull<IConstNodeBuilder>);
+    NotNull<BinaryNodeBuilder> setFirstInput(BinaryNode, std::string const& operation);
+    NotNull<BinaryNodeBuilder> setSecondInput(BinaryNode, std::string const& operation);
+    NotNull<VariableNodeBuilder> setFirstInput(Variable);
+    NotNull<VariableNodeBuilder> setSecondInput(Variable);
+    NotNull<ConstNodeBuilder> setFirstInput(Const);
+    NotNull<ConstNodeBuilder> setSecondInput(Const);
+    void setFirstInput(NotNull<ConstNodeBuilder>);
+    void setSecondInput(NotNull<ConstNodeBuilder>);
 };
 
 
@@ -94,12 +94,12 @@ struct NetworkBuilder
 {
     struct BuilderStorage
     {
-        std::vector<std::unique_ptr<IConstNodeBuilder>> consts;
-        std::vector<std::unique_ptr<IVariableNodeBuilder>> variables;
-        std::vector<std::unique_ptr<IBinaryNodeBuilder>> operations; // should have generic operations later
+        std::vector<std::unique_ptr<ConstNodeBuilder>> consts;
+        std::vector<std::unique_ptr<VariableNodeBuilder>> variables;
+        std::vector<std::unique_ptr<BinaryNodeBuilder>> operations; // should have generic operations later
     };
 
-    NotNull<IBinaryNodeBuilder> setRootNode(BinaryNode, std::string const& operation);
+    NotNull<BinaryNodeBuilder> setRootNode(BinaryNode, std::string const& operation);
 
     std::unique_ptr<BackPropagationNetwork> buildBackPropagationNetwork();   // should verify entire tree and return ready to work tree
 
@@ -107,7 +107,7 @@ struct NetworkBuilder
 
 private:
     BuilderStorage m_storage;
-    IBinaryNodeBuilder* m_root; // should be generic operation later // should be able to get topology from here to get forward list to do operations
+    BinaryNodeBuilder* m_root; // should be generic operation later // should be able to get topology from here to get forward list to do operations
 };
 
 
