@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <memory>
 
-NotNull<BinaryNodeBuilder> NetworkBuilder::setRootNode(BinaryNode, std::string const& operation)
+NotNull<BinaryNodeBuilder> NetworkBuilder::setRootNode(BinaryNodeTag, std::string const& operation)
 {
     auto l_builder = m_storage.createBinaryNodeBuilder(operation);
     m_root = l_builder;
@@ -15,15 +15,18 @@ NotNull<BinaryNodeBuilder> NetworkBuilder::setRootNode(BinaryNode, std::string c
 std::unique_ptr<BackPropagationNetwork> NetworkBuilder::buildBackPropagationNetwork() const
 {
     auto constStorageBuilder = std::make_unique<ConstStorageBuilder<BNN_TYPE>>(m_storage.getNumConsts());
-    auto constNodeMap = getConstNodeMap(*constStorageBuilder);
-
     auto variableStorageBuilder = std::make_unique<VariableStorageBuilder<BNN_TYPE>>(m_storage.getNumVariables());
-    auto variableNodeMap = getVariableNodeMap(*variableStorageBuilder);
+
+    BuilderToNodeMaps<BNN_TYPE> builderToNodeMaps = {
+        getConstNodeMap(*constStorageBuilder),
+        getVariableNodeMap(*variableStorageBuilder),
+    };
 
     auto l_operations = getOperationNodesInTopologicalOrder();
     for(auto operationBuilder : l_operations)
     {
-        // 1. Create struct with constNodeMap, variableNodeMap, operationNodeMap
+        auto operation = operationBuilder->build(builderToNodeMaps);
+        // DONE: 1. Create struct with constNodeMap, variableNodeMap, operationNodeMap
         // 2. Pass struct to operationBuilder
         // 3. Operation builer build should try to find input in any of map and assign it to new node
         // 4. if no builder found then tree is corrupted, should throw an exception

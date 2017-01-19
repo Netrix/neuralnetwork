@@ -7,8 +7,10 @@ set(FILES
     NotNull.hpp
     BuilderStorage.cpp
     BuilderStorage.hpp
+    BuilderToNodeMaps.hpp
     BinaryNodeBuilder.cpp
     BinaryNodeBuilder.hpp
+    BinaryOperationNode.hpp
     ConstNode.hpp
     ConstStorageBuilder.hpp
     NodeBuilder.hpp

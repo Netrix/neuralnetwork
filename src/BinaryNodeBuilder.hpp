@@ -7,6 +7,8 @@
 #include <array>
 #include <cassert>
 #include <string>
+#include "BinaryOperationNode.hpp"
+#include "BuilderToNodeMaps.hpp"
 
 struct BuilderStorage;
 
@@ -14,19 +16,21 @@ struct BinaryNodeBuilder : NodeBuilder
 {
     BinaryNodeBuilder(BuilderStorage& builderStorage, std::string const& operation);
 
-    NotNull<BinaryNodeBuilder> setFirstInput(BinaryNode, std::string const& operation);
-    NotNull<BinaryNodeBuilder> setSecondInput(BinaryNode, std::string const& operation);
+    NotNull<BinaryNodeBuilder> setFirstInput(BinaryNodeTag, std::string const& operation);
+    NotNull<BinaryNodeBuilder> setSecondInput(BinaryNodeTag, std::string const& operation);
 
-    NotNull<VariableNodeBuilder> setFirstInput(Variable);
-    NotNull<VariableNodeBuilder> setSecondInput(Variable);
+    NotNull<VariableNodeBuilder> setFirstInput(VariableTag);
+    NotNull<VariableNodeBuilder> setSecondInput(VariableTag);
 
-    NotNull<ConstNodeBuilder> setFirstInput(Const);
-    NotNull<ConstNodeBuilder> setSecondInput(Const);
+    NotNull<ConstNodeBuilder> setFirstInput(ConstTag);
+    NotNull<ConstNodeBuilder> setSecondInput(ConstTag);
 
     void setFirstInput(NotNull<ConstNodeBuilder>);
     void setSecondInput(NotNull<ConstNodeBuilder>);
 
     ArrayView<BinaryNodeBuilder*> getOperations();
+
+    std::unique_ptr<BinaryOperationNode> build(BuilderToNodeMaps<BNN_TYPE> & builderToNodeMaps);
 
 private:
     BuilderStorage& m_builderStorage;

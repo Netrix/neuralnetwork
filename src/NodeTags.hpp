@@ -1,5 +1,5 @@
 #pragma once
 
-struct BinaryNode{};
-struct Variable{};
-struct Const{};
+struct BinaryNodeTag{};
+struct VariableTag{};
+struct ConstTag{};
