@@ -23,16 +23,19 @@ std::unique_ptr<BackPropagationNetwork> NetworkBuilder::buildBackPropagationNetw
     };
 
     auto l_operations = getOperationNodesInTopologicalOrder();
+    std::vector<std::unique_ptr<OperationNode>> operationNodes;
+    operationNodes.reserve(l_operations.size());
     for(auto operationBuilder : l_operations)
     {
         auto operation = operationBuilder->build(builderToNodeMaps);
+        builderToNodeMaps.operations.emplace(operationBuilder, operation.get());
+        operationNodes.push_back(std::move(operation));
         // DONE: 1. Create struct with constNodeMap, variableNodeMap, operationNodeMap
         // DONE: 2. Pass struct to operationBuilder
-        // 3. Operation builer build should try to find input in any of map and assign it to new node
-        // 4. if no builder found then tree is corrupted, should throw an exception
+        // DONE: 3. Operation builer build should try to find input in any of map and assign it to new node
+        // DONE: 4. if no builder found then tree is corrupted, should throw an exception
         // 5. if found builder then create operation node, builder should assign input nodes to operation
         // 6. add new operation to vector
-//        auto operationNode = operationBuilder->build();
     }
 
     return nullptr;

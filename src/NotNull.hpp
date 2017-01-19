@@ -54,6 +54,18 @@ struct NotNull
         return m_pointer;
     }
 
+    template<class BaseType>
+    operator NotNull<BaseType>()
+    {
+        return m_pointer;
+    }
+
+    template<class BaseType>
+    operator NotNull<BaseType> const() const
+    {
+        return m_pointer;
+    }
+
     friend bool operator==(NotNull<Type> lhs, Type* rhs)
     {
         return lhs.m_pointer == rhs;

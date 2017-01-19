@@ -4,6 +4,7 @@
 #include "ConstNode.hpp"
 #include "VariableNode.hpp"
 #include "BinaryOperationNode.hpp"
+#include "NotNull.hpp"
 
 struct NodeBuilder;
 
@@ -12,7 +13,7 @@ using ConstBuilderToNodeMap = std::map<NodeBuilder*, std::unique_ptr<ConstNode<T
 template<class Type>
 using VariableBuilderToNodeMap = std::map<NodeBuilder*, std::unique_ptr<VariableNode<Type>>>;
 
-using OperationBuilderToNodeMap = std::map<NodeBuilder*, std::unique_ptr<OperationNode>>;
+using OperationBuilderToNodeMap = std::map<NodeBuilder*, NotNull<OperationNode>>;
 
 template<class Type>
 struct BuilderToNodeMaps

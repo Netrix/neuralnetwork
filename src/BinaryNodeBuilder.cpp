@@ -103,7 +103,7 @@ NotNull<ComputationNode> BinaryNodeBuilder::getComputationNodeFromMaps(BuilderTo
     auto operationNode = builderToNodeMaps.operations.find(nodeBuilder);
     if(operationNode != builderToNodeMaps.operations.end())
     {
-        return operationNode->second.get();
+        return operationNode->second;
     }
 
     throw InvalidComputationGraph("Missing input value");
