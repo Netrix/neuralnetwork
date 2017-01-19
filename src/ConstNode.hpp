@@ -1,7 +1,9 @@
 #pragma once
 
+#include "ComputationNode.hpp"
+
 template<class Type>
-struct ConstNode
+struct ConstNode : ComputationNode
 {
     ConstNode(Type & value)
         : m_value(value)

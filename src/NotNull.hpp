@@ -54,6 +54,17 @@ struct NotNull
         return m_pointer;
     }
 
+    friend bool operator==(NotNull<Type> lhs, Type* rhs)
+    {
+        return lhs.m_pointer == rhs;
+    }
+
+    friend bool operator==(Type* lhs, NotNull<Type> rhs)
+    {
+        return lhs == rhs.m_pointer;
+    }
+
 private:
     Type* m_pointer;
 };
+

@@ -1,6 +1,7 @@
 #pragma once
+#include "ComputationNode.hpp"
 
-struct OperationNode
+struct OperationNode : ComputationNode
 {
 };
 

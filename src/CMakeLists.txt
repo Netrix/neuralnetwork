@@ -11,6 +11,7 @@ set(FILES
     BinaryNodeBuilder.cpp
     BinaryNodeBuilder.hpp
     BinaryOperationNode.hpp
+    ComputationNode.hpp
     ConstNode.hpp
     ConstStorageBuilder.hpp
     NodeBuilder.hpp

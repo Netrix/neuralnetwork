@@ -9,6 +9,14 @@
 #include <string>
 #include "BinaryOperationNode.hpp"
 #include "BuilderToNodeMaps.hpp"
+#include <stdexcept>
+
+struct InvalidComputationGraph : std::runtime_error
+{
+    InvalidComputationGraph(std::string const& msg)
+        : runtime_error(msg)
+    {}
+};
 
 struct BuilderStorage;
 
@@ -30,9 +38,11 @@ struct BinaryNodeBuilder : NodeBuilder
 
     ArrayView<BinaryNodeBuilder*> getOperations();
 
-    std::unique_ptr<BinaryOperationNode> build(BuilderToNodeMaps<BNN_TYPE> & builderToNodeMaps);
+    std::unique_ptr<BinaryOperationNode> build(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps);
 
 private:
+    NotNull<ComputationNode> getComputationNodeFromMaps(BuilderToNodeMaps<BNN_TYPE> const&, NotNull<NodeBuilder>) const;
+
     BuilderStorage& m_builderStorage;
     std::string m_operation;
 

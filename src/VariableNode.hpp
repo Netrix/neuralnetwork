@@ -1,7 +1,9 @@
 #pragma once
 
+#include "ComputationNode.hpp"
+
 template<class Type>
-struct VariableNode
+struct VariableNode : ComputationNode
 {
     VariableNode(Type & value)
         : m_value(value)
@@ -10,3 +12,5 @@ struct VariableNode
 private:
     Type & m_value;
 };
+
+// TODO this can be common with ConstNode, differ by tag

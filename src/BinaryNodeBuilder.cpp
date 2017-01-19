@@ -75,7 +75,34 @@ ArrayView<BinaryNodeBuilder*> BinaryNodeBuilder::getOperations()
     return m_operationBuilders;
 }
 
-std::unique_ptr<BinaryOperationNode> BinaryNodeBuilder::build(BuilderToNodeMaps<BNN_TYPE> & builderToNodeMaps)
+std::unique_ptr<BinaryOperationNode> BinaryNodeBuilder::build(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps)
 {
-    return nullptr;
+    auto firstInputNode = getComputationNodeFromMaps(builderToNodeMaps, m_inputBuilders[0]);
+    auto secondInputNode = getComputationNodeFromMaps(builderToNodeMaps, m_inputBuilders[1]);
+
+    return std::make_unique<BinaryOperationNode>(); // TODO should be specific operation created by the factory method of BinaryOperationNode
+}
+
+NotNull<ComputationNode> BinaryNodeBuilder::getComputationNodeFromMaps(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps,
+                                                    NotNull<NodeBuilder> nodeBuilder) const
+{
+    auto constNode = builderToNodeMaps.consts.find(nodeBuilder);
+    if(constNode != builderToNodeMaps.consts.end())
+    {
+        return constNode->second.get();
+    }
+
+    auto variableNode = builderToNodeMaps.variables.find(nodeBuilder);
+    if(variableNode != builderToNodeMaps.variables.end())
+    {
+        return variableNode->second.get();
+    }
+
+    auto operationNode = builderToNodeMaps.operations.find(nodeBuilder);
+    if(operationNode != builderToNodeMaps.operations.end())
+    {
+        return operationNode->second.get();
+    }
+
+    throw InvalidComputationGraph("Missing input value");
 }
