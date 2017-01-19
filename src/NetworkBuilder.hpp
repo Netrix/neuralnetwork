@@ -21,12 +21,27 @@ private:
     std::vector<BackPropagatioNode*> m_nodes;
 };
 
+struct OperationNode
+{
+};
+
 struct ForwardNetwork{};
 
 template<class Type>
 using ConstBuilderToNodeMap = std::map<ConstNodeBuilder*, std::unique_ptr<ConstNode<Type>>>;
 template<class Type>
 using VariableBuilderToNodeMap = std::map<VariableNodeBuilder*, std::unique_ptr<VariableNode<Type>>>;
+
+using OperationBuilderToNodeMap = std::map<BinaryNodeBuilder*, std::unique<OperationNode>>;
+
+template<class Type>
+struct BuilderToNodeMaps
+{
+    ConstBuilderToNodeMap<Type> consts;
+    VariableBuilderToNodeMap<Type> variables;
+    OperationBuilderToNodeMap operations;
+};
+
 
 struct NetworkBuilder
 {
