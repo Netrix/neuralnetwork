@@ -7,21 +7,13 @@
 #include "VariableNode.hpp"
 #include "ConstStorageBuilder.hpp"
 #include "VariableStorageBuilder.hpp"
+#include "BackPropagationNetwork.hpp"
 #include <map>
 
 
 struct BinaryNodeBuilder;
 
-struct BackPropagatioNode
-{
 
-};
-
-struct BackPropagationNetwork
-{
-private:
-    std::vector<BackPropagatioNode*> m_nodes;
-};
 
 struct ForwardNetwork{};
 
