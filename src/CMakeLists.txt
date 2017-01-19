@@ -12,6 +12,7 @@ set(FILES
     BinaryNodeBuilder.hpp
     BinaryOperationNode.hpp
     ComputationNode.hpp
+    BinaryOperationsFactory.hpp
     ConstNode.hpp
     ConstStorageBuilder.hpp
     NodeBuilder.hpp

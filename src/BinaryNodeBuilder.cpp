@@ -1,5 +1,6 @@
 #include "BinaryNodeBuilder.hpp"
 #include "BuilderStorage.hpp"
+#include "BinaryOperationsFactory.hpp"
 
 
 BinaryNodeBuilder::BinaryNodeBuilder(BuilderStorage& builderStorage, std::string const& operation)
@@ -80,7 +81,8 @@ std::unique_ptr<BinaryOperationNode> BinaryNodeBuilder::build(BuilderToNodeMaps<
     auto firstInputNode = getComputationNodeFromMaps(builderToNodeMaps, m_inputBuilders[0]);
     auto secondInputNode = getComputationNodeFromMaps(builderToNodeMaps, m_inputBuilders[1]);
 
-    return std::make_unique<BinaryOperationNode>(); // TODO should be specific operation created by the factory method of BinaryOperationNode
+    BinaryOperationsFactory factory;    // TODO Inject it
+    return factory.create(m_operation, firstInputNode, secondInputNode);
 }
 
 NotNull<ComputationNode> BinaryNodeBuilder::getComputationNodeFromMaps(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps,
