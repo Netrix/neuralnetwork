@@ -19,9 +19,19 @@ struct BuilderStorage
         return consts.size();
     }
 
+    std::size_t getNumVariables() const
+    {
+        return variables.size();
+    }
+
     auto const& getConstBuilders() const
     {
         return consts;
+    }
+
+    auto const& getVariableBuilders() const
+    {
+        return variables;
     }
 
 private:

@@ -4,9 +4,11 @@
 #include "NodeTags.hpp"
 #include "BuilderStorage.hpp"
 #include "ConstNode.hpp"
+#include "VariableNode.hpp"
 #include "ConstStorageBuilder.hpp"
 #include "VariableStorageBuilder.hpp"
 #include <map>
+
 
 struct BinaryNodeBuilder;
 
@@ -32,7 +34,7 @@ using ConstBuilderToNodeMap = std::map<ConstNodeBuilder*, std::unique_ptr<ConstN
 template<class Type>
 using VariableBuilderToNodeMap = std::map<VariableNodeBuilder*, std::unique_ptr<VariableNode<Type>>>;
 
-using OperationBuilderToNodeMap = std::map<BinaryNodeBuilder*, std::unique<OperationNode>>;
+using OperationBuilderToNodeMap = std::map<BinaryNodeBuilder*, std::unique_ptr<OperationNode>>;
 
 template<class Type>
 struct BuilderToNodeMaps
@@ -54,7 +56,8 @@ struct NetworkBuilder
 private:
     std::vector<BinaryNodeBuilder*> getOperationNodesInTopologicalOrder() const;
     ConstBuilderToNodeMap<BNN_TYPE> getConstNodeMap(ConstStorageBuilder<BNN_TYPE> & constStorage) const;
-    VariableBuilderToNodeMap<BNN_TYPE> getVariableNodeMap(VariableStorageBuilder<BNN_TYPE> & variableStorageBuilder) const
+    VariableBuilderToNodeMap<BNN_TYPE> getVariableNodeMap(VariableStorageBuilder<BNN_TYPE> & variableStorageBuilder) const;
+
     BuilderStorage m_storage;
     BinaryNodeBuilder* m_root; // should be generic operation later // should be able to get topology from here to get forward list to do operations
 };

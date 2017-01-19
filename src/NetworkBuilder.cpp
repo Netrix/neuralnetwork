@@ -45,7 +45,7 @@ ConstBuilderToNodeMap<BNN_TYPE> NetworkBuilder::getConstNodeMap(ConstStorageBuil
     return constNodeMap;
 }
 
-VariableBuilderToNodeMap<BNN_TYPE> networkbuilder::getvariablenodemap(variablestoragebuilder<bnn_type> & variablestoragebuilder) const
+VariableBuilderToNodeMap<BNN_TYPE> NetworkBuilder::getVariableNodeMap(VariableStorageBuilder<BNN_TYPE> & variableStorageBuilder) const
 {
     std::map<VariableNodeBuilder*, std::unique_ptr<VariableNode<BNN_TYPE>>> variableNodeMap;
     for(auto const& builder : m_storage.getVariableBuilders())

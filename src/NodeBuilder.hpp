@@ -1,7 +1,9 @@
 #pragma once
 
 #include "ConstNode.hpp"
+#include "VariableNode.hpp"
 #include "ConstStorageBuilder.hpp"
+#include "VariableStorageBuilder.hpp"
 #include <memory>
 
 using BNN_TYPE = float;
@@ -20,4 +22,8 @@ struct ConstNodeBuilder : NodeBuilder
 
 struct VariableNodeBuilder : NodeBuilder
 {
+    std::unique_ptr<VariableNode<BNN_TYPE>> build(VariableStorageBuilder<BNN_TYPE> & variableStorage)
+    {
+        return std::make_unique<VariableNode<BNN_TYPE>>(variableStorage.getSingleValueRef());
+    }
 };

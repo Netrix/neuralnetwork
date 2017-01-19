@@ -15,6 +15,7 @@ set(FILES
     NodeTags.hpp
     NetworkBuilder.cpp
     NetworkBuilder.hpp
+    VariableNode.hpp
     main.cpp
 )
 add_executable(${PROJECT_NAME} ${FILES})
