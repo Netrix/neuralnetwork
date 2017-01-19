@@ -17,11 +17,18 @@ std::unique_ptr<BackPropagationNetwork> NetworkBuilder::buildBackPropagationNetw
     auto constStorageBuilder = std::make_unique<ConstStorageBuilder<BNN_TYPE>>(m_storage.getNumConsts());
     auto constNodeMap = getConstNodeMap(*constStorageBuilder);
 
-//    ConstNode
+    auto variableStorageBuilder = std::make_unique<VariableStorageBuilder<BNN_TYPE>>(m_storage.getNumVariables());
+    auto variableNodeMap = getVariableNodeMap(*variableStorageBuilder);
 
     auto l_operations = getOperationNodesInTopologicalOrder();
     for(auto operationBuilder : l_operations)
     {
+        // 1. Create struct with constNodeMap, variableNodeMap, operationNodeMap
+        // 2. Pass struct to operationBuilder
+        // 3. Operation builer build should try to find input in any of map and assign it to new node
+        // 4. if no builder found then tree is corrupted, should throw an exception
+        // 5. if found builder then create operation node, builder should assign input nodes to operation
+        // 6. add new operation to vector
 //        auto operationNode = operationBuilder->build();
     }
 
@@ -36,6 +43,16 @@ std::map<ConstNodeBuilder*, std::unique_ptr<ConstNode<BNN_TYPE>>> NetworkBuilder
         constNodeMap.emplace(builder.get(), builder->build(constStorageBuilder));
     }
     return constNodeMap;
+}
+
+std::map<VariableNodeBuilder*, std::unique_ptr<VariableNode<BNN_TYPE>>> NetworkBuilder::getVariableNodeMap(VariableStorageBuilder<BNN_TYPE> & variableStorageBuilder) const
+{
+    std::map<VariableNodeBuilder*, std::unique_ptr<VariableNode<BNN_TYPE>>> variableNodeMap;
+    for(auto const& builder : m_storage.getVariableBuilders())
+    {
+        variableNodeMap.emplace(builder.get(), builder->build(variableStorageBuilder));
+    }
+    return variableNodeMap;
 }
 
 std::vector<BinaryNodeBuilder*> NetworkBuilder::getOperationNodesInTopologicalOrder() const
