@@ -14,26 +14,28 @@ NotNull<BinaryNodeBuilder> NetworkBuilder::setRootNode(BinaryNode, std::string c
 
 std::unique_ptr<BackPropagationNetwork> NetworkBuilder::buildBackPropagationNetwork() const
 {
-    auto constStorage = std::make_unique<ConstStorage<BNN_TYPE>>(m_storage.getNumConsts());
+    auto constStorageBuilder = std::make_unique<ConstStorageBuilder<BNN_TYPE>>(m_storage.getNumConsts());
+    auto constNodeMap = getConstNodeMap(*constStorageBuilder);
 
 //    ConstNode
 
     auto l_operations = getOperationNodesInTopologicalOrder();
     for(auto operationBuilder : l_operations)
     {
-        auto operationNode = operationBuilder->build();
+//        auto operationNode = operationBuilder->build();
     }
 
     return nullptr;
 }
 
-std::map<ConstNodeBuilder*, ConstNode<BNN_TYPE>> NetworkBuilder::getConstNodeMap(ConstStorage<BNN_TYPE> & constStorage) const
+std::map<ConstNodeBuilder*, std::unique_ptr<ConstNode<BNN_TYPE>>> NetworkBuilder::getConstNodeMap(ConstStorageBuilder<BNN_TYPE> & constStorageBuilder) const
 {
-    std::map<ConstNodeBuilder*, ConstNode<BNN_TYPE>> constNodeMap;
+    std::map<ConstNodeBuilder*, std::unique_ptr<ConstNode<BNN_TYPE>>> constNodeMap;
     for(auto const& builder : m_storage.getConstBuilders())
     {
-        constNodeMap.emplace(builder, builder->build(constStorage));
+        constNodeMap.emplace(builder.get(), builder->build(constStorageBuilder));
     }
+    return constNodeMap;
 }
 
 std::vector<BinaryNodeBuilder*> NetworkBuilder::getOperationNodesInTopologicalOrder() const

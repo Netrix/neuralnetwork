@@ -9,6 +9,8 @@ set(FILES
     BuilderStorage.hpp
     BinaryNodeBuilder.cpp
     BinaryNodeBuilder.hpp
+    ConstNode.hpp
+    ConstStorageBuilder.hpp
     NodeBuilder.hpp
     NodeTags.hpp
     NetworkBuilder.cpp
