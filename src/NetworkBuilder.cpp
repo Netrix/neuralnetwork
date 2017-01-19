@@ -35,7 +35,7 @@ std::unique_ptr<BackPropagationNetwork> NetworkBuilder::buildBackPropagationNetw
     return nullptr;
 }
 
-std::map<ConstNodeBuilder*, std::unique_ptr<ConstNode<BNN_TYPE>>> NetworkBuilder::getConstNodeMap(ConstStorageBuilder<BNN_TYPE> & constStorageBuilder) const
+ConstBuilderToNodeMap<BNN_TYPE> NetworkBuilder::getConstNodeMap(ConstStorageBuilder<BNN_TYPE> & constStorageBuilder) const
 {
     std::map<ConstNodeBuilder*, std::unique_ptr<ConstNode<BNN_TYPE>>> constNodeMap;
     for(auto const& builder : m_storage.getConstBuilders())
@@ -45,7 +45,7 @@ std::map<ConstNodeBuilder*, std::unique_ptr<ConstNode<BNN_TYPE>>> NetworkBuilder
     return constNodeMap;
 }
 
-std::map<VariableNodeBuilder*, std::unique_ptr<VariableNode<BNN_TYPE>>> NetworkBuilder::getVariableNodeMap(VariableStorageBuilder<BNN_TYPE> & variableStorageBuilder) const
+VariableBuilderToNodeMap<BNN_TYPE> networkbuilder::getvariablenodemap(variablestoragebuilder<bnn_type> & variablestoragebuilder) const
 {
     std::map<VariableNodeBuilder*, std::unique_ptr<VariableNode<BNN_TYPE>>> variableNodeMap;
     for(auto const& builder : m_storage.getVariableBuilders())

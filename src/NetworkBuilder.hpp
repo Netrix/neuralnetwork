@@ -23,6 +23,11 @@ private:
 
 struct ForwardNetwork{};
 
+template<class Type>
+using ConstBuilderToNodeMap = std::map<ConstNodeBuilder*, std::unique_ptr<ConstNode<Type>>>;
+template<class Type>
+using VariableBuilderToNodeMap = std::map<VariableNodeBuilder*, std::unique_ptr<VariableNode<Type>>>;
+
 struct NetworkBuilder
 {
     NotNull<BinaryNodeBuilder> setRootNode(BinaryNode, std::string const& operation);
@@ -33,8 +38,8 @@ struct NetworkBuilder
 
 private:
     std::vector<BinaryNodeBuilder*> getOperationNodesInTopologicalOrder() const;
-    std::map<ConstNodeBuilder*, std::unique_ptr<ConstNode<BNN_TYPE>>> getConstNodeMap(ConstStorageBuilder<BNN_TYPE> & constStorage) const;
-    std::map<VariableNodeBuilder*, std::unique_ptr<VariableNode<BNN_TYPE>>> getVariableNodeMap(VariableStorageBuilder<BNN_TYPE> & variableStorageBuilder) const
+    ConstBuilderToNodeMap<BNN_TYPE> getConstNodeMap(ConstStorageBuilder<BNN_TYPE> & constStorage) const;
+    VariableBuilderToNodeMap<BNN_TYPE> getVariableNodeMap(VariableStorageBuilder<BNN_TYPE> & variableStorageBuilder) const
     BuilderStorage m_storage;
     BinaryNodeBuilder* m_root; // should be generic operation later // should be able to get topology from here to get forward list to do operations
 };
