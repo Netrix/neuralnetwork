@@ -5,6 +5,24 @@
 #include <algorithm>
 #include <memory>
 
+namespace
+{
+
+template<class Type, class MapKeyType>
+auto extractNodesFromMap(std::map<MapKeyType, std::unique_ptr<Type>> & p_map)
+{
+    std::vector<std::unique_ptr<Type>> outputVector;
+    outputVector.reserve(p_map.size());
+    std::transform(std::begin(p_map), std::end(p_map), std::back_inserter(outputVector),
+                   [](auto & pair)
+    {
+        return std::move(pair.second);
+    });
+    return outputVector;
+}
+
+}
+
 NotNull<BinaryNodeBuilder> NetworkBuilder::setRootNode(BinaryNodeTag, std::string const& operation)
 {
     auto l_builder = m_storage.createBinaryNodeBuilder(operation);
@@ -14,12 +32,12 @@ NotNull<BinaryNodeBuilder> NetworkBuilder::setRootNode(BinaryNodeTag, std::strin
 
 std::unique_ptr<BackPropagationNetwork> NetworkBuilder::buildBackPropagationNetwork() const
 {
-    auto constStorageBuilder = std::make_unique<ConstStorageBuilder<BNN_TYPE>>(m_storage.getNumConsts());
-    auto variableStorageBuilder = std::make_unique<VariableStorageBuilder<BNN_TYPE>>(m_storage.getNumVariables());
+    auto constStorageBuilder = ConstStorageBuilder<BNN_TYPE>(m_storage.getNumConsts());
+    auto variableStorageBuilder = VariableStorageBuilder<BNN_TYPE>(m_storage.getNumVariables());
 
     BuilderToNodeMaps<BNN_TYPE> builderToNodeMaps = {
-        getConstNodeMap(*constStorageBuilder),
-        getVariableNodeMap(*variableStorageBuilder),
+        getConstNodeMap(constStorageBuilder),
+        getVariableNodeMap(variableStorageBuilder),
     };
 
     auto l_operations = getOperationNodesInTopologicalOrder();
@@ -38,7 +56,10 @@ std::unique_ptr<BackPropagationNetwork> NetworkBuilder::buildBackPropagationNetw
         // 6. add new operation to vector
     }
 
-    return nullptr;
+    return std::make_unique<BackPropagationNetwork>(
+                std::move(operationNodes),
+                extractNodesFromMap(builderToNodeMaps.consts),
+                extractNodesFromMap(builderToNodeMaps.variables));
 }
 
 ConstBuilderToNodeMap<BNN_TYPE> NetworkBuilder::getConstNodeMap(ConstStorageBuilder<BNN_TYPE> & constStorageBuilder) const

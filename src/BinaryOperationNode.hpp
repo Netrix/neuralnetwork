@@ -1,9 +1,5 @@
 #pragma once
-#include "ComputationNode.hpp"
-
-struct OperationNode : ComputationNode
-{
-};
+#include "OperationNode.hpp"
 
 struct BinaryOperationNode : OperationNode
 {

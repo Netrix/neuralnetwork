@@ -13,8 +13,6 @@
 
 struct BinaryNodeBuilder;
 
-
-
 struct ForwardNetwork{};
 
 
