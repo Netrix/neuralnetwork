@@ -2,6 +2,7 @@
 #include "NotNull.hpp"
 #include "BinaryOperationNode.hpp"
 #include "MulBinaryOperation.hpp"
+#include "AddBinaryOperation.hpp"
 
 template<class Type>
 struct BinaryOperationsFactory
@@ -13,6 +14,10 @@ struct BinaryOperationsFactory
         if(nodeType == "mul")
         {
             return std::make_unique<MulBinaryOperationNode<Type>>(firstInput, secondInput);
+        }
+        else if(nodeType == "add")
+        {
+            return std::make_unique<AddBinaryOperationNode<Type>>(firstInput, secondInput);
         }
         assert(false);
         return nullptr; // TODO add implementation!!!

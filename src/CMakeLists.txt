@@ -9,6 +9,7 @@ set(FILES
     BuilderStorage.hpp
     BuilderToNodeMaps.hpp
     MulBinaryOperation.hpp
+    AddBinaryOperation.hpp
     BinaryNodeBuilder.cpp
     BinaryNodeBuilder.hpp
     BinaryOperationNode.hpp

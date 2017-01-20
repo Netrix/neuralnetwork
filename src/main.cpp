@@ -42,11 +42,11 @@ int main()
     n1wMulNode->setFirstInput(VariableTag{}); // w31
     n2wMulNode->setFirstInput(VariableTag{}); // w32
 
-    auto n1Node = n1wMulNode->setSecondInput(BinaryNodeTag{}, "sum");
-    auto n2Node = n2wMulNode->setSecondInput(BinaryNodeTag{}, "sum");
+    auto n1Node = n1wMulNode->setSecondInput(BinaryNodeTag{}, "add");
+    auto n2Node = n2wMulNode->setSecondInput(BinaryNodeTag{}, "add");
 
-    auto n1SubNode = n1Node->setFirstInput(BinaryNodeTag{}, "sum");
-    auto n2SubNode = n2Node->setFirstInput(BinaryNodeTag{}, "sum");
+    auto n1SubNode = n1Node->setFirstInput(BinaryNodeTag{}, "add");
+    auto n2SubNode = n2Node->setFirstInput(BinaryNodeTag{}, "add");
 
     n1Node->setSecondInput(VariableTag{}); // w10
     n2Node->setSecondInput(VariableTag{}); // w20
@@ -74,7 +74,7 @@ int main()
 
 
     NetworkBuilder builder2;
-    auto l_mul = builder2.setRootNode(BinaryNodeTag{}, "mul");
+    auto l_mul = builder2.setRootNode(BinaryNodeTag{}, "add");
     auto l_x1 = l_mul->setFirstInput(ConstTag{});
     auto l_x2 = l_mul->setSecondInput(ConstTag{});
 
