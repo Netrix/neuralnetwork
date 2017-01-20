@@ -28,7 +28,8 @@ struct NetworkBuilder
 private:
     std::vector<BinaryNodeBuilder*> getOperationNodesInTopologicalOrder() const;
     ConstBuilderToNodeMap<BNN_TYPE> getConstNodeMap(ConstStorageBuilder<BNN_TYPE> & constStorage) const;
-    VariableBuilderToNodeMap<BNN_TYPE> getVariableNodeMap(VariableStorageBuilder<BNN_TYPE> & variableStorageBuilder) const;
+    VariableBuilderToNodeMap<BNN_TYPE> getVariableNodeMap(VariableStorageBuilder<BNN_TYPE> & variableStorageBuilder,
+                                                          VariableDeltaStorageBuilder<BNN_TYPE> & variableDeltaStorageBuilder) const;
 
     BuilderStorage m_storage;
     BinaryNodeBuilder* m_root; // should be generic operation later // should be able to get topology from here to get forward list to do operations

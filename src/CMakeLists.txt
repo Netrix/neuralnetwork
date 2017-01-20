@@ -27,6 +27,7 @@ set(FILES
     VariableNode.hpp
     ScalarStorage.hpp
     VariableStorage.hpp
+    VariableStorageBuilder.hpp
     ConstStorage.hpp
     main.cpp
 )

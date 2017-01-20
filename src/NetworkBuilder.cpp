@@ -34,10 +34,11 @@ std::unique_ptr<BackPropagationNetwork> NetworkBuilder::buildBackPropagationNetw
 {
     auto constStorageBuilder = ConstStorageBuilder<BNN_TYPE>(m_storage.getNumConsts());
     auto variableStorageBuilder = VariableStorageBuilder<BNN_TYPE>(m_storage.getNumVariables());
+    auto variableDeltaStorageBuilder = VariableDeltaStorageBuilder<BNN_TYPE>(m_storage.getNumVariables());
 
     BuilderToNodeMaps<BNN_TYPE> builderToNodeMaps = {
         getConstNodeMap(constStorageBuilder),
-        getVariableNodeMap(variableStorageBuilder),
+        getVariableNodeMap(variableStorageBuilder, variableDeltaStorageBuilder),
     };
 
     auto l_operations = getOperationNodesInTopologicalOrder();
@@ -61,7 +62,8 @@ std::unique_ptr<BackPropagationNetwork> NetworkBuilder::buildBackPropagationNetw
                 extractNodesFromMap(builderToNodeMaps.consts),
                 extractNodesFromMap(builderToNodeMaps.variables),
                 constStorageBuilder.build(),
-                variableStorageBuilder.build());
+                variableStorageBuilder.build(),
+                variableDeltaStorageBuilder.build());
 }
 
 ConstBuilderToNodeMap<BNN_TYPE> NetworkBuilder::getConstNodeMap(ConstStorageBuilder<BNN_TYPE> & constStorageBuilder) const
@@ -74,12 +76,14 @@ ConstBuilderToNodeMap<BNN_TYPE> NetworkBuilder::getConstNodeMap(ConstStorageBuil
     return constNodeMap;
 }
 
-VariableBuilderToNodeMap<BNN_TYPE> NetworkBuilder::getVariableNodeMap(VariableStorageBuilder<BNN_TYPE> & variableStorageBuilder) const
+VariableBuilderToNodeMap<BNN_TYPE> NetworkBuilder::getVariableNodeMap(
+        VariableStorageBuilder<BNN_TYPE> & variableStorageBuilder,
+        VariableDeltaStorageBuilder<BNN_TYPE> & variableDeltaStorageBuilder) const
 {
     std::map<NodeBuilder*, std::unique_ptr<VariableNode<BNN_TYPE>>> variableNodeMap;
     for(auto const& builder : m_storage.getVariableBuilders())
     {
-        variableNodeMap.emplace(builder.get(), builder->build(variableStorageBuilder));
+        variableNodeMap.emplace(builder.get(), builder->build(variableStorageBuilder, variableDeltaStorageBuilder));
     }
     return variableNodeMap;
 }

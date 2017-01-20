@@ -23,6 +23,16 @@ struct TrainingEntity
     std::vector<Type> output;
 };
 
+std::ostream& operator<<(std::ostream& out, std::vector<BNN_TYPE> const& values)
+{
+    out << " [ ";
+    for(auto a : values)
+    {
+        out << a << ", ";
+    }
+    return out << " ] ";
+}
+
 int main()
 {
     std::vector<TrainingEntity<float>> TRAIN_DATA = {
@@ -82,17 +92,33 @@ int main()
     }
 
     network->setVariables(weights);
-    auto result = network->forwardPass(TRAIN_DATA[1].input)[0];
-    auto error = TRAIN_DATA[1].output[0] - result;
-    std::cout << result << ", error: " << error <<  std::endl;
-    network->backPropagate(error);
+//    auto result = network->forwardPass(TRAIN_DATA[1].input)[0];
+//    auto error = TRAIN_DATA[1].output[0] - result;
+//    std::cout << result << ", error: " << error <<  std::endl;
+//    network->backPropagate(error);
 
     for(int i = 0; i < 50; ++i)
     {
-        result = network->forwardPass(TRAIN_DATA[1].input)[0];
-        error = TRAIN_DATA[1].output[0] - result;
-        std::cout << result << ", error: " << error <<  std::endl;
-        network->backPropagate(error);
+        BNN_TYPE errorSum = 0;
+        for(auto const& trainEntity : TRAIN_DATA)
+        {
+            auto result = network->forwardPass(trainEntity.input)[0];
+            auto error = trainEntity.output[0] - result;
+            auto squaredError = error * error;
+            network->backPropagate(squaredError);
+            errorSum += squaredError;
+        }
+        network->applyDeltaOnVariables();
+        std::cout << "errorSum: " << errorSum <<  std::endl;
+//        result = network->forwardPass(TRAIN_DATA[1].input)[0];
+//        error = TRAIN_DATA[1].output[0] - result;
+//        std::cout << result << ", error: " << error <<  std::endl;
+//        network->backPropagate(error);
+    }
+
+    for(int i = 0; i < TRAIN_DATA.size(); ++i)
+    {
+        std::cout << "Input: " << TRAIN_DATA[i].input << ", expected result: " << TRAIN_DATA[i].output[0] << ", result: " << network->forwardPass(TRAIN_DATA[i].input)[0] << std::endl;
     }
 
 
