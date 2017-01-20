@@ -9,12 +9,18 @@ struct VariableNode : ComputationNode<Type>
         : m_value(value)
     {}
 
-    ArrayView<Type const> getOutputValues() const
+    ArrayView<Type const> getOutputValues() const override
     {
         return ArrayView<Type const>(&m_value, 1);
     }
 
+    void backPropagate(ArrayView<Type const> errors) override
+    {
+        m_value += errors[0] * m_learningRate;
+    }
+
 private:
+    Type m_learningRate = 0.01;
     Type & m_value;
 };
 

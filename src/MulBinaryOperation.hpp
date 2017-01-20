@@ -19,7 +19,15 @@ struct MulBinaryOperationNode : BinaryOperationNode<Type>
 
     ArrayView<Type const> getOutputValues() const override
     {
-        return ArrayView<Type const>(&m_outputValue, 1);
+        return ArrayView<Type const>(m_outputValue);
+    }
+
+    void backPropagate(ArrayView<Type const> errors) override
+    {
+        Type firstError = errors[0] * m_secondInput.getOutputValues()[0];
+        Type secondError = errors[0] * m_firstInput.getOutputValues()[0];
+        m_firstInput.backPropagate(firstError);
+        m_secondInput.backPropagate(secondError);
     }
 
 private:

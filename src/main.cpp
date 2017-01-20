@@ -82,7 +82,18 @@ int main()
     }
 
     network->setVariables(weights);
-    std::cout << network->forwardPass(TRAIN_DATA[1].input)[0] << std::endl;
+    auto result = network->forwardPass(TRAIN_DATA[1].input)[0];
+    auto error = TRAIN_DATA[1].output[0] - result;
+    std::cout << result << ", error: " << error <<  std::endl;
+    network->backPropagate(error);
+
+    for(int i = 0; i < 50; ++i)
+    {
+        result = network->forwardPass(TRAIN_DATA[1].input)[0];
+        error = TRAIN_DATA[1].output[0] - result;
+        std::cout << result << ", error: " << error <<  std::endl;
+        network->backPropagate(error);
+    }
 
 
 //    NetworkBuilder builder2;

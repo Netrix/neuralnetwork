@@ -29,5 +29,5 @@ ArrayView<BNN_TYPE const> BackPropagationNetwork::forwardPass(ArrayView<BNN_TYPE
 
 void BackPropagationNetwork::backPropagate(ArrayView<BNN_TYPE> errors)
 {
-
+    m_operationNodes.back()->backPropagate(errors);
 }

@@ -11,6 +11,11 @@ class ArrayView
 public:
     ArrayView(std::nullptr_t) = delete;
 
+    ArrayView(Type & p_value)
+        : m_pointerToArray(&p_value)
+        , m_arraySize(1)
+    {}
+
     ArrayView(Type* dynamicArray, std::size_t arraySize)
         : m_pointerToArray(dynamicArray)
         , m_arraySize(arraySize)

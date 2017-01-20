@@ -22,6 +22,13 @@ struct AddBinaryOperationNode : BinaryOperationNode<Type>
         return ArrayView<Type const>(&m_outputValue, 1);
     }
 
+    void backPropagate(ArrayView<Type const> errors) override
+    {
+        m_firstInput.backPropagate(errors[0]);
+        m_secondInput.backPropagate(errors[0]);
+    }
+
+
 private:
     ComputationNode<Type>& m_firstInput;
     ComputationNode<Type>& m_secondInput;
