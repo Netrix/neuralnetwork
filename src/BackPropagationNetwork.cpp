@@ -16,6 +16,12 @@ BackPropagationNetwork::BackPropagationNetwork(
 
 ArrayView<BNN_TYPE> BackPropagationNetwork::forwardPass(ArrayView<BNN_TYPE> input)
 {
+    m_constStorage.setValues(input);
+    for(auto const& operation : m_operationNodes)
+    {
+        operation->forwardPass();
+    }
+    return operation->getOutputValues();
     // 1. set input into m_constStorage (verify length!!!)
     // 2. run all operations one by one
     // 3. return arrayView to last operation outputs
