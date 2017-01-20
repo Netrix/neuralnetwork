@@ -1,5 +1,7 @@
 #pragma once
+#include "ScalarStorage.hpp"
 #include <vector>
+#include <memory>
 
 template<class Type, class Tag>
 struct ScalarStorageBuilder
@@ -11,6 +13,11 @@ struct ScalarStorageBuilder
     Type & getSingleValueRef()
     {
         return m_storage[m_current++];
+    }
+
+    auto build()
+    {
+        return std::make_unique<ScalarStorage<Type, Tag>>(std::move(m_storage));
     }
 
 private:

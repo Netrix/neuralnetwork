@@ -59,7 +59,9 @@ std::unique_ptr<BackPropagationNetwork> NetworkBuilder::buildBackPropagationNetw
     return std::make_unique<BackPropagationNetwork>(
                 std::move(operationNodes),
                 extractNodesFromMap(builderToNodeMaps.consts),
-                extractNodesFromMap(builderToNodeMaps.variables));
+                extractNodesFromMap(builderToNodeMaps.variables),
+                constStorageBuilder.build(),
+                variableStorageBuilder.build());
 }
 
 ConstBuilderToNodeMap<BNN_TYPE> NetworkBuilder::getConstNodeMap(ConstStorageBuilder<BNN_TYPE> & constStorageBuilder) const

@@ -22,6 +22,9 @@ set(FILES
     NetworkBuilder.cpp
     NetworkBuilder.hpp
     VariableNode.hpp
+    ScalarStorage.hpp
+    VariableStorage.hpp
+    ConstStorage.hpp
     main.cpp
 )
 add_executable(${PROJECT_NAME} ${FILES})
