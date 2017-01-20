@@ -21,6 +21,6 @@ struct ScalarStorageBuilder
     }
 
 private:
-    std::size_t m_current;
+    std::size_t m_current{};
     std::vector<Type> m_storage;
 };

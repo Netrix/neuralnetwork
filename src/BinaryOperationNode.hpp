@@ -1,6 +1,7 @@
 #pragma once
 #include "OperationNode.hpp"
 
-struct BinaryOperationNode : OperationNode
+template<class Type>
+struct BinaryOperationNode : OperationNode<Type>
 {
 };

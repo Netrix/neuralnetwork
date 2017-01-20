@@ -69,9 +69,18 @@ int main()
     x2w22MulNode->setFirstInput(x2Node);
     x2w22MulNode->setSecondInput(VariableTag{}); // w22
 
-    auto network = builder.buildBackPropagationNetwork();
-
+//    auto network = builder.buildBackPropagationNetwork();
 //    network->forwardPass()
+
+
+    NetworkBuilder builder2;
+    auto l_mul = builder2.setRootNode(BinaryNodeTag{}, "mul");
+    auto l_x1 = l_mul->setFirstInput(ConstTag{});
+    auto l_x2 = l_mul->setSecondInput(ConstTag{});
+
+    auto mulNetwork = builder2.buildBackPropagationNetwork();
+    std::vector<float> l_input = { 3, 4 };
+    std::cout << mulNetwork->forwardPass(l_input)[0] << std::endl;
 
     // epoch learn above data
     std::cout << "Hello" << std::endl;

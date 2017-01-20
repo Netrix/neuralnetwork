@@ -38,10 +38,10 @@ struct BinaryNodeBuilder : NodeBuilder
 
     ArrayView<BinaryNodeBuilder*> getOperations();
 
-    std::unique_ptr<BinaryOperationNode> build(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps);
+    std::unique_ptr<BinaryOperationNode<BNN_TYPE>> build(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps);
 
 private:
-    NotNull<ComputationNode> getComputationNodeFromMaps(BuilderToNodeMaps<BNN_TYPE> const&, NotNull<NodeBuilder>) const;
+    NotNull<ComputationNode<BNN_TYPE>> getComputationNodeFromMaps(BuilderToNodeMaps<BNN_TYPE> const&, NotNull<NodeBuilder>) const;
 
     BuilderStorage& m_builderStorage;
     std::string m_operation;

@@ -76,16 +76,16 @@ ArrayView<BinaryNodeBuilder*> BinaryNodeBuilder::getOperations()
     return m_operationBuilders;
 }
 
-std::unique_ptr<BinaryOperationNode> BinaryNodeBuilder::build(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps)
+std::unique_ptr<BinaryOperationNode<BNN_TYPE>> BinaryNodeBuilder::build(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps)
 {
     auto firstInputNode = getComputationNodeFromMaps(builderToNodeMaps, m_inputBuilders[0]);
     auto secondInputNode = getComputationNodeFromMaps(builderToNodeMaps, m_inputBuilders[1]);
 
-    BinaryOperationsFactory factory;    // TODO Inject it
+    BinaryOperationsFactory<BNN_TYPE> factory;    // TODO Inject it
     return factory.create(m_operation, firstInputNode, secondInputNode);
 }
 
-NotNull<ComputationNode> BinaryNodeBuilder::getComputationNodeFromMaps(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps,
+NotNull<ComputationNode<BNN_TYPE>> BinaryNodeBuilder::getComputationNodeFromMaps(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps,
                                                     NotNull<NodeBuilder> nodeBuilder) const
 {
     auto constNode = builderToNodeMaps.consts.find(nodeBuilder);

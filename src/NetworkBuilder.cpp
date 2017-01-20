@@ -41,7 +41,7 @@ std::unique_ptr<BackPropagationNetwork> NetworkBuilder::buildBackPropagationNetw
     };
 
     auto l_operations = getOperationNodesInTopologicalOrder();
-    std::vector<std::unique_ptr<OperationNode>> operationNodes;
+    std::vector<std::unique_ptr<OperationNode<BNN_TYPE>>> operationNodes;
     operationNodes.reserve(l_operations.size());
     for(auto operationBuilder : l_operations)
     {
@@ -83,7 +83,7 @@ VariableBuilderToNodeMap<BNN_TYPE> NetworkBuilder::getVariableNodeMap(VariableSt
     }
     return variableNodeMap;
 }
-
+#include <iostream>
 std::vector<BinaryNodeBuilder*> NetworkBuilder::getOperationNodesInTopologicalOrder() const
 {
     std::set<BinaryNodeBuilder*> uniqueOperations;
@@ -103,7 +103,10 @@ std::vector<BinaryNodeBuilder*> NetworkBuilder::getOperationNodesInTopologicalOr
 
             for(auto node : operationNodes)
             {
-                queue.push(node);
+                if(node != nullptr)
+                {
+                    queue.push(node);
+                }
             }
         }
     }

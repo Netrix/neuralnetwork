@@ -14,17 +14,17 @@ BackPropagationNetwork::BackPropagationNetwork(
     , m_variableStorage(std::move(variableStorage))
 {}
 
-ArrayView<BNN_TYPE> BackPropagationNetwork::forwardPass(ArrayView<BNN_TYPE> input)
+ArrayView<BNN_TYPE const> BackPropagationNetwork::forwardPass(ArrayView<BNN_TYPE> input)
 {
-    m_constStorage.setValues(input);
+    // 1. set input into m_constStorage (verify length!!!)
+    // 2. run all operations one by one
+    // 3. return arrayView to last operation outputs
+    m_constStorage->setValues(input);
     for(auto const& operation : m_operationNodes)
     {
         operation->forwardPass();
     }
-    return operation->getOutputValues();
-    // 1. set input into m_constStorage (verify length!!!)
-    // 2. run all operations one by one
-    // 3. return arrayView to last operation outputs
+    return m_operationNodes.back()->getOutputValues();
 }
 
 void BackPropagationNetwork::backPropagate(ArrayView<BNN_TYPE> errors)

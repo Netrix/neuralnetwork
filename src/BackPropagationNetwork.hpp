@@ -10,7 +10,7 @@
 #include "VariableStorage.hpp"
 #include "NodeBuilder.hpp" //BNN_TYPE
 
-using OperationNodes = std::vector<std::unique_ptr<OperationNode>>;
+using OperationNodes = std::vector<std::unique_ptr<OperationNode<BNN_TYPE>>>;
 using ConstNodes = std::vector<std::unique_ptr<ConstNode<BNN_TYPE>>>;
 using VariableNodes = std::vector<std::unique_ptr<VariableNode<BNN_TYPE>>>;
 
@@ -23,7 +23,7 @@ struct BackPropagationNetwork
             std::unique_ptr<ConstStorage<BNN_TYPE>> constStorage,
             std::unique_ptr<VariableStorage<BNN_TYPE>> variableStorage);
 
-    ArrayView<BNN_TYPE> forwardPass(ArrayView<BNN_TYPE> input);
+    ArrayView<BNN_TYPE const> forwardPass(ArrayView<BNN_TYPE> input);
     void backPropagate(ArrayView<BNN_TYPE> errors);
 
 private:

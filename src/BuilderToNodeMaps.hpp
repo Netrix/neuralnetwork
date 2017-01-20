@@ -12,13 +12,13 @@ template<class Type>
 using ConstBuilderToNodeMap = std::map<NodeBuilder*, std::unique_ptr<ConstNode<Type>>>;
 template<class Type>
 using VariableBuilderToNodeMap = std::map<NodeBuilder*, std::unique_ptr<VariableNode<Type>>>;
-
-using OperationBuilderToNodeMap = std::map<NodeBuilder*, NotNull<OperationNode>>;
+template<class Type>
+using OperationBuilderToNodeMap = std::map<NodeBuilder*, NotNull<OperationNode<Type>>>;
 
 template<class Type>
 struct BuilderToNodeMaps
 {
     ConstBuilderToNodeMap<Type> consts;
     VariableBuilderToNodeMap<Type> variables;
-    OperationBuilderToNodeMap operations;
+    OperationBuilderToNodeMap<Type> operations;
 };
