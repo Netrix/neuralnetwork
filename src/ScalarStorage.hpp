@@ -9,7 +9,7 @@ struct ScalarStorage
         : m_storage(std::move(storage))
     {}
 
-    void setValues(ArrayView<Type> values)
+    void setValues(ArrayView<Type const> values)
     {
         assert(m_storage.size() == values.size());
         std::copy(std::begin(values), std::end(values), std::begin(m_storage));

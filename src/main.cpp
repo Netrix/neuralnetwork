@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include <cassert>
+#include <random>
 #include "NotNull.hpp"
 #include "NodeTags.hpp"
 #include "NodeBuilder.hpp"
@@ -24,7 +25,7 @@ struct TrainingEntity
 
 int main()
 {
-    std::vector<TrainingEntity<double>> TRAIN_DATA = {
+    std::vector<TrainingEntity<float>> TRAIN_DATA = {
         {{ 1.0, 1.0 }, {0.0}},
         {{ 1.0, 0.0 }, {1.0}},
         {{ 0.0, 1.0 }, {1.0}},
@@ -69,18 +70,29 @@ int main()
     x2w22MulNode->setFirstInput(x2Node);
     x2w22MulNode->setSecondInput(VariableTag{}); // w22
 
-//    auto network = builder.buildBackPropagationNetwork();
-//    network->forwardPass()
+    auto network = builder.buildBackPropagationNetwork();
+
+    std::mt19937 mt(0);
+    std::normal_distribution<> normal_dist(0, 1);
+
+    std::vector<float> weights(9);
+    for(auto & w : weights)
+    {
+        w = normal_dist(mt);
+    }
+
+    network->setVariables(weights);
+    std::cout << network->forwardPass(TRAIN_DATA[1].input)[0] << std::endl;
 
 
-    NetworkBuilder builder2;
-    auto l_mul = builder2.setRootNode(BinaryNodeTag{}, "add");
-    auto l_x1 = l_mul->setFirstInput(ConstTag{});
-    auto l_x2 = l_mul->setSecondInput(ConstTag{});
+//    NetworkBuilder builder2;
+//    auto l_mul = builder2.setRootNode(BinaryNodeTag{}, "add");
+//    auto l_x1 = l_mul->setFirstInput(ConstTag{});
+//    auto l_x2 = l_mul->setSecondInput(ConstTag{});
 
-    auto mulNetwork = builder2.buildBackPropagationNetwork();
-    std::vector<float> l_input = { 3, 4 };
-    std::cout << mulNetwork->forwardPass(l_input)[0] << std::endl;
+//    auto mulNetwork = builder2.buildBackPropagationNetwork();
+//    std::vector<float> l_input = { 3, 4 };
+//    std::cout << mulNetwork->forwardPass(l_input)[0] << std::endl;
 
     // epoch learn above data
     std::cout << "Hello" << std::endl;

@@ -26,6 +26,11 @@ struct BackPropagationNetwork
     ArrayView<BNN_TYPE const> forwardPass(ArrayView<BNN_TYPE> input);
     void backPropagate(ArrayView<BNN_TYPE> errors);
 
+    void setVariables(ArrayView<BNN_TYPE const> values)
+    {
+        m_variableStorage->setValues(values);
+    }
+
 private:
     OperationNodes m_operationNodes;
     ConstNodes m_constNodes;
