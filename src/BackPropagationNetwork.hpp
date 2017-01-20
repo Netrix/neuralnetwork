@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 
+#include "ArrayView.hpp"
 #include "OperationNode.hpp"
 #include "ConstNode.hpp"
 #include "VariableNode.hpp"
@@ -20,13 +21,10 @@ struct BackPropagationNetwork
             ConstNodes && constNodes,
             VariableNodes && variableNodes,
             std::unique_ptr<ConstStorage<BNN_TYPE>> constStorage,
-            std::unique_ptr<VariableStorage<BNN_TYPE>> variableStorage)
-        : m_operationNodes(std::move(operationNodes))
-        , m_constNodes(std::move(constNodes))
-        , m_variableNodes(std::move(variableNodes))
-        , m_constStorage(std::move(constStorage))
-        , m_variableStorage(std::move(variableStorage))
-    {}
+            std::unique_ptr<VariableStorage<BNN_TYPE>> variableStorage);
+
+    ArrayView<BNN_TYPE> forwardPass(ArrayView<BNN_TYPE> input);
+    void backPropagate(ArrayView<BNN_TYPE> errors);
 
 private:
     OperationNodes m_operationNodes;

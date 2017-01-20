@@ -12,6 +12,7 @@ set(FILES
     BinaryNodeBuilder.hpp
     BinaryOperationNode.hpp
     BackPropagationNetwork.hpp
+    BackPropagationNetwork.cpp
     OperationNode.hpp
     ComputationNode.hpp
     BinaryOperationsFactory.hpp

@@ -71,6 +71,8 @@ int main()
 
     auto network = builder.buildBackPropagationNetwork();
 
+//    network->forwardPass()
+
     // epoch learn above data
     std::cout << "Hello" << std::endl;
 }
