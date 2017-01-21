@@ -12,6 +12,7 @@
 #include "NodeBuilders/ConstNodeBuilder.hpp"
 #include "NodeBuilders/VariableNodeBuilder.hpp"
 #include "NodeBuilders/OperationNodeBuilder.hpp"
+#include "NodeBuilders/MultipleInputNodeBuilder.hpp"
 
 struct BuilderStorage;
 struct BinaryNodeBuilder;
@@ -20,6 +21,7 @@ struct UnaryNodeBuilder : OperationNodeBuilder
 {
     UnaryNodeBuilder(BuilderStorage& builderStorage, std::string const& operation);
 
+    NotNull<MultipleInputNodeBuilder> setInput(MultipleInputTag, std::string const& operation); // TODO can be done by template with traits MultipleInputTag -> MultipleInputNodeBuilder
     NotNull<BinaryNodeBuilder> setInput(BinaryNodeTag, std::string const& operation);
     NotNull<UnaryNodeBuilder> setInput(UnaryNodeTag, std::string const& operation);
     NotNull<VariableNodeBuilder> setInput(VariableTag);

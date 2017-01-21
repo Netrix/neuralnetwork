@@ -8,10 +8,13 @@
 #include <string>
 #include "OperationNodeBuilder.hpp"
 #include "BuilderToNodeMaps.hpp"
-#include "UnaryNodeBuilder.hpp"
 #include <stdexcept>
 
 struct BuilderStorage;
+struct UnaryNodeBuilder;
+struct BinaryNodeBuilder;
+struct VariableNodeBuilder;
+struct ConstNodeBuilder;
 
 struct MultipleInputNodeBuilder : OperationNodeBuilder
 {

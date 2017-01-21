@@ -10,6 +10,15 @@ UnaryNodeBuilder::UnaryNodeBuilder(BuilderStorage& builderStorage, std::string c
 {
 }
 
+NotNull<MultipleInputNodeBuilder> UnaryNodeBuilder::setInput(MultipleInputTag, std::string const& operation)
+{
+    assert(m_inputBuilder == nullptr);
+    auto l_builder = m_builderStorage.createMultipleInputNodeBuilder(operation);
+    m_inputBuilder = l_builder;
+    m_operationBuilder = l_builder;
+    return l_builder;
+}
+
 NotNull<BinaryNodeBuilder> UnaryNodeBuilder::setInput(BinaryNodeTag, std::string const& operation)
 {
     assert(m_inputBuilder == nullptr);
