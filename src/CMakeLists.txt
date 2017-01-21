@@ -11,6 +11,7 @@ set(FILES
     NodeBuilders/OperationNodeBuilder.hpp
     UnaryOperations/UnaryOperationNode.hpp
     UnaryOperations/SigmoidUnaryOperation.hpp
+    UnaryOperations/TanhUnaryOperation.hpp
     BinaryOperations/AddBinaryOperation.hpp
     BinaryOperations/MulBinaryOperation.hpp
     BinaryOperations/BinaryOperationNode.hpp

@@ -50,7 +50,7 @@ int main()
 //    };
 
     NetworkBuilder builder;
-    auto sigmoidNode = builder.setRootNode(UnaryNodeTag{}, "sigmoid");
+    auto sigmoidNode = builder.setRootNode(UnaryNodeTag{}, "tanh");
     auto yNode = sigmoidNode->setInput(BinaryNodeTag{}, "add");
 //    auto yNode = builder.setRootNode(BinaryNodeTag{}, "add");
     auto ySubNode = yNode->setFirstInput(BinaryNodeTag{}, "add");  // n1 + n2 + 2 -> n3 -> y
@@ -62,8 +62,8 @@ int main()
     n1wMulNode->setFirstInput(VariableTag{}); // w31
     n2wMulNode->setFirstInput(VariableTag{}); // w32
 
-    auto n1NodeSigmoid = n1wMulNode->setSecondInput(UnaryNodeTag{}, "sigmoid");
-    auto n2NodeSigmoid = n2wMulNode->setSecondInput(UnaryNodeTag{}, "sigmoid");
+    auto n1NodeSigmoid = n1wMulNode->setSecondInput(UnaryNodeTag{}, "tanh");
+    auto n2NodeSigmoid = n2wMulNode->setSecondInput(UnaryNodeTag{}, "tanh");
 
     auto n1Node = n1NodeSigmoid->setInput(BinaryNodeTag{}, "add");
     auto n2Node = n2NodeSigmoid->setInput(BinaryNodeTag{}, "add");
