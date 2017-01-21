@@ -35,15 +35,24 @@ std::ostream& operator<<(std::ostream& out, std::vector<BNN_TYPE> const& values)
 
 int main()
 {
+//    std::vector<TrainingEntity<float>> TRAIN_DATA = {
+//        {{ 1.0, 1.0 }, {0.0}},
+//        {{ 1.0, 0.0 }, {1.0}},
+//        {{ 0.0, 1.0 }, {1.0}},
+//        {{ 0.0, 0.0 }, {0.0}},
+//    };
+
     std::vector<TrainingEntity<float>> TRAIN_DATA = {
-        {{ 1.0, 1.0 }, {0.0}},
+        {{ 1.0, 1.0 }, {1.0}},
         {{ 1.0, 0.0 }, {1.0}},
         {{ 0.0, 1.0 }, {1.0}},
         {{ 0.0, 0.0 }, {0.0}},
     };
 
     NetworkBuilder builder;
-    auto yNode = builder.setRootNode(BinaryNodeTag{}, "add");
+    auto sigmoidNode = builder.setRootNode(UnaryNodeTag{}, "sigmoid");
+    auto yNode = sigmoidNode->setInput(BinaryNodeTag{}, "add");
+//    auto yNode = builder.setRootNode(BinaryNodeTag{}, "add");
     auto ySubNode = yNode->setFirstInput(BinaryNodeTag{}, "add");  // n1 + n2 + 2 -> n3 -> y
 
     auto n1wMulNode = ySubNode->setFirstInput(BinaryNodeTag{}, "mul");
@@ -53,8 +62,14 @@ int main()
     n1wMulNode->setFirstInput(VariableTag{}); // w31
     n2wMulNode->setFirstInput(VariableTag{}); // w32
 
-    auto n1Node = n1wMulNode->setSecondInput(BinaryNodeTag{}, "add");
-    auto n2Node = n2wMulNode->setSecondInput(BinaryNodeTag{}, "add");
+    auto n1NodeSigmoid = n1wMulNode->setSecondInput(UnaryNodeTag{}, "sigmoid");
+    auto n2NodeSigmoid = n2wMulNode->setSecondInput(UnaryNodeTag{}, "sigmoid");
+
+    auto n1Node = n1NodeSigmoid->setInput(BinaryNodeTag{}, "add");
+    auto n2Node = n2NodeSigmoid->setInput(BinaryNodeTag{}, "add");
+
+//    auto n1Node = n1wMulNode->setSecondInput(BinaryNodeTag{}, "add");
+//    auto n2Node = n2wMulNode->setSecondInput(BinaryNodeTag{}, "add");
 
     auto n1SubNode = n1Node->setFirstInput(BinaryNodeTag{}, "add");
     auto n2SubNode = n2Node->setFirstInput(BinaryNodeTag{}, "add");
@@ -82,14 +97,16 @@ int main()
 
     auto network = builder.buildBackPropagationNetwork();
 
-    std::mt19937 mt(0);
+    std::mt19937 mt(2);
     std::normal_distribution<> normal_dist(0, 1);
 
     std::vector<float> weights(9);
     for(auto & w : weights)
     {
         w = normal_dist(mt);
+        std::cout << w << ", ";
     }
+    std::cout << std::endl;
 
     network->setVariables(weights);
 //    auto result = network->forwardPass(TRAIN_DATA[1].input)[0];
@@ -97,7 +114,14 @@ int main()
 //    std::cout << result << ", error: " << error <<  std::endl;
 //    network->backPropagate(error);
 
-    for(int i = 0; i < 50; ++i)
+    auto l_print_network = [&]{
+        for(int i = 0; i < TRAIN_DATA.size(); ++i)
+        {
+            std::cout << "Input: " << TRAIN_DATA[i].input << ", expected result: " << TRAIN_DATA[i].output[0] << ", result: " << network->forwardPass(TRAIN_DATA[i].input)[0] << std::endl;
+        }
+    };
+
+    for(int i = 0; i < 600; ++i)
     {
         BNN_TYPE errorSum = 0;
         for(auto const& trainEntity : TRAIN_DATA)
@@ -110,17 +134,12 @@ int main()
         }
         network->applyDeltaOnVariables();
         std::cout << "errorSum: " << errorSum <<  std::endl;
+        l_print_network();
 //        result = network->forwardPass(TRAIN_DATA[1].input)[0];
 //        error = TRAIN_DATA[1].output[0] - result;
 //        std::cout << result << ", error: " << error <<  std::endl;
 //        network->backPropagate(error);
     }
-
-    for(int i = 0; i < TRAIN_DATA.size(); ++i)
-    {
-        std::cout << "Input: " << TRAIN_DATA[i].input << ", expected result: " << TRAIN_DATA[i].output[0] << ", result: " << network->forwardPass(TRAIN_DATA[i].input)[0] << std::endl;
-    }
-
 
 //    NetworkBuilder builder2;
 //    auto l_mul = builder2.setRootNode(BinaryNodeTag{}, "add");

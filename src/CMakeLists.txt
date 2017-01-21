@@ -28,6 +28,11 @@ set(FILES
     ScalarStorage.hpp
     VariableStorage.hpp
     VariableStorageBuilder.hpp
+    SigmoidUnaryOperation.hpp
+    UnaryOperationsFactory.hpp
+    UnaryOperationNode.hpp
+    UnaryNodeBuilder.cpp
+    UnaryNodeBuilder.hpp
     ConstStorage.hpp
     main.cpp
 )

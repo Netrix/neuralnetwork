@@ -30,6 +30,13 @@ NotNull<BinaryNodeBuilder> NetworkBuilder::setRootNode(BinaryNodeTag, std::strin
     return l_builder;
 }
 
+NotNull<UnaryNodeBuilder> NetworkBuilder::setRootNode(UnaryNodeTag, std::string const& operation)
+{
+    auto l_builder = m_storage.createUnaryNodeBuilder(operation);
+    m_root = l_builder;
+    return l_builder;
+}
+
 std::unique_ptr<BackPropagationNetwork> NetworkBuilder::buildBackPropagationNetwork() const
 {
     auto constStorageBuilder = ConstStorageBuilder<BNN_TYPE>(m_storage.getNumConsts());
@@ -88,11 +95,11 @@ VariableBuilderToNodeMap<BNN_TYPE> NetworkBuilder::getVariableNodeMap(
     return variableNodeMap;
 }
 #include <iostream>
-std::vector<BinaryNodeBuilder*> NetworkBuilder::getOperationNodesInTopologicalOrder() const
+std::vector<OperationNodeBuilder*> NetworkBuilder::getOperationNodesInTopologicalOrder() const
 {
-    std::set<BinaryNodeBuilder*> uniqueOperations;
-    std::vector<BinaryNodeBuilder*> operations;
-    std::queue<BinaryNodeBuilder*> queue;
+    std::set<OperationNodeBuilder*> uniqueOperations;
+    std::vector<OperationNodeBuilder*> operations;
+    std::queue<OperationNodeBuilder*> queue;
     queue.push(m_root);
 
     while (!queue.empty())

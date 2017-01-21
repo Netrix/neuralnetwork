@@ -9,6 +9,7 @@
 #include <string>
 #include "BinaryOperationNode.hpp"
 #include "BuilderToNodeMaps.hpp"
+#include "UnaryNodeBuilder.hpp"
 #include <stdexcept>
 
 struct InvalidComputationGraph : std::runtime_error
@@ -20,9 +21,12 @@ struct InvalidComputationGraph : std::runtime_error
 
 struct BuilderStorage;
 
-struct BinaryNodeBuilder : NodeBuilder
+struct BinaryNodeBuilder : OperationNodeBuilder
 {
     BinaryNodeBuilder(BuilderStorage& builderStorage, std::string const& operation);
+
+    NotNull<UnaryNodeBuilder> setFirstInput(UnaryNodeTag, std::string const& operation);
+    NotNull<UnaryNodeBuilder> setSecondInput(UnaryNodeTag, std::string const& operation);
 
     NotNull<BinaryNodeBuilder> setFirstInput(BinaryNodeTag, std::string const& operation);
     NotNull<BinaryNodeBuilder> setSecondInput(BinaryNodeTag, std::string const& operation);
@@ -36,9 +40,9 @@ struct BinaryNodeBuilder : NodeBuilder
     void setFirstInput(NotNull<ConstNodeBuilder>);
     void setSecondInput(NotNull<ConstNodeBuilder>);
 
-    ArrayView<BinaryNodeBuilder*> getOperations();
+    ArrayView<OperationNodeBuilder*> getOperations() override;
 
-    std::unique_ptr<BinaryOperationNode<BNN_TYPE>> build(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps);
+    std::unique_ptr<OperationNode<BNN_TYPE>> build(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps) override;
 
 private:
     NotNull<ComputationNode<BNN_TYPE>> getComputationNodeFromMaps(BuilderToNodeMaps<BNN_TYPE> const&, NotNull<NodeBuilder>) const;
@@ -46,6 +50,6 @@ private:
     BuilderStorage& m_builderStorage;
     std::string m_operation;
 
-    std::array<BinaryNodeBuilder*, 2> m_operationBuilders{};    // Should be changed to OperationNodeBuilder
+    std::array<OperationNodeBuilder*, 2> m_operationBuilders{};
     std::array<NodeBuilder*, 2> m_inputBuilders{};
 };

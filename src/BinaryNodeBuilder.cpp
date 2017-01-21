@@ -9,6 +9,24 @@ BinaryNodeBuilder::BinaryNodeBuilder(BuilderStorage& builderStorage, std::string
 {
 }
 
+NotNull<UnaryNodeBuilder> BinaryNodeBuilder::setFirstInput(UnaryNodeTag, std::string const& operation)
+{
+    assert(m_inputBuilders[0] == nullptr);
+    auto l_builder = m_builderStorage.createUnaryNodeBuilder(operation);
+    m_inputBuilders[0] = l_builder;
+    m_operationBuilders[0] = l_builder;
+    return l_builder;
+}
+
+NotNull<UnaryNodeBuilder> BinaryNodeBuilder::setSecondInput(UnaryNodeTag, std::string const& operation)
+{
+    assert(m_inputBuilders[1] == nullptr);
+    auto l_builder = m_builderStorage.createUnaryNodeBuilder(operation);
+    m_inputBuilders[1] = l_builder;
+    m_operationBuilders[1] = l_builder;
+    return l_builder;
+}
+
 NotNull<BinaryNodeBuilder> BinaryNodeBuilder::setFirstInput(BinaryNodeTag, std::string const& operation)
 {
     assert(m_inputBuilders[0] == nullptr);
@@ -71,12 +89,12 @@ void BinaryNodeBuilder::setSecondInput(NotNull<ConstNodeBuilder> node)
     m_inputBuilders[1] = node;
 }
 
-ArrayView<BinaryNodeBuilder*> BinaryNodeBuilder::getOperations()
+ArrayView<OperationNodeBuilder*> BinaryNodeBuilder::getOperations()
 {
     return m_operationBuilders;
 }
 
-std::unique_ptr<BinaryOperationNode<BNN_TYPE>> BinaryNodeBuilder::build(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps)
+std::unique_ptr<OperationNode<BNN_TYPE>> BinaryNodeBuilder::build(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps)
 {
     auto firstInputNode = getComputationNodeFromMaps(builderToNodeMaps, m_inputBuilders[0]);
     auto secondInputNode = getComputationNodeFromMaps(builderToNodeMaps, m_inputBuilders[1]);

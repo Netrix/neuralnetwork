@@ -1,0 +1,41 @@
+#pragma once
+#include "UnaryOperationNode.hpp"
+#include "NotNull.hpp"
+#include <cmath>
+
+template<class Type>
+struct SigmoidUnaryOperationNode : UnaryOperationNode<Type>
+{
+    SigmoidUnaryOperationNode(
+            NotNull<ComputationNode<Type>> input)
+        : m_input(*input)
+    {}
+
+    void forwardPass() override
+    {
+        m_outputValue = calculateSigmoid(m_input.getOutputValues()[0]);
+    }
+
+    ArrayView<Type const> getOutputValues() const override
+    {
+        return ArrayView<Type const>(m_outputValue);
+    }
+
+    void backPropagate(ArrayView<Type const> errors) override
+    {
+        auto value = calculateSigmoid(errors[0]);
+        auto error = (m_beta * value * ((Type)1.0 - value)) * m_input.getOutputValues()[0];
+        m_input.backPropagate(error);
+    }
+
+private:
+    Type calculateSigmoid(Type value)
+    {
+        return 1.0f / (1.0f + exp(m_beta * -value));
+    }
+
+private:
+    Type m_beta = 1.0;
+    ComputationNode<Type>& m_input;
+    Type m_outputValue;
+};

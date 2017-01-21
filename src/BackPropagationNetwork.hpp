@@ -39,7 +39,7 @@ struct BackPropagationNetwork
         std::transform(std::begin(l_weights), std::end(l_weights), std::begin(m_variableDeltaStorage->getValues()), std::begin(l_weights),
                        [=](auto a, auto b)
         {
-            return a - (b / m_numBackpropagationPasses) * m_learningRate;
+            return a + (b / m_numBackpropagationPasses) * m_learningRate;
         });
 
         m_numBackpropagationPasses = 0;

@@ -4,12 +4,15 @@
 #include "VariableNode.hpp"
 #include "ConstStorageBuilder.hpp"
 #include "VariableStorageBuilder.hpp"
+#include "OperationNode.hpp"
+#include "BuilderToNodeMaps.hpp"
 #include <memory>
 
 using BNN_TYPE = float;
 
 struct NodeBuilder
 {
+    virtual ~NodeBuilder() = default;
 };
 
 struct ConstNodeBuilder : NodeBuilder
@@ -28,4 +31,12 @@ struct VariableNodeBuilder : NodeBuilder
         return std::make_unique<VariableNode<BNN_TYPE>>(variableStorage.getSingleValueRef(),
                                                         variableDeltaStorageBuilder.getSingleValueRef());
     }
+};
+
+
+struct OperationNodeBuilder : NodeBuilder
+{
+    virtual ArrayView<OperationNodeBuilder*> getOperations() = 0;
+
+    virtual std::unique_ptr<OperationNode<BNN_TYPE>> build(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps) = 0;
 };
