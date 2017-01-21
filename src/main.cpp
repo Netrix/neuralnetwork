@@ -28,6 +28,81 @@ std::ostream& operator<<(std::ostream& out, std::vector<BNN_TYPE> const& values)
     return out << " ] ";
 }
 
+struct FullyConnectedTag{};
+struct InputTag{};
+
+struct LayerBuilder
+{
+    virtual ~LayerBuilder() = default;
+
+    virtual std::vector<NodeBuilder> build(ArrayView<NodeBuilder> nextLayer) const = 0;
+
+    virtual std::size_t getNumComputations() const = 0;
+};
+
+struct FullyConnectedLayerBuilder : LayerBuilder
+{
+    FullyConnectedLayerBuilder(std::size_t numNeurons, std::string const& activation)
+        : m_numNeurons(numNeurons)
+        , m_activation(activation)
+    {
+    }
+
+    std::vector<NodeBuilder> build(ArrayView<NodeBuilder> nextLayer) const override
+    {
+    }
+
+    std::size_t getNumComputations() const override
+    {
+        return m_numNeurons;
+    }
+
+private:
+    std::size_t m_numNeurons;
+    std::string  m_activation;
+};
+
+struct InputLayerBuilder : LayerBuilder
+{
+    InputLayerBuilder(std::size_t numInputs)
+        : m_numInputs(numInputs)
+    {}
+
+    std::vector<NodeBuilder> build(ArrayView<NodeBuilder> nextLayer) const override
+    {}
+
+    std::size_t getNumComputations() const override
+    {}
+
+private:
+    std::size_t m_numInputs;
+};
+
+struct LayerNetworkBuilder
+{
+    void addLayer(InputTag, std::size_t numInputs)
+    {
+        layerBuilders.push_back(std::make_unique<InputLayerBuilder>(numInputs));
+    }
+
+    void addLayer(FullyConnectedTag, std::size_t numNeurons, std::string const& activation)
+    {
+        layerBuilders.push_back(std::make_unique<FullyConnectedLayerBuilder>(numNeurons, activation));
+    }
+
+    std::unique_ptr<BackPropagationNetwork> buildBackPropagationNetwork()
+    {
+        assert(!layerBuilders.empty());
+        assert(layerBuilders.back()->getNumComputations() == 1);
+
+        NetworkBuilder networkBuilder;
+        return networkBuilder.buildBackPropagationNetwork();
+    }
+
+private:
+    std::vector<std::unique_ptr<LayerBuilder>> layerBuilders;
+};
+
 int main()
 {
     std::vector<TrainingEntity<float>> TRAIN_DATA = {
@@ -64,7 +139,7 @@ int main()
     n1Node->addInput(VariableTag{}); // w10
     n2Node->addInput(VariableTag{}); // w20
 
-    auto x1w11MulNode = n1Node->addInput(BinaryNodeTag{}, "mul");
+    auto x1w11MulNode = n1Node->addInput(BinaryNodeTag{}, "mul");   // TODO can put "mul" into tag!
     auto x2w12MulNode = n1Node->addInput(BinaryNodeTag{}, "mul");
 
     auto x1w21MulNode = n2Node->addInput(BinaryNodeTag{}, "mul");
@@ -83,6 +158,12 @@ int main()
     x2w22MulNode->setSecondInput(VariableTag{}); // w22
 
     auto network = builder.buildBackPropagationNetwork();
+
+    LayerNetworkBuilder layerNetworkBuilder;
+    layerNetworkBuilder.addLayer(InputTag{}, 2);
+    layerNetworkBuilder.addLayer(FullyConnectedTag{}, 2, "relu");
+    layerNetworkBuilder.addLayer(FullyConnectedTag{}, 1, "relu");
+    auto layerNetwork = layerNetworkBuilder.buildBackPropagationNetwork();
 
     std::mt19937 mt(2);
     std::normal_distribution<> normal_dist(0, 1);
@@ -116,6 +197,7 @@ int main()
     }
 
     // TODO
+    // 0. Make relu work!
     // 1, Create higher abstraction builder that can automatically build layers from smaller nodes
     // 2. abstract initialization of weights
     // 3. multiple output layer (sigmoid, tanh, relu)
