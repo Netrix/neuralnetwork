@@ -10,11 +10,6 @@
 #include "BuilderStorage.hpp"
 #include "NetworkBuilder.hpp"
 
-template<class Type>
-struct Multiplication
-{
-//    Type calculate(
-};
 
 template<class Type>
 struct TrainingEntity
@@ -136,20 +131,12 @@ int main()
         network->applyDeltaOnVariables();
         std::cout << "errorSum: " << errorSum <<  std::endl;
         l_print_network();
-//        result = network->forwardPass(TRAIN_DATA[1].input)[0];
-//        error = TRAIN_DATA[1].output[0] - result;
-//        std::cout << result << ", error: " << error <<  std::endl;
-//        network->backPropagate(error);
     }
 
-//    NetworkBuilder builder2;
-//    auto l_mul = builder2.setRootNode(BinaryNodeTag{}, "add");
-//    auto l_x1 = l_mul->setFirstInput(ConstTag{});
-//    auto l_x2 = l_mul->setSecondInput(ConstTag{});
+    // TODO
+    // 1. multiple input operations (add)
+    // 2. multiple output layer (sigmoid, tanh, relu)
 
-//    auto mulNetwork = builder2.buildBackPropagationNetwork();
-//    std::vector<float> l_input = { 3, 4 };
-//    std::cout << mulNetwork->forwardPass(l_input)[0] << std::endl;
 
     // epoch learn above data
     std::cout << "Hello" << std::endl;
