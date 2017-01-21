@@ -9,6 +9,8 @@ set(FILES
     NodeBuilders/ConstNodeBuilder.hpp
     NodeBuilders/VariableNodeBuilder.hpp
     NodeBuilders/OperationNodeBuilder.hpp
+    NodeBuilders/MultipleInputNodeBuilder.cpp
+    NodeBuilders/MultipleInputNodeBuilder.hpp
     UnaryOperations/UnaryOperationNode.hpp
     UnaryOperations/SigmoidUnaryOperation.hpp
     UnaryOperations/TanhUnaryOperation.hpp
@@ -16,6 +18,8 @@ set(FILES
     BinaryOperations/AddBinaryOperation.hpp
     BinaryOperations/MulBinaryOperation.hpp
     BinaryOperations/BinaryOperationNode.hpp
+    MultipleInputOperators/AddOperation.hpp
+    MultipleInputOperators/MultipleInputOperationNode.hpp
     ArrayView.hpp
     NotNull.hpp
     BuilderStorage.cpp
@@ -36,6 +40,7 @@ set(FILES
     VariableStorage.hpp
     VariableStorageBuilder.hpp
     UnaryOperationsFactory.hpp
+    MultipleInputOperationsFactory.hpp
     ConstStorage.hpp
 )
 

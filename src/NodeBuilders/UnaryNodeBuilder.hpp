@@ -32,8 +32,6 @@ struct UnaryNodeBuilder : OperationNodeBuilder
     std::unique_ptr<OperationNode<BNN_TYPE>> build(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps);
 
 private:
-    NotNull<ComputationNode<BNN_TYPE>> getComputationNodeFromMaps(BuilderToNodeMaps<BNN_TYPE> const&, NotNull<NodeBuilder>) const;
-
     BuilderStorage& m_builderStorage;
     std::string m_operation;
 

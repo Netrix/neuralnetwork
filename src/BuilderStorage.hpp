@@ -5,6 +5,7 @@
 #include "NodeBuilders/BinaryNodeBuilder.hpp"
 #include "NodeBuilders/UnaryNodeBuilder.hpp"
 #include "NodeBuilders/ConstNodeBuilder.hpp"
+#include "NodeBuilders/MultipleInputNodeBuilder.hpp"
 #include <string>
 #include <vector>
 #include <memory>
@@ -12,6 +13,7 @@
 
 struct BuilderStorage
 {
+    NotNull<MultipleInputNodeBuilder> createMultipleInputNodeBuilder(std::string const& operation);
     NotNull<UnaryNodeBuilder> createUnaryNodeBuilder(std::string const& operation);
     NotNull<BinaryNodeBuilder> createBinaryNodeBuilder(std::string const& operation);
     NotNull<VariableNodeBuilder> createVariableNodeBuilder();

@@ -9,6 +9,24 @@ BinaryNodeBuilder::BinaryNodeBuilder(BuilderStorage& builderStorage, std::string
 {
 }
 
+NotNull<MultipleInputNodeBuilder> BinaryNodeBuilder::setFirstInput(MultipleInputTag, std::string const& operation)
+{
+    assert(m_inputBuilders[0] == nullptr);
+    auto l_builder = m_builderStorage.createMultipleInputNodeBuilder(operation);
+    m_inputBuilders[0] = l_builder;
+    m_operationBuilders[0] = l_builder;
+    return l_builder;
+}
+
+NotNull<MultipleInputNodeBuilder> BinaryNodeBuilder::setSecondInput(MultipleInputTag, std::string const& operation)
+{
+    assert(m_inputBuilders[1] == nullptr);
+    auto l_builder = m_builderStorage.createMultipleInputNodeBuilder(operation);
+    m_inputBuilders[1] = l_builder;
+    m_operationBuilders[1] = l_builder;
+    return l_builder;
+}
+
 NotNull<UnaryNodeBuilder> BinaryNodeBuilder::setFirstInput(UnaryNodeTag, std::string const& operation)
 {
     assert(m_inputBuilders[0] == nullptr);
@@ -96,33 +114,9 @@ ArrayView<OperationNodeBuilder*> BinaryNodeBuilder::getOperations()
 
 std::unique_ptr<OperationNode<BNN_TYPE>> BinaryNodeBuilder::build(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps)
 {
-    auto firstInputNode = getComputationNodeFromMaps(builderToNodeMaps, m_inputBuilders[0]);
-    auto secondInputNode = getComputationNodeFromMaps(builderToNodeMaps, m_inputBuilders[1]);
+    auto firstInputNode = builderToNodeMaps.getComputationNodeFromMaps(m_inputBuilders[0]);
+    auto secondInputNode = builderToNodeMaps.getComputationNodeFromMaps(m_inputBuilders[1]);
 
     BinaryOperationsFactory<BNN_TYPE> factory;    // TODO Inject it
     return factory.create(m_operation, firstInputNode, secondInputNode);
-}
-
-NotNull<ComputationNode<BNN_TYPE>> BinaryNodeBuilder::getComputationNodeFromMaps(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps,
-                                                    NotNull<NodeBuilder> nodeBuilder) const
-{
-    auto constNode = builderToNodeMaps.consts.find(nodeBuilder);
-    if(constNode != builderToNodeMaps.consts.end())
-    {
-        return constNode->second.get();
-    }
-
-    auto variableNode = builderToNodeMaps.variables.find(nodeBuilder);
-    if(variableNode != builderToNodeMaps.variables.end())
-    {
-        return variableNode->second.get();
-    }
-
-    auto operationNode = builderToNodeMaps.operations.find(nodeBuilder);
-    if(operationNode != builderToNodeMaps.operations.end())
-    {
-        return operationNode->second;
-    }
-
-    throw InvalidComputationGraph("Missing input value");
 }

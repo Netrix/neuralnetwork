@@ -1,5 +1,13 @@
 #include "BuilderStorage.hpp"
 
+NotNull<MultipleInputNodeBuilder> BuilderStorage::createMultipleInputNodeBuilder(std::string const& operation)
+{
+    auto l_builder = std::make_unique<MultipleInputNodeBuilder>(*this, operation);
+    auto l_builderPointer = l_builder.get();
+    operations.push_back(std::move(l_builder));
+    return l_builderPointer;
+}
+
 NotNull<UnaryNodeBuilder> BuilderStorage::createUnaryNodeBuilder(std::string const& operation)
 {
     auto l_builder = std::make_unique<UnaryNodeBuilder>(*this, operation);

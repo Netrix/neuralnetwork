@@ -57,32 +57,8 @@ ArrayView<OperationNodeBuilder*> UnaryNodeBuilder::getOperations()
 
 std::unique_ptr<OperationNode<BNN_TYPE>> UnaryNodeBuilder::build(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps)
 {
-    auto inputNode = getComputationNodeFromMaps(builderToNodeMaps, m_inputBuilder);
+    auto inputNode = builderToNodeMaps.getComputationNodeFromMaps(m_inputBuilder);
 
     UnaryOperationsFactory<BNN_TYPE> factory;    // TODO Inject it
     return factory.create(m_operation, inputNode);
-}
-
-NotNull<ComputationNode<BNN_TYPE>> UnaryNodeBuilder::getComputationNodeFromMaps(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps,
-                                                    NotNull<NodeBuilder> nodeBuilder) const
-{
-    auto constNode = builderToNodeMaps.consts.find(nodeBuilder);
-    if(constNode != builderToNodeMaps.consts.end())
-    {
-        return constNode->second.get();
-    }
-
-    auto variableNode = builderToNodeMaps.variables.find(nodeBuilder);
-    if(variableNode != builderToNodeMaps.variables.end())
-    {
-        return variableNode->second.get();
-    }
-
-    auto operationNode = builderToNodeMaps.operations.find(nodeBuilder);
-    if(operationNode != builderToNodeMaps.operations.end())
-    {
-        return operationNode->second;
-    }
-
-    throw InvalidComputationGraph("Missing input value");
 }

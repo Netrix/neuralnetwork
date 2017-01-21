@@ -19,7 +19,7 @@ struct AddBinaryOperationNode : BinaryOperationNode<Type>
 
     ArrayView<Type const> getOutputValues() const override
     {
-        return ArrayView<Type const>(&m_outputValue, 1);
+        return ArrayView<Type const>(m_outputValue);
     }
 
     void backPropagate(ArrayView<Type const> errors) override
