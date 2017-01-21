@@ -43,10 +43,10 @@ int main()
 //    };
 
     std::vector<TrainingEntity<float>> TRAIN_DATA = {
-        {{ 1.0, 1.0 }, {1.0}},
-        {{ 1.0, 0.0 }, {1.0}},
-        {{ 0.0, 1.0 }, {1.0}},
-        {{ 0.0, 0.0 }, {0.0}},
+//        {{ 1.0, 1.0 }, {1.0}},
+//        {{ 1.0, -1.0 }, {-1.0}},
+//        {{ -1.0, 1.0 }, {-1.0}},
+        {{ 1.0, 0.0 }, {0.0}},
     };
 
     NetworkBuilder builder;
@@ -98,7 +98,7 @@ int main()
     auto network = builder.buildBackPropagationNetwork();
 
     std::mt19937 mt(2);
-    std::normal_distribution<> normal_dist(0, 1);
+    std::normal_distribution<> normal_dist(0, 2);
 
     std::vector<float> weights(9);
     for(auto & w : weights)
@@ -121,15 +121,18 @@ int main()
         }
     };
 
-    for(int i = 0; i < 600; ++i)
+    for(int i = 0; i < 10; ++i)
     {
         BNN_TYPE errorSum = 0;
         for(auto const& trainEntity : TRAIN_DATA)
         {
             auto result = network->forwardPass(trainEntity.input)[0];
             auto error = trainEntity.output[0] - result;
+            std::cout << "backprop error: " << error <<  std::endl;
+            network->backPropagate(error);
+
             auto squaredError = error * error;
-            network->backPropagate(squaredError);
+            std::cout << squaredError << std::endl;
             errorSum += squaredError;
         }
         network->applyDeltaOnVariables();

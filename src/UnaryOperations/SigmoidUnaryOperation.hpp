@@ -35,7 +35,7 @@ private:
     }
 
 private:
-    Type m_beta = 1.0;
+    Type m_beta = 1.0f;
     ComputationNode<Type>& m_input;
     Type m_outputValue;
 };

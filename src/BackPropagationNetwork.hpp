@@ -28,29 +28,11 @@ struct BackPropagationNetwork
     ArrayView<BNN_TYPE const> forwardPass(ArrayView<BNN_TYPE const> input);
     void backPropagate(ArrayView<BNN_TYPE> errors);
 
-    void setVariables(ArrayView<BNN_TYPE const> values)
-    {
-        m_variableStorage->setValues(values);
-    }
-
-    void applyDeltaOnVariables()
-    {
-        auto l_weights = m_variableStorage->getValues();
-        std::transform(std::begin(l_weights), std::end(l_weights), std::begin(m_variableDeltaStorage->getValues()), std::begin(l_weights),
-                       [=](auto a, auto b)
-        {
-            return a + (b / m_numBackpropagationPasses) * m_learningRate;
-        });
-
-        m_numBackpropagationPasses = 0;
-        m_variableDeltaStorage->setValuesByGenerator([]
-        {
-            return 0.0f;
-        });
-    }
+    void setVariables(ArrayView<BNN_TYPE const> values);
+    void applyDeltaOnVariables();
 
 private:
-    const BNN_TYPE m_learningRate = 0.01f;
+    const BNN_TYPE m_learningRate = 1.0f;
     std::size_t m_numBackpropagationPasses = 0;
     OperationNodes m_operationNodes;
     ConstNodes m_constNodes;
