@@ -5,8 +5,8 @@
 #include <random>
 #include "NotNull.hpp"
 #include "NodeTags.hpp"
-#include "NodeBuilder.hpp"
-#include "BinaryNodeBuilder.hpp"
+#include "NodeBuilders/NodeBuilder.hpp"
+#include "NodeBuilders/BinaryNodeBuilder.hpp"
 #include "BuilderStorage.hpp"
 #include "NetworkBuilder.hpp"
 

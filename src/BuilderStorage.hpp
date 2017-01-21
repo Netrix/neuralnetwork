@@ -1,9 +1,10 @@
 #pragma once
 
 #include "NotNull.hpp"
-#include "NodeBuilder.hpp"
-#include "BinaryNodeBuilder.hpp"
-#include "UnaryNodeBuilder.hpp"
+#include "NodeBuilders/NodeBuilder.hpp"
+#include "NodeBuilders/BinaryNodeBuilder.hpp"
+#include "NodeBuilders/UnaryNodeBuilder.hpp"
+#include "NodeBuilders/ConstNodeBuilder.hpp"
 #include <string>
 #include <vector>
 #include <memory>

@@ -1,8 +1,8 @@
 #pragma once
 #include "NotNull.hpp"
 #include "BinaryOperationNode.hpp"
-#include "MulBinaryOperation.hpp"
-#include "AddBinaryOperation.hpp"
+#include "BinaryOperations/MulBinaryOperation.hpp"
+#include "BinaryOperations/AddBinaryOperation.hpp"
 
 template<class Type>
 struct BinaryOperationsFactory

@@ -9,7 +9,7 @@
 #include "VariableNode.hpp"
 #include "ConstStorage.hpp"
 #include "VariableStorage.hpp"
-#include "NodeBuilder.hpp" //BNN_TYPE
+#include "NodeBuilders/NodeBuilder.hpp" //BNN_TYPE
 
 using OperationNodes = std::vector<std::unique_ptr<OperationNode<BNN_TYPE>>>;
 using ConstNodes = std::vector<std::unique_ptr<ConstNode<BNN_TYPE>>>;

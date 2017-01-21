@@ -1,7 +1,7 @@
 #pragma once
 #include "NotNull.hpp"
 #include "UnaryOperationNode.hpp"
-#include "SigmoidUnaryOperation.hpp"
+#include "UnaryOperations/SigmoidUnaryOperation.hpp"
 
 template<class Type>
 struct UnaryOperationsFactory

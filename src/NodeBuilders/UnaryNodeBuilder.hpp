@@ -9,6 +9,9 @@
 #include <string>
 #include "BinaryOperationNode.hpp"
 #include "BuilderToNodeMaps.hpp"
+#include "NodeBuilders/ConstNodeBuilder.hpp"
+#include "NodeBuilders/VariableNodeBuilder.hpp"
+#include "NodeBuilders/OperationNodeBuilder.hpp"
 
 struct BuilderStorage;
 struct BinaryNodeBuilder;

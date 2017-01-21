@@ -2,16 +2,25 @@ project(neural-networks)
 
 add_definitions(-std=c++14)
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
 set(FILES
+    NodeBuilders/UnaryNodeBuilder.cpp
+    NodeBuilders/UnaryNodeBuilder.hpp
+    NodeBuilders/BinaryNodeBuilder.cpp
+    NodeBuilders/BinaryNodeBuilder.hpp
+    NodeBuilders/NodeBuilder.hpp
+    NodeBuilders/ConstNodeBuilder.hpp
+    NodeBuilders/VariableNodeBuilder.hpp
+    NodeBuilders/OperationNodeBuilder.hpp
+    UnaryOperations/SigmoidUnaryOperation.hpp
+    BinaryOperations/AddBinaryOperation.hpp
+    BinaryOperations/MulBinaryOperation.hpp
     ArrayView.hpp
     NotNull.hpp
     BuilderStorage.cpp
     BuilderStorage.hpp
     BuilderToNodeMaps.hpp
-    MulBinaryOperation.hpp
-    AddBinaryOperation.hpp
-    BinaryNodeBuilder.cpp
-    BinaryNodeBuilder.hpp
     BinaryOperationNode.hpp
     BackPropagationNetwork.hpp
     BackPropagationNetwork.cpp
@@ -20,7 +29,6 @@ set(FILES
     BinaryOperationsFactory.hpp
     ConstNode.hpp
     ConstStorageBuilder.hpp
-    NodeBuilder.hpp
     NodeTags.hpp
     NetworkBuilder.cpp
     NetworkBuilder.hpp
@@ -28,11 +36,8 @@ set(FILES
     ScalarStorage.hpp
     VariableStorage.hpp
     VariableStorageBuilder.hpp
-    SigmoidUnaryOperation.hpp
     UnaryOperationsFactory.hpp
     UnaryOperationNode.hpp
-    UnaryNodeBuilder.cpp
-    UnaryNodeBuilder.hpp
     ConstStorage.hpp
     main.cpp
 )
