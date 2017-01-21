@@ -1,6 +1,6 @@
 #pragma once
 #include "NotNull.hpp"
-#include "BinaryOperationNode.hpp"
+#include "BinaryOperations/BinaryOperationNode.hpp"
 #include "BinaryOperations/MulBinaryOperation.hpp"
 #include "BinaryOperations/AddBinaryOperation.hpp"
 

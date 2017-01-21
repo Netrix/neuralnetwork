@@ -1,6 +1,6 @@
 #pragma once
 #include "NotNull.hpp"
-#include "UnaryOperationNode.hpp"
+#include "UnaryOperations/UnaryOperationNode.hpp"
 #include "UnaryOperations/SigmoidUnaryOperation.hpp"
 
 template<class Type>

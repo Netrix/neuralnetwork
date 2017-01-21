@@ -13,15 +13,16 @@ set(FILES
     NodeBuilders/ConstNodeBuilder.hpp
     NodeBuilders/VariableNodeBuilder.hpp
     NodeBuilders/OperationNodeBuilder.hpp
+    UnaryOperations/UnaryOperationNode.hpp
     UnaryOperations/SigmoidUnaryOperation.hpp
     BinaryOperations/AddBinaryOperation.hpp
     BinaryOperations/MulBinaryOperation.hpp
+    BinaryOperations/BinaryOperationNode.hpp
     ArrayView.hpp
     NotNull.hpp
     BuilderStorage.cpp
     BuilderStorage.hpp
     BuilderToNodeMaps.hpp
-    BinaryOperationNode.hpp
     BackPropagationNetwork.hpp
     BackPropagationNetwork.cpp
     OperationNode.hpp
@@ -37,7 +38,6 @@ set(FILES
     VariableStorage.hpp
     VariableStorageBuilder.hpp
     UnaryOperationsFactory.hpp
-    UnaryOperationNode.hpp
     ConstStorage.hpp
     main.cpp
 )

@@ -7,7 +7,7 @@
 #include <array>
 #include <cassert>
 #include <string>
-#include "BinaryOperationNode.hpp"
+#include "OperationNodeBuilder.hpp"
 #include "BuilderToNodeMaps.hpp"
 #include "UnaryNodeBuilder.hpp"
 #include <stdexcept>

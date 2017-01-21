@@ -3,7 +3,7 @@
 #include <memory>
 #include "ConstNode.hpp"
 #include "VariableNode.hpp"
-#include "BinaryOperationNode.hpp"
+#include "OperationNode.hpp"
 #include "NotNull.hpp"
 
 struct NodeBuilder;
