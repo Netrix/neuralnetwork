@@ -96,10 +96,6 @@ int main()
     std::cout << std::endl;
 
     network->setVariables(weights);
-//    auto result = network->forwardPass(TRAIN_DATA[1].input)[0];
-//    auto error = TRAIN_DATA[1].output[0] - result;
-//    std::cout << result << ", error: " << error <<  std::endl;
-//    network->backPropagate(error);
 
     auto l_print_network = [&]{
         for(int i = 0; i < TRAIN_DATA.size(); ++i)
@@ -126,7 +122,6 @@ int main()
     }
 
     // TODO
-    // 1. multiple input operations (add)
     // 2. multiple output layer (sigmoid, tanh, relu)
 
 
