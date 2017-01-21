@@ -12,6 +12,7 @@ set(FILES
     UnaryOperations/UnaryOperationNode.hpp
     UnaryOperations/SigmoidUnaryOperation.hpp
     UnaryOperations/TanhUnaryOperation.hpp
+    UnaryOperations/ReLUUnaryOperation.hpp
     BinaryOperations/AddBinaryOperation.hpp
     BinaryOperations/MulBinaryOperation.hpp
     BinaryOperations/BinaryOperationNode.hpp

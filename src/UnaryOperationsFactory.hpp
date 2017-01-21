@@ -3,6 +3,7 @@
 #include "UnaryOperations/UnaryOperationNode.hpp"
 #include "UnaryOperations/SigmoidUnaryOperation.hpp"
 #include "UnaryOperations/TanhUnaryOperation.hpp"
+#include "UnaryOperations/ReLUUnaryOperation.hpp"
 
 template<class Type>
 struct UnaryOperationsFactory
@@ -16,6 +17,10 @@ struct UnaryOperationsFactory
         else if(nodeType == "tanh")
         {
             return std::make_unique<TanhUnaryOperationNode<Type>>(input);
+        }
+        else if(nodeType == "relu")
+        {
+            return std::make_unique<ReLUUnaryOperationNode<Type>>(input);
         }
         assert(false);
         return nullptr; // TODO add implementation!!!

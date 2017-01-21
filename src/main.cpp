@@ -43,10 +43,10 @@ int main()
     };
 
 //    std::vector<TrainingEntity<float>> TRAIN_DATA = {
-////        {{ 1.0, 1.0 }, {1.0}},
-////        {{ 1.0, -1.0 }, {-1.0}},
-////        {{ -1.0, 1.0 }, {-1.0}},
-//        {{ 1.0, 0.0 }, {0.0}},
+//        {{ 1.0, 1.0 }, {-1.0}},
+//        {{ 1.0, -1.0 }, {1.0}},
+//        {{ -1.0, 1.0 }, {1.0}},
+//        {{ 1.0, -1.0 }, {-1.0}},
 //    };
 
     NetworkBuilder builder;
@@ -98,7 +98,7 @@ int main()
     auto network = builder.buildBackPropagationNetwork();
 
     std::mt19937 mt(2);
-    std::normal_distribution<> normal_dist(0, 2);
+    std::normal_distribution<> normal_dist(0, 1);
 
     std::vector<float> weights(9);
     for(auto & w : weights)
