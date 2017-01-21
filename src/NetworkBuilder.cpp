@@ -37,7 +37,7 @@ NotNull<UnaryNodeBuilder> NetworkBuilder::setRootNode(UnaryNodeTag, std::string 
     return l_builder;
 }
 
-std::unique_ptr<BackPropagationNetwork> NetworkBuilder::buildBackPropagationNetwork() const
+std::unique_ptr<BackPropagationNetwork> NetworkBuilder::buildBackPropagationNetwork(BNN_TYPE learningRate) const
 {
     auto constStorageBuilder = ConstStorageBuilder<BNN_TYPE>(m_storage.getNumConsts());
     auto variableStorageBuilder = VariableStorageBuilder<BNN_TYPE>(m_storage.getNumVariables());
@@ -70,7 +70,8 @@ std::unique_ptr<BackPropagationNetwork> NetworkBuilder::buildBackPropagationNetw
                 extractNodesFromMap(builderToNodeMaps.variables),
                 constStorageBuilder.build(),
                 variableStorageBuilder.build(),
-                variableDeltaStorageBuilder.build());
+                variableDeltaStorageBuilder.build(),
+                learningRate);
 }
 
 ConstBuilderToNodeMap<BNN_TYPE> NetworkBuilder::getConstNodeMap(ConstStorageBuilder<BNN_TYPE> & constStorageBuilder) const

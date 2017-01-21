@@ -23,16 +23,17 @@ struct BackPropagationNetwork
             VariableNodes && variableNodes,
             std::unique_ptr<ConstStorage<BNN_TYPE>> constStorage,
             std::unique_ptr<VariableStorage<BNN_TYPE>> variableStorage,
-            std::unique_ptr<VariableDeltaStorage<BNN_TYPE>> variableDeltaStorage);
+            std::unique_ptr<VariableDeltaStorage<BNN_TYPE>> variableDeltaStorage,
+            BNN_TYPE learningRate);
 
     ArrayView<BNN_TYPE const> forwardPass(ArrayView<BNN_TYPE const> input);
     void backPropagate(ArrayView<BNN_TYPE> errors);
 
+    void setLearningRate(BNN_TYPE learningRate);
     void setVariables(ArrayView<BNN_TYPE const> values);
     void applyDeltaOnVariables();
 
 private:
-    const BNN_TYPE m_learningRate = 1.0f;
     std::size_t m_numBackpropagationPasses = 0;
     OperationNodes m_operationNodes;
     ConstNodes m_constNodes;
@@ -40,4 +41,5 @@ private:
     std::unique_ptr<ConstStorage<BNN_TYPE>> m_constStorage;
     std::unique_ptr<VariableStorage<BNN_TYPE>> m_variableStorage;   // teoretically no need for unique_ptr
     std::unique_ptr<VariableDeltaStorage<BNN_TYPE>> m_variableDeltaStorage;
+    BNN_TYPE m_learningRate = 1.0f;
 };

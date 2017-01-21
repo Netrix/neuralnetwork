@@ -122,7 +122,9 @@ int main()
     }
 
     // TODO
-    // 2. multiple output layer (sigmoid, tanh, relu)
+    // 1, Create higher abstraction builder that can automatically build layers from smaller nodes
+    // 2. abstract initialization of weights
+    // 3. multiple output layer (sigmoid, tanh, relu)
 
 
     // epoch learn above data

@@ -22,7 +22,7 @@ struct NetworkBuilder
     NotNull<BinaryNodeBuilder> setRootNode(BinaryNodeTag, std::string const& operation);
     NotNull<UnaryNodeBuilder> setRootNode(UnaryNodeTag, std::string const& operation);
 
-    std::unique_ptr<BackPropagationNetwork> buildBackPropagationNetwork() const;   // should verify entire tree and return ready to work tree
+    std::unique_ptr<BackPropagationNetwork> buildBackPropagationNetwork(BNN_TYPE learningRate=1.0f) const;   // should verify entire tree and return ready to work tree
 
     std::unique_ptr<ForwardNetwork> buildForwardNetwork();
 

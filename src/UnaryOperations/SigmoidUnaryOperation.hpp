@@ -34,7 +34,7 @@ private:
     }
 
 private:
-    Type m_beta = 1.0f;
+    Type m_beta = 1.0f; // TODO add as parameter
     ComputationNode<Type>& m_input;
     Type m_outputValue;
 };

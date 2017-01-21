@@ -7,13 +7,15 @@ BackPropagationNetwork::BackPropagationNetwork(
         VariableNodes && variableNodes,
         std::unique_ptr<ConstStorage<BNN_TYPE>> constStorage,
         std::unique_ptr<VariableStorage<BNN_TYPE>> variableStorage,
-        std::unique_ptr<VariableDeltaStorage<BNN_TYPE>> variableDeltaStorage)
+        std::unique_ptr<VariableDeltaStorage<BNN_TYPE>> variableDeltaStorage,
+        BNN_TYPE learningRate)
     : m_operationNodes(std::move(operationNodes))
     , m_constNodes(std::move(constNodes))
     , m_variableNodes(std::move(variableNodes))
     , m_constStorage(std::move(constStorage))
     , m_variableStorage(std::move(variableStorage))
     , m_variableDeltaStorage(std::move(variableDeltaStorage))
+    , m_learningRate(learningRate)
 {}
 
 ArrayView<BNN_TYPE const> BackPropagationNetwork::forwardPass(ArrayView<BNN_TYPE const> input)
@@ -54,4 +56,9 @@ void BackPropagationNetwork::applyDeltaOnVariables()
     {
         return 0.0f;
     });
+}
+
+void BackPropagationNetwork::setLearningRate(BNN_TYPE learningRate)
+{
+    m_learningRate = learningRate;
 }
