@@ -1,9 +1,5 @@
 project(neural-networks)
 
-add_definitions(-std=c++14)
-
-include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-
 set(FILES
     NodeBuilders/UnaryNodeBuilder.cpp
     NodeBuilders/UnaryNodeBuilder.hpp
@@ -39,6 +35,14 @@ set(FILES
     VariableStorageBuilder.hpp
     UnaryOperationsFactory.hpp
     ConstStorage.hpp
-    main.cpp
 )
-add_executable(${PROJECT_NAME} ${FILES})
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+add_library("${PROJECT_NAME}-lib" ${FILES})
+
+add_executable(${PROJECT_NAME} main.cpp)
+target_link_libraries(${PROJECT_NAME} "${PROJECT_NAME}-lib")
+
+
+# For Visual Studio
+source_group(src FILES ${SOURCES})

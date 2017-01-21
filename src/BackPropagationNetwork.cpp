@@ -46,7 +46,6 @@ void BackPropagationNetwork::applyDeltaOnVariables()
     std::transform(std::begin(l_weights), std::end(l_weights), std::begin(m_variableDeltaStorage->getValues()), std::begin(l_weights),
                    [=](auto a, auto b)
     {
-        std::cout << "Weight: " << a << ", weight delta: " << b << std::endl;
         return a + (b / m_numBackpropagationPasses) * m_learningRate;
     });
 

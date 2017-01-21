@@ -23,8 +23,7 @@ struct SigmoidUnaryOperationNode : UnaryOperationNode<Type>
 
     void backPropagate(ArrayView<Type const> errors) override
     {
-        auto value = calculateSigmoid(errors[0]);
-        auto error = (m_beta * value * ((Type)1.0 - value)) * m_input.getOutputValues()[0];
+        auto error = (m_beta * m_outputValue * ((Type)1.0 - m_outputValue)) * errors[0];
         m_input.backPropagate(error);
     }
 

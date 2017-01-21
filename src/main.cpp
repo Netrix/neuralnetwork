@@ -35,19 +35,19 @@ std::ostream& operator<<(std::ostream& out, std::vector<BNN_TYPE> const& values)
 
 int main()
 {
-//    std::vector<TrainingEntity<float>> TRAIN_DATA = {
-//        {{ 1.0, 1.0 }, {0.0}},
-//        {{ 1.0, 0.0 }, {1.0}},
-//        {{ 0.0, 1.0 }, {1.0}},
-//        {{ 0.0, 0.0 }, {0.0}},
-//    };
-
     std::vector<TrainingEntity<float>> TRAIN_DATA = {
-//        {{ 1.0, 1.0 }, {1.0}},
-//        {{ 1.0, -1.0 }, {-1.0}},
-//        {{ -1.0, 1.0 }, {-1.0}},
-        {{ 1.0, 0.0 }, {0.0}},
+        {{ 1.0, 1.0 }, {0.0}},
+        {{ 1.0, 0.0 }, {1.0}},
+        {{ 0.0, 1.0 }, {1.0}},
+        {{ 0.0, 0.0 }, {0.0}},
     };
+
+//    std::vector<TrainingEntity<float>> TRAIN_DATA = {
+////        {{ 1.0, 1.0 }, {1.0}},
+////        {{ 1.0, -1.0 }, {-1.0}},
+////        {{ -1.0, 1.0 }, {-1.0}},
+//        {{ 1.0, 0.0 }, {0.0}},
+//    };
 
     NetworkBuilder builder;
     auto sigmoidNode = builder.setRootNode(UnaryNodeTag{}, "sigmoid");
@@ -121,18 +121,16 @@ int main()
         }
     };
 
-    for(int i = 0; i < 10; ++i)
+    for(int i = 0; i < 5000; ++i)
     {
         BNN_TYPE errorSum = 0;
         for(auto const& trainEntity : TRAIN_DATA)
         {
             auto result = network->forwardPass(trainEntity.input)[0];
             auto error = trainEntity.output[0] - result;
-            std::cout << "backprop error: " << error <<  std::endl;
             network->backPropagate(error);
 
             auto squaredError = error * error;
-            std::cout << squaredError << std::endl;
             errorSum += squaredError;
         }
         network->applyDeltaOnVariables();

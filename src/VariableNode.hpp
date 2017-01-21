@@ -18,7 +18,6 @@ struct VariableNode : ComputationNode<Type>
     void backPropagate(ArrayView<Type const> errors) override
     {
         m_delta += errors[0];
-//        std::cout << "m_detla: " << m_delta << ", error: " << errors[0] << ", value: " << m_value << std::endl;
     }
 
 private:
