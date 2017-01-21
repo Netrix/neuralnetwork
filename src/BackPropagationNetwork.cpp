@@ -42,6 +42,11 @@ void BackPropagationNetwork::setVariables(ArrayView<BNN_TYPE const> values)
     m_variableStorage->setValues(values);
 }
 
+void BackPropagationNetwork::setVariables(std::function<BNN_TYPE()> generator)
+{
+    m_variableStorage->setValuesByGenerator(generator);
+}
+
 void BackPropagationNetwork::applyDeltaOnVariables()
 {
     auto l_weights = m_variableStorage->getValues();

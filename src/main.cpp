@@ -86,16 +86,10 @@ int main()
 
     std::mt19937 mt(2);
     std::normal_distribution<> normal_dist(0, 1);
-
-    std::vector<float> weights(9);
-    for(auto & w : weights)
+    network->setVariables([&normal_dist, &mt]
     {
-        w = normal_dist(mt);
-        std::cout << w << ", ";
-    }
-    std::cout << std::endl;
-
-    network->setVariables(weights);
+        return normal_dist(mt);
+    });
 
     auto l_print_network = [&]{
         for(int i = 0; i < TRAIN_DATA.size(); ++i)

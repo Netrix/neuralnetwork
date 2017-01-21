@@ -31,6 +31,7 @@ struct BackPropagationNetwork
 
     void setLearningRate(BNN_TYPE learningRate);
     void setVariables(ArrayView<BNN_TYPE const> values);
+    void setVariables(std::function<BNN_TYPE()> generator);
     void applyDeltaOnVariables();
 
 private:
