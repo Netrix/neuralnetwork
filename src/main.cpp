@@ -35,9 +35,7 @@ struct LayerBuilder
 {
     virtual ~LayerBuilder() = default;
 
-    virtual std::vector<NodeBuilder> build(ArrayView<NodeBuilder> nextLayer) const = 0;
-
-    virtual std::size_t getNumComputations() const = 0;
+    virtual std::size_t getNumOutputs() const = 0;
 };
 
 struct FullyConnectedLayerBuilder : LayerBuilder
@@ -48,11 +46,7 @@ struct FullyConnectedLayerBuilder : LayerBuilder
     {
     }
 
-    std::vector<NodeBuilder> build(ArrayView<NodeBuilder> nextLayer) const override
-    {
-    }
-
-    std::size_t getNumComputations() const override
+    std::size_t getNumOutputs() const override
     {
         return m_numNeurons;
     }
@@ -68,11 +62,10 @@ struct InputLayerBuilder : LayerBuilder
         : m_numInputs(numInputs)
     {}
 
-    std::vector<NodeBuilder> build(ArrayView<NodeBuilder> nextLayer) const override
-    {}
-
-    std::size_t getNumComputations() const override
-    {}
+    std::size_t getNumOutputs() const override
+    {
+        return m_numInputs;
+    }
 
 private:
     std::size_t m_numInputs;
@@ -82,25 +75,41 @@ struct LayerNetworkBuilder
 {
     void addLayer(InputTag, std::size_t numInputs)
     {
-        layerBuilders.push_back(std::make_unique<InputLayerBuilder>(numInputs));
+        m_layerBuilders.push_back(std::make_unique<InputLayerBuilder>(numInputs));
     }
 
     void addLayer(FullyConnectedTag, std::size_t numNeurons, std::string const& activation)
     {
-        layerBuilders.push_back(std::make_unique<FullyConnectedLayerBuilder>(numNeurons, activation));
+        m_layerBuilders.push_back(std::make_unique<FullyConnectedLayerBuilder>(numNeurons, activation));
     }
 
     std::unique_ptr<BackPropagationNetwork> buildBackPropagationNetwork()
     {
-        assert(!layerBuilders.empty());
-        assert(layerBuilders.back()->getNumComputations() == 1);
+        assert(!m_layerBuilders.empty());
+        assert(m_layerBuilders.back()->getNumOutputs() == 1);
+
+        std::vector<LayerBuilder const*> reversedBuilders;
+        reversedBuilders.reserve(m_layerBuilders.size());
+        std::transform(std::rbegin(m_layerBuilders), std::rend(m_layerBuilders), std::back_inserter(reversedBuilders),
+                       [](auto const& builder)
+        {
+            return builder.get();
+        });
 
         NetworkBuilder networkBuilder;
+
+        for(auto i = 0; i < reversedBuilders.size() - 1; ++i)
+        {
+        // 1. build output elements from previous layer
+        // 2. build rest of the elements in current network
+        // 3. go to 1.
+        }
+
         return networkBuilder.buildBackPropagationNetwork();
     }
 
 private:
-    std::vector<std::unique_ptr<LayerBuilder>> layerBuilders;
+    std::vector<std::unique_ptr<LayerBuilder>> m_layerBuilders;
 };
 
 int main()
