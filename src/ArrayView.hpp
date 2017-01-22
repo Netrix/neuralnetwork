@@ -12,7 +12,7 @@ public:
     ArrayView(std::nullptr_t) = delete;
 
     ArrayView(Type & p_value)
-        : m_pointerToArray(&p_value)
+        : m_pointerToArray(std::addressof(p_value))
         , m_arraySize(1)
     {}
 

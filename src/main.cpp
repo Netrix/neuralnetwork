@@ -9,6 +9,10 @@
 #include "NodeBuilders/BinaryNodeBuilder.hpp"
 #include "BuilderStorage.hpp"
 #include "NetworkBuilder.hpp"
+#include "LayeredNetworkBuilder.hpp"
+#include "LayeredNetworkBuilders/FullyConnectedLayerSpecs.hpp"
+#include "LayeredNetworkBuilders/FullyConnectedLayerBuilder.hpp"
+#include "LayeredNetworkBuilders/InputLayerSpecs.hpp"
 
 
 template<class Type>
@@ -28,77 +32,6 @@ std::ostream& operator<<(std::ostream& out, std::vector<BNN_TYPE> const& values)
     return out << " ] ";
 }
 
-struct FullyConnectedLayerSpecs
-{
-    std::size_t numNeurons;
-    std::string const& activation;
-};
-
-struct InputLayerSpecs
-{
-    std::size_t numInputs;
-};
-
-struct LayerBuilder
-{
-    virtual ~LayerBuilder() = default;
-};
-
-struct InputLayerBuilder : LayerBuilder
-{
-    InputLayerBuilder(std::size_t numInputs)
-        : m_numInputs(numInputs)
-    {
-    }
-
-private:
-    std::size_t m_numInputs;
-};
-
-struct FullyConnectedLayerBuilder : LayerBuilder
-{
-    FullyConnectedLayerBuilder(std::size_t numNeurons, std::string const& activation)
-        : m_numNeurons(numNeurons)
-        , m_activation(activation)
-    {
-    }
-
-    NotNull<FullyConnectedLayerBuilder> setInputLayer(FullyConnectedLayerSpecs specs)
-    {
-        auto l_layer = std::make_unique<FullyConnectedLayerBuilder>(specs.numNeurons, specs.activation);
-        auto l_specificLayer = l_layer.get();
-        m_inputLayer = std::move(l_layer);
-        return l_specificLayer;
-    }
-
-    NotNull<InputLayerBuilder> setInputLayer(InputLayerSpecs specs)
-    {
-        auto l_layer = std::make_unique<InputLayerBuilder>(specs.numInputs);
-        auto l_specificLayer = l_layer.get();
-        m_inputLayer = std::move(l_layer);
-        return l_specificLayer;
-    }
-
-private:
-    std::size_t m_numNeurons;
-    std::string  m_activation;
-    std::unique_ptr<LayerBuilder> m_inputLayer;
-};
-
-struct LayerNetworkBuilder
-{
-    NotNull<FullyConnectedLayerBuilder> setOutputLayer(FullyConnectedLayerSpecs specs)
-    {
-        auto l_layer = std::make_unique<FullyConnectedLayerBuilder>(specs.numNeurons, specs.activation);
-        auto l_specificLayer = l_layer.get();
-        m_outputLayer = std::move(l_layer);
-        return l_specificLayer;
-    }
-
-private:
-    NetworkBuilder m_networkBuilder;
-    std::unique_ptr<LayerBuilder> m_outputLayer;
-};
 
 int main()
 {
@@ -154,14 +87,13 @@ int main()
     x2w22MulNode->setFirstInput(x2Node);
     x2w22MulNode->setSecondInput(VariableTag{}); // w22
 
-    auto network = builder.buildBackPropagationNetwork();
+//    auto network = builder.buildBackPropagationNetwork();
 
-    LayerNetworkBuilder layerNetworkBuilder;
-    auto outLayer = layerNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{1, "tanh"});
+    LayeredNetworkBuilder LayeredNetworkBuilder;
+    auto outLayer = LayeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{1, "tanh"});
     auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{2, "tanh"});
     hiddenLayer->setInputLayer(InputLayerSpecs{2});
-
-//    auto layerNetwork = layerNetworkBuilder.buildBackPropagationNetwork();
+    auto network = LayeredNetworkBuilder.buildBackPropagationNetwork();
 
     std::mt19937 mt(2);
     std::normal_distribution<> normal_dist(0, 1);

@@ -107,6 +107,26 @@ void BinaryNodeBuilder::setSecondInput(NotNull<ConstNodeBuilder> node)
     m_inputBuilders[1] = node;
 }
 
+void BinaryNodeBuilder::setFirstInput(NotNull<BinaryNodeBuilder> node)
+{
+    m_inputBuilders[0] = node;
+}
+
+void BinaryNodeBuilder::setSecondInput(NotNull<BinaryNodeBuilder> node)
+{
+    m_inputBuilders[1] = node;
+}
+
+void BinaryNodeBuilder::setFirstInput(NotNull<UnaryNodeBuilder> node)
+{
+    m_inputBuilders[0] = node;
+}
+
+void BinaryNodeBuilder::setSecondInput(NotNull<UnaryNodeBuilder> node)
+{
+    m_inputBuilders[1] = node;
+}
+
 ArrayView<OperationNodeBuilder*> BinaryNodeBuilder::getOperations()
 {
     return m_operationBuilders;

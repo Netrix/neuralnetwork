@@ -37,6 +37,12 @@ struct BinaryNodeBuilder : OperationNodeBuilder
     void setFirstInput(NotNull<ConstNodeBuilder>);
     void setSecondInput(NotNull<ConstNodeBuilder>);
 
+    void setFirstInput(NotNull<BinaryNodeBuilder>);
+    void setSecondInput(NotNull<BinaryNodeBuilder>);
+
+    void setFirstInput(NotNull<UnaryNodeBuilder>);
+    void setSecondInput(NotNull<UnaryNodeBuilder>);
+
     ArrayView<OperationNodeBuilder*> getOperations() override;
 
     std::unique_ptr<OperationNode<BNN_TYPE>> build(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps) override;

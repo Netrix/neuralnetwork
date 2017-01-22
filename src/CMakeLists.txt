@@ -20,6 +20,11 @@ set(FILES
     BinaryOperations/BinaryOperationNode.hpp
     MultipleInputOperators/AddOperation.hpp
     MultipleInputOperators/MultipleInputOperationNode.hpp
+    LayeredNetworkBuilders/FullyConnectedLayerBuilder.hpp
+    LayeredNetworkBuilders/FullyConnectedLayerBuilder.cpp
+    LayeredNetworkBuilders/LayerBuilder.hpp
+    LayeredNetworkBuilders/FullyConnectedLayerSpecs.hpp
+    LayeredNetworkBuilders/InputLayerSpecs.hpp
     ArrayView.hpp
     NotNull.hpp
     BuilderStorage.cpp
@@ -42,6 +47,8 @@ set(FILES
     UnaryOperationsFactory.hpp
     MultipleInputOperationsFactory.hpp
     ConstStorage.hpp
+    LayeredNetworkBuilder.cpp
+    LayeredNetworkBuilder.hpp
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
