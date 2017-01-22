@@ -1,9 +1,9 @@
 #pragma once
 #include "NotNull.hpp"
-#include "UnaryOperations/UnaryOperationNode.hpp"
-#include "UnaryOperations/SigmoidUnaryOperation.hpp"
-#include "UnaryOperations/TanhUnaryOperation.hpp"
-#include "UnaryOperations/ReLUUnaryOperation.hpp"
+#include "Nodes/UnaryOperations/UnaryOperationNode.hpp"
+#include "Nodes/UnaryOperations/SigmoidUnaryOperation.hpp"
+#include "Nodes/UnaryOperations/TanhUnaryOperation.hpp"
+#include "Nodes/UnaryOperations/ReLUUnaryOperation.hpp"
 
 template<class Type>
 struct UnaryOperationsFactory

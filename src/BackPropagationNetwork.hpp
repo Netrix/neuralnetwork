@@ -4,9 +4,9 @@
 #include <algorithm>
 
 #include "ArrayView.hpp"
-#include "OperationNode.hpp"
-#include "ConstNode.hpp"
-#include "VariableNode.hpp"
+#include "Nodes/OperationNode.hpp"
+#include "Nodes/ConstNode.hpp"
+#include "Nodes/VariableNode.hpp"
 #include "ConstStorage.hpp"
 #include "VariableStorage.hpp"
 #include "NodeBuilders/NodeBuilder.hpp" //BNN_TYPE

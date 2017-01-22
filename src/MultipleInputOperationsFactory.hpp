@@ -1,6 +1,6 @@
 #pragma once
 #include "NotNull.hpp"
-#include "MultipleInputOperators/AddOperation.hpp"
+#include "Nodes/MultipleInputOperators/AddOperation.hpp"
 
 template<class Type>
 struct MultipleInputOperationsFactory

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "VariableNode.hpp"
+#include "Nodes/VariableNode.hpp"
 #include "VariableStorageBuilder.hpp"
 #include "BuilderToNodeMaps.hpp"
 #include "NodeBuilder.hpp"

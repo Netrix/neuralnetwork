@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "UnaryOperations/SigmoidUnaryOperation.hpp"
+#include "Nodes/UnaryOperations/SigmoidUnaryOperation.hpp"
 
 struct SigmoidUnaryOperationTest : testing::Test
 {

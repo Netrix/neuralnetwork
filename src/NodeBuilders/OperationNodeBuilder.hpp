@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OperationNode.hpp"
+#include "Nodes/OperationNode.hpp"
 #include "BuilderToNodeMaps.hpp"
 #include "NodeBuilder.hpp"
 #include <memory>

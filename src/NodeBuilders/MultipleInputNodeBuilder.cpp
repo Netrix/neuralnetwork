@@ -1,5 +1,5 @@
 #include "MultipleInputNodeBuilder.hpp"
-#include "MultipleInputOperators/MultipleInputOperationNode.hpp"
+#include "Nodes/MultipleInputOperators/MultipleInputOperationNode.hpp"
 #include "BuilderStorage.hpp"
 #include "MultipleInputOperationsFactory.hpp"
 #include <algorithm>

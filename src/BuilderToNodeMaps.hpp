@@ -1,9 +1,9 @@
 #pragma once
 #include <map>
 #include <memory>
-#include "ConstNode.hpp"
-#include "VariableNode.hpp"
-#include "OperationNode.hpp"
+#include "Nodes/ConstNode.hpp"
+#include "Nodes/VariableNode.hpp"
+#include "Nodes/OperationNode.hpp"
 #include "NotNull.hpp"
 
 struct NodeBuilder;

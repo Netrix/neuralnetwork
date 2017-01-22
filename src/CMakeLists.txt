@@ -1,6 +1,23 @@
 project(neural-networks)
 
+set(NODES_FILES
+    Nodes/OperationNode.hpp
+    Nodes/ComputationNode.hpp
+    Nodes/ConstNode.hpp
+    Nodes/VariableNode.hpp
+    Nodes/UnaryOperations/UnaryOperationNode.hpp
+    Nodes/UnaryOperations/SigmoidUnaryOperation.hpp
+    Nodes/UnaryOperations/TanhUnaryOperation.hpp
+    Nodes/UnaryOperations/ReLUUnaryOperation.hpp
+    Nodes/BinaryOperations/AddBinaryOperation.hpp
+    Nodes/BinaryOperations/MulBinaryOperation.hpp
+    Nodes/BinaryOperations/BinaryOperationNode.hpp
+    Nodes/MultipleInputOperators/AddOperation.hpp
+    Nodes/MultipleInputOperators/MultipleInputOperationNode.hpp
+    )
+
 set(FILES
+    ${NODES_FILES}
     NodeBuilders/UnaryNodeBuilder.cpp
     NodeBuilders/UnaryNodeBuilder.hpp
     NodeBuilders/BinaryNodeBuilder.cpp
@@ -11,15 +28,6 @@ set(FILES
     NodeBuilders/OperationNodeBuilder.hpp
     NodeBuilders/MultipleInputNodeBuilder.cpp
     NodeBuilders/MultipleInputNodeBuilder.hpp
-    UnaryOperations/UnaryOperationNode.hpp
-    UnaryOperations/SigmoidUnaryOperation.hpp
-    UnaryOperations/TanhUnaryOperation.hpp
-    UnaryOperations/ReLUUnaryOperation.hpp
-    BinaryOperations/AddBinaryOperation.hpp
-    BinaryOperations/MulBinaryOperation.hpp
-    BinaryOperations/BinaryOperationNode.hpp
-    MultipleInputOperators/AddOperation.hpp
-    MultipleInputOperators/MultipleInputOperationNode.hpp
     LayeredNetworkBuilders/FullyConnectedLayerBuilder.hpp
     LayeredNetworkBuilders/FullyConnectedLayerBuilder.cpp
     LayeredNetworkBuilders/LayerBuilder.hpp
@@ -32,15 +40,11 @@ set(FILES
     BuilderToNodeMaps.hpp
     BackPropagationNetwork.hpp
     BackPropagationNetwork.cpp
-    OperationNode.hpp
-    ComputationNode.hpp
     BinaryOperationsFactory.hpp
-    ConstNode.hpp
     ConstStorageBuilder.hpp
     NodeTags.hpp
     NetworkBuilder.cpp
     NetworkBuilder.hpp
-    VariableNode.hpp
     ScalarStorage.hpp
     VariableStorage.hpp
     VariableStorageBuilder.hpp

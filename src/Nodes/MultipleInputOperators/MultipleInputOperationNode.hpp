@@ -1,5 +1,5 @@
 #pragma once
-#include "OperationNode.hpp"
+#include "Nodes/OperationNode.hpp"
 
 template<class Type>
 struct MultipleInputOperationNode : OperationNode<Type>
