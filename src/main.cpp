@@ -29,7 +29,6 @@ std::ostream& operator<<(std::ostream& out, std::vector<BNN_TYPE> const& values)
 }
 
 struct FullyConnectedTag{};
-struct InputTag{};
 
 struct LayerBuilder
 {
@@ -56,27 +55,12 @@ private:
     std::string  m_activation;
 };
 
-struct InputLayerBuilder : LayerBuilder
-{
-    InputLayerBuilder(std::size_t numInputs)
-        : m_numInputs(numInputs)
-    {}
-
-    std::size_t getNumOutputs() const override
-    {
-        return m_numInputs;
-    }
-
-private:
-    std::size_t m_numInputs;
-};
 
 struct LayerNetworkBuilder
 {
-    void addLayer(InputTag, std::size_t numInputs)
-    {
-        m_layerBuilders.push_back(std::make_unique<InputLayerBuilder>(numInputs));
-    }
+    LayerNetworkBuilder(std::size_t numInputs)  // change argument to abstract InputLayer
+        : m_numInputs(numInputs)
+    {}
 
     void addLayer(FullyConnectedTag, std::size_t numNeurons, std::string const& activation)
     {
@@ -109,6 +93,7 @@ struct LayerNetworkBuilder
     }
 
 private:
+    std::size_t m_numInputs;
     std::vector<std::unique_ptr<LayerBuilder>> m_layerBuilders;
 };
 
@@ -168,11 +153,10 @@ int main()
 
     auto network = builder.buildBackPropagationNetwork();
 
-    LayerNetworkBuilder layerNetworkBuilder;
-    layerNetworkBuilder.addLayer(InputTag{}, 2);
+    LayerNetworkBuilder layerNetworkBuilder{2};
     layerNetworkBuilder.addLayer(FullyConnectedTag{}, 2, "relu");
     layerNetworkBuilder.addLayer(FullyConnectedTag{}, 1, "relu");
-    auto layerNetwork = layerNetworkBuilder.buildBackPropagationNetwork();
+//    auto layerNetwork = layerNetworkBuilder.buildBackPropagationNetwork();
 
     std::mt19937 mt(2);
     std::normal_distribution<> normal_dist(0, 1);
