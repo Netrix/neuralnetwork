@@ -180,51 +180,51 @@ public:
         }
 
         template<typename T>
-        friend bool operator==(const ArrayViewIterator<T>& r1, const ArrayViewIterator<T>& r2)
+        bool operator==(const ArrayViewIterator<T>& r2)
         {
-            return r1.m_data == r2.m_data;
+            return m_data == r2.m_data;
         }
 
         template<typename T>
-        friend bool operator!=(const ArrayViewIterator<T>& r1, const ArrayViewIterator<T>& r2)
+        bool operator!=(const ArrayViewIterator<T>& r2)
         {
-            return r1.m_data != r2.m_data;
+            return m_data != r2.m_data;
         }
 
         template<typename T>
-        friend bool operator<(const ArrayViewIterator<T>& r1, const ArrayViewIterator<T>& r2)
+        bool operator<(const ArrayViewIterator<T>& r2)
         {
-            return r1.m_data < r2.m_data;
+            return m_data < r2.m_data;
         }
 
         template<typename T>
-        friend bool operator>(const ArrayViewIterator<T>& r1, const ArrayViewIterator<T>& r2)
+        bool operator>(const ArrayViewIterator<T>& r2)
         {
-            return r1.m_data > r2.m_data;
+            return m_data > r2.m_data;
         }
 
         template<typename T>
-        friend bool operator<=(const ArrayViewIterator<T>& r1, const ArrayViewIterator<T>& r2)
+        bool operator<=(const ArrayViewIterator<T>& r2)
         {
-            return r1.m_data <= r2.m_data;
+            return m_data <= r2.m_data;
         }
 
         template<typename T>
-        friend bool operator>=(const ArrayViewIterator<T>& r1, const ArrayViewIterator<T>& r2)
+        bool operator>=(const ArrayViewIterator<T>& r2)
         {
-            return r1.m_data >= r2.m_data;
+            return m_data >= r2.m_data;
         }
 
         template<typename T>
-        friend typename ArrayViewIterator<T>::difference_type operator+(const ArrayViewIterator<T>& r1, const ArrayViewIterator<T>& r2)
+        typename ArrayViewIterator<T>::difference_type operator+(const ArrayViewIterator<T>& r2)
         {
-            return ArrayViewIterator<T>(r1.m_data + r2.m_data);
+            return ArrayViewIterator<T>(m_data + r2.m_data);
         }
 
         template<typename T>
-        friend typename ArrayViewIterator<T>::difference_type operator-(const ArrayViewIterator<T>& r1, const ArrayViewIterator<T>& r2)
+        typename ArrayViewIterator<T>::difference_type operator-(const ArrayViewIterator<T>& r2)
         {
-            return r1.m_data - r2.m_data;
+            return m_data - r2.m_data;
         }
 
     private:
