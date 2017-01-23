@@ -3,6 +3,7 @@
 #include "Nodes/OperationNode.hpp"
 #include "BuilderToNodeMaps.hpp"
 #include "NodeBuilder.hpp"
+#include "NotNull.hpp"
 #include <memory>
 
 struct OperationNodeBuilder : NodeBuilder

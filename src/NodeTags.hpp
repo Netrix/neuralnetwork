@@ -5,3 +5,4 @@ struct BinaryNodeTag{};
 struct VariableTag{};
 struct ConstTag{};
 struct MultipleInputTag{};
+struct LayerNodeTag{};

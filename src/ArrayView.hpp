@@ -9,6 +9,8 @@ template<class Type>
 class ArrayView
 {
 public:
+    using value_type = Type;
+
     ArrayView(std::nullptr_t) = delete;
 
     ArrayView(Type & p_value)
@@ -79,6 +81,11 @@ public:
     {
         assert(index < m_arraySize);
         return m_pointerToArray[index];
+    }
+
+    Type const* data() const
+    {
+        return m_pointerToArray;
     }
 
     std::size_t size() const

@@ -17,7 +17,7 @@ struct BuilderStorage;
 
 struct BinaryNodeBuilder : OperationNodeBuilder
 {
-    BinaryNodeBuilder(BuilderStorage& builderStorage, std::string const& operation);
+    BinaryNodeBuilder(BuilderStorage& builderStorage, std::string const& operation);    // TODO instead of operation let it pass the factory for the operation, the factory should be able to receive inputs, everything else should be passed through factory constructor
 
     NotNull<MultipleInputNodeBuilder> setFirstInput(MultipleInputTag, std::string const& operation);
     NotNull<MultipleInputNodeBuilder> setSecondInput(MultipleInputTag, std::string const& operation);

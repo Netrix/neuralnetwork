@@ -8,6 +8,7 @@
 
 struct UnaryNodeBuilder;
 struct ConstNodeBuilder;
+struct LayerNodeBuilder;
 struct MultipleInputNodeBuilder;
 struct FullyConnectedLayerSpecs;
 struct InputLayerSpecs;

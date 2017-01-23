@@ -12,15 +12,16 @@
 
 
 struct BinaryNodeBuilder;
+struct UnaryNodeBuilder;
+struct LayerNodeBuilder;
 
 struct ForwardNetwork{};
-
-
 
 struct NetworkBuilder
 {
     NotNull<BinaryNodeBuilder> setRootNode(BinaryNodeTag, std::string const& operation);
     NotNull<UnaryNodeBuilder> setRootNode(UnaryNodeTag, std::string const& operation);
+    NotNull<LayerNodeBuilder> setRootNode(LayerNodeTag, std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory);
 
     std::unique_ptr<BackPropagationNetwork> buildBackPropagationNetwork(BNN_TYPE learningRate=1.0f) const;   // should verify entire tree and return ready to work tree
 

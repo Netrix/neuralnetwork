@@ -27,7 +27,7 @@ struct BackPropagationNetwork
             BNN_TYPE learningRate);
 
     ArrayView<BNN_TYPE const> forwardPass(ArrayView<BNN_TYPE const> input);
-    void backPropagate(ArrayView<BNN_TYPE> errors);
+    void backPropagate(ArrayView<BNN_TYPE const> errors);
 
     void setLearningRate(BNN_TYPE learningRate);
     void setVariables(ArrayView<BNN_TYPE const> values);

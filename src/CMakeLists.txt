@@ -14,6 +14,8 @@ set(NODES_FILES
     Nodes/BinaryOperations/BinaryOperationNode.hpp
     Nodes/MultipleInputOperators/AddOperation.hpp
     Nodes/MultipleInputOperators/MultipleInputOperationNode.hpp
+    Nodes/LayerNodes/LayerNode.hpp
+    Nodes/LayerNodes/PassThroughLayerNode.hpp
     )
 
 set(FILES
@@ -28,11 +30,14 @@ set(FILES
     NodeBuilders/OperationNodeBuilder.hpp
     NodeBuilders/MultipleInputNodeBuilder.cpp
     NodeBuilders/MultipleInputNodeBuilder.hpp
+    NodeBuilders/LayerNodeBuilder.cpp
+    NodeBuilders/LayerNodeBuilder.hpp
     LayeredNetworkBuilders/FullyConnectedLayerBuilder.hpp
     LayeredNetworkBuilders/FullyConnectedLayerBuilder.cpp
     LayeredNetworkBuilders/LayerBuilder.hpp
     LayeredNetworkBuilders/FullyConnectedLayerSpecs.hpp
     LayeredNetworkBuilders/InputLayerSpecs.hpp
+    LayerNodeFactories/PassThrough.hpp
     Datasets/MnistLoader.cpp
     Datasets/MnistLoader.hpp
     ArrayView.hpp
@@ -55,6 +60,7 @@ set(FILES
     ConstStorage.hpp
     LayeredNetworkBuilder.cpp
     LayeredNetworkBuilder.hpp
+    ILayerOperationsFactory.hpp
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
