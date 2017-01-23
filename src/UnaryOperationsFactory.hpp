@@ -4,6 +4,7 @@
 #include "Nodes/UnaryOperations/SigmoidUnaryOperation.hpp"
 #include "Nodes/UnaryOperations/TanhUnaryOperation.hpp"
 #include "Nodes/UnaryOperations/ReLUUnaryOperation.hpp"
+#include "Nodes/UnaryOperations/PReLUUnaryOperation.hpp"
 
 template<class Type>
 struct UnaryOperationsFactory
@@ -21,6 +22,10 @@ struct UnaryOperationsFactory
         else if(nodeType == "relu")
         {
             return std::make_unique<ReLUUnaryOperationNode<Type>>(input);
+        }
+        else if(nodeType == "prelu")
+        {
+            return std::make_unique<PReLUUnaryOperationNode<Type>>(input);
         }
         assert(false);
         return nullptr; // TODO add implementation!!!

@@ -106,21 +106,29 @@ auto make_math_adapter(Type const& args)
 
 int main()
 {
+//    std::vector<TrainingEntity<float>> TRAIN_DATA = {
+//        {{ 1.0, 1.0 }, {0.0, 1.0}},
+//        {{ 1.0, 0.0 }, {1.0, 0.0}},
+//        {{ 0.0, 1.0 }, {1.0, 0.0}},
+//        {{ 0.0, 0.0 }, {0.0, 1.0}},
+//    };
+
     std::vector<TrainingEntity<float>> TRAIN_DATA = {
-        {{ 1.0, 1.0 }, {0.0, 1.0}},
-        {{ 1.0, 0.0 }, {1.0, 0.0}},
-        {{ 0.0, 1.0 }, {1.0, 0.0}},
-        {{ 0.0, 0.0 }, {0.0, 1.0}},
+        {{ 1.0, 1.0 }, {1.0, 0.0}},
+        {{ 1.0, -1.0 }, {0.0, 1.0}},
+        {{ -1.0, 1.0 }, {0.0, 1.0}},
+        {{ -1.0, -1.0 }, {1.0, 0.0}},
     };
 
     LayeredNetworkBuilder LayeredNetworkBuilder;
-    auto outLayer = LayeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{2, "tanh"});
-    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{2, "tanh"});
+    auto outLayer = LayeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{2, "relu"});
+    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{2, "relu"});
     hiddenLayer->setInputLayer(InputLayerSpecs{2});
     auto network = LayeredNetworkBuilder.buildBackPropagationNetwork();
+    network->setLearningRate(0.1f);
 
-    std::mt19937 mt(2);
-    std::normal_distribution<> normal_dist(0, 1);
+    std::mt19937 mt(17);
+    std::normal_distribution<> normal_dist(0, 1e-2);
     network->setVariables([&normal_dist, &mt]
     {
         return normal_dist(mt);
@@ -139,8 +147,9 @@ int main()
         for(auto const& trainEntity : TRAIN_DATA)
         {
             auto result = make_math_adapter(network->forwardPass(trainEntity.input));
-            auto expeceted = make_math_adapter(trainEntity.output);
-            auto error = expeceted - result;
+            std::cout << std::fixed << std::setprecision(2) << "Input: " << trainEntity.input << ", expected result: " <<trainEntity.output << ", result: " << result << std::endl;
+            auto expected = make_math_adapter(trainEntity.output);
+            auto error = expected - result;
             network->backPropagate(error);
 
             auto squaredError = error * error;
@@ -148,14 +157,16 @@ int main()
         }
         network->applyDeltaOnVariables();
         std::cout << "errorSum: " << errorSum <<  std::endl;
-        l_print_network();
+//        l_print_network();
     }
 
     // TODO
     // 0. Make relu work!
-    // 2. abstract initialization of weights
+    // 2. abstract initialization of weightsl
     // 3. multiple output layer (sigmoid, tanh, relu)
     // 4. abstract backprop
+    //
+    // zero-centering data! mean centering
 
 
     // epoch learn above data

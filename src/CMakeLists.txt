@@ -9,6 +9,7 @@ set(NODES_FILES
     Nodes/UnaryOperations/SigmoidUnaryOperation.hpp
     Nodes/UnaryOperations/TanhUnaryOperation.hpp
     Nodes/UnaryOperations/ReLUUnaryOperation.hpp
+    Nodes/UnaryOperations/PReLUUnaryOperation.hpp
     Nodes/BinaryOperations/AddBinaryOperation.hpp
     Nodes/BinaryOperations/MulBinaryOperation.hpp
     Nodes/BinaryOperations/BinaryOperationNode.hpp
