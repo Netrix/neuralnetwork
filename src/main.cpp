@@ -35,19 +35,19 @@ std::ostream& operator<<(std::ostream& out, std::vector<BNN_TYPE> const& values)
 
 int main()
 {
-    std::vector<TrainingEntity<float>> TRAIN_DATA = {
-        {{ 1.0, 1.0 }, {0.0}},
-        {{ 1.0, 0.0 }, {1.0}},
-        {{ 0.0, 1.0 }, {1.0}},
-        {{ 0.0, 0.0 }, {0.0}},
-    };
-
 //    std::vector<TrainingEntity<float>> TRAIN_DATA = {
-//        {{ 1.0, 1.0 }, {-1.0}},
-//        {{ 1.0, -1.0 }, {1.0}},
-//        {{ -1.0, 1.0 }, {1.0}},
-//        {{ 1.0, -1.0 }, {-1.0}},
+//        {{ 1.0, 1.0 }, {0.0}},
+//        {{ 1.0, 0.0 }, {1.0}},
+//        {{ 0.0, 1.0 }, {1.0}},
+//        {{ 0.0, 0.0 }, {0.0}},
 //    };
+
+    std::vector<TrainingEntity<float>> TRAIN_DATA = {
+        {{ 1.0, 1.0 }, {-1.0}},
+        {{ 1.0, -1.0 }, {1.0}},
+        {{ -1.0, 1.0 }, {1.0}},
+        {{ 1.0, -1.0 }, {-1.0}},
+    };
 
     LayeredNetworkBuilder LayeredNetworkBuilder;
     auto outLayer = LayeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{1, "tanh"});

@@ -33,6 +33,8 @@ set(FILES
     LayeredNetworkBuilders/LayerBuilder.hpp
     LayeredNetworkBuilders/FullyConnectedLayerSpecs.hpp
     LayeredNetworkBuilders/InputLayerSpecs.hpp
+    Datasets/MnistLoader.cpp
+    Datasets/MnistLoader.hpp
     ArrayView.hpp
     NotNull.hpp
     BuilderStorage.cpp
