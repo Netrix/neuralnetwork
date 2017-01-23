@@ -1,6 +1,7 @@
 project(neural-networks-tests)
 
 set(SOURCES main.cpp
+    XorTest.cpp
     Nodes/LayerNodes/PassThroughLayerNodeTest.cpp
     UnaryOperations/SigmoidUnaryOperationTest.cpp
 )

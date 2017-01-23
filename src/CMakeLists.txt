@@ -54,6 +54,8 @@ set(FILES
     NetworkBuilder.cpp
     NetworkBuilder.hpp
     ScalarStorage.hpp
+    MathVectorAdapter.hpp
+    StreamOperators.hpp
     VariableStorage.hpp
     VariableStorageBuilder.hpp
     UnaryOperationsFactory.hpp
