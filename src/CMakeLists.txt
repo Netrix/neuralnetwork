@@ -64,6 +64,7 @@ set(FILES
     LayeredNetworkBuilder.cpp
     LayeredNetworkBuilder.hpp
     ILayerOperationsFactory.hpp
+    NormalDistributionGenerator.hpp
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
