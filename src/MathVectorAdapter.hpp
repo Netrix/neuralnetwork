@@ -11,6 +11,10 @@ struct MathVectorAdapter
         : m_values(std::begin(c), std::end(c))
     {}
 
+    MathVectorAdapter(std::size_t numItems)
+        : m_values(numItems)
+    {}
+
     MathVectorAdapter<Type> operator-(MathVectorAdapter<Type> const& ref)
     {
         return getBinaryResult(ref, [](auto a, auto b)
@@ -25,6 +29,15 @@ struct MathVectorAdapter
         {
             return a * b;
         });
+    }
+
+    MathVectorAdapter<Type>& operator+=(MathVectorAdapter<Type> const& ref)
+    {
+        assignTransform(ref, [](auto a, auto b)
+        {
+            return a + b;
+        });
+        return *this;
     }
 
     operator ArrayView<Type const>() const
@@ -42,6 +55,15 @@ struct MathVectorAdapter
         return std::accumulate(std::begin(m_values), std::end(m_values), Type{});
     }
 
+    template<class Generator>
+    void fillWithGenerator(Generator && p_generator)
+    {
+        for(auto & a : m_values)
+        {
+            a = p_generator();
+        }
+    }
+
 private:
     template<class Functor>
     auto getBinaryResult(MathVectorAdapter<Type> const& ref, Functor f)
@@ -51,6 +73,12 @@ private:
 
         std::transform(std::begin(m_values), std::end(m_values), std::begin(ref.m_values), std::back_inserter(results), f);
         return MathVectorAdapter<Type>(results);
+    }
+
+    template<class Functor>
+    auto assignTransform(MathVectorAdapter<Type> const& ref, Functor f)
+    {
+        std::transform(std::begin(m_values), std::end(m_values), std::begin(ref.m_values), std::begin(m_values), f);
     }
 
 private:

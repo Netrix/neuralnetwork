@@ -34,6 +34,9 @@ struct BackPropagationNetwork
     void setVariables(std::function<BNN_TYPE()> generator);
     void applyDeltaOnVariables();
 
+    ArrayView<BNN_TYPE const> getVariables() const;
+    ArrayView<BNN_TYPE const> getVariableDeltas() const;
+
 private:
     std::size_t m_numBackpropagationPasses = 0;
     OperationNodes m_operationNodes;

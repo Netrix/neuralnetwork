@@ -40,11 +40,13 @@ void BackPropagationNetwork::backPropagate(ArrayView<BNN_TYPE const> errors)
 void BackPropagationNetwork::setVariables(ArrayView<BNN_TYPE const> values)
 {
     m_variableStorage->setValues(values);
+    m_variableDeltaStorage->setValuesByGenerator([]{return BNN_TYPE{};});
 }
 
 void BackPropagationNetwork::setVariables(std::function<BNN_TYPE()> generator)
 {
     m_variableStorage->setValuesByGenerator(generator);
+    m_variableDeltaStorage->setValuesByGenerator([]{return BNN_TYPE{};});
 }
 
 void BackPropagationNetwork::applyDeltaOnVariables()
@@ -66,4 +68,14 @@ void BackPropagationNetwork::applyDeltaOnVariables()
 void BackPropagationNetwork::setLearningRate(BNN_TYPE learningRate)
 {
     m_learningRate = learningRate;
+}
+
+ArrayView<BNN_TYPE const> BackPropagationNetwork::getVariables() const
+{
+    return m_variableStorage->getValues();
+}
+
+ArrayView<BNN_TYPE const> BackPropagationNetwork::getVariableDeltas() const
+{
+    return m_variableDeltaStorage->getValues();
 }

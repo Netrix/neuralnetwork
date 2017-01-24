@@ -15,6 +15,11 @@ struct LayeredNetworkBuilder
         return m_networkBuilder.buildBackPropagationNetwork(learningRate);
     }
 
+    std::size_t getNumVariables() const
+    {
+        return m_networkBuilder.getNumVariables();
+    }
+
 private:
     NetworkBuilder m_networkBuilder;
     std::unique_ptr<LayerBuilder> m_outputLayer;

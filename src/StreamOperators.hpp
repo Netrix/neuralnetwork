@@ -1,7 +1,10 @@
 #pragma once
+#include "ArrayView.hpp"
+#include "NodeBuilders/NodeBuilder.hpp"
+#include <vector>
 #include <iostream>
 
-std::ostream& operator<<(std::ostream& out, std::vector<BNN_TYPE> const& values)
+inline std::ostream& operator<<(std::ostream& out, std::vector<BNN_TYPE> const& values)
 {
     out << " [ ";
     for(auto a : values)
@@ -11,7 +14,7 @@ std::ostream& operator<<(std::ostream& out, std::vector<BNN_TYPE> const& values)
     return out << " ] ";
 }
 
-std::ostream& operator<<(std::ostream& out, ArrayView<BNN_TYPE const> const& values)
+inline std::ostream& operator<<(std::ostream& out, ArrayView<BNN_TYPE const> const& values)
 {
     out << " [ ";
     for(auto a : values)
