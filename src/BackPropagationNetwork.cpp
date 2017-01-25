@@ -65,6 +65,22 @@ void BackPropagationNetwork::applyDeltaOnVariables()
     });
 }
 
+void BackPropagationNetwork::applyDeltaOnVariables(ArrayView<BNN_TYPE const> delta)
+{
+    auto l_weights = m_variableStorage->getValues();
+    std::transform(std::begin(l_weights), std::end(l_weights), std::begin(delta), std::begin(l_weights),
+                   [=](auto a, auto b)
+    {
+        return a + b;
+    });
+
+    m_numBackpropagationPasses = 0;
+    m_variableDeltaStorage->setValuesByGenerator([]
+    {
+        return 0.0f;
+    });
+}
+
 void BackPropagationNetwork::setLearningRate(BNN_TYPE learningRate)
 {
     m_learningRate = learningRate;

@@ -28,11 +28,11 @@ TEST(MnistBenchmark, DISABLED_SingleEpoch)
     using namespace std::chrono;
     auto start = steady_clock::now();
 
-    auto errorSum = learnEpoch(network, mnistDataset, 256);
+    auto errorSum = learnEpoch(network, mnistDataset, 512);
 
     auto end = steady_clock::now();
 
-    std::cout << "Time taken: " << duration_cast<seconds>(end - start).count() << "ms. errorSum: " << errorSum <<  std::endl;
+    std::cout << "Time taken: " << duration_cast<seconds>(end - start).count() << "s. errorSum: " << errorSum <<  std::endl;
 }
 
 TEST(MnistBenchmark, SingleEpochParallel)
@@ -47,17 +47,14 @@ TEST(MnistBenchmark, SingleEpochParallel)
     auto outLayer = layeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{mnistDataset.getOutputSampleSize(), "relu"});
     auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{32, "relu"});
     hiddenLayer->setInputLayer(InputLayerSpecs{mnistDataset.getInputSampleSize()});
-    auto network = layeredNetworkBuilder.buildBackPropagationNetwork(0.01f);
-
-    network->setVariables(NormalDistributionGenerator<BNN_TYPE>(17, 0, 1e-1));
 
     using namespace std::chrono;
     auto start = steady_clock::now();
 
-    auto errorSum = learnEpochParallel(layeredNetworkBuilder, mnistDataset, 256, 0.1f);
+    auto errorSum = learnEpochParallel(layeredNetworkBuilder, mnistDataset, 512, 0.01f);
 
     auto end = steady_clock::now();
 
-    std::cout << "Time taken: " << duration_cast<seconds>(end - start).count() << "ms. errorSum: " << errorSum <<  std::endl;
+    std::cout << "Time taken: " << duration_cast<seconds>(end - start).count() << "s. errorSum: " << errorSum <<  std::endl;
 }
 

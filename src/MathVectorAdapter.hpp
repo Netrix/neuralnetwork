@@ -40,9 +40,45 @@ struct MathVectorAdapter
         return *this;
     }
 
+    MathVectorAdapter<Type>& operator/=(MathVectorAdapter<Type> const& ref)
+    {
+        assignTransform(ref, [](auto a, auto b)
+        {
+            return a / b;
+        });
+        return *this;
+    }
+
+    MathVectorAdapter<Type>& operator*=(MathVectorAdapter<Type> const& ref)
+    {
+        assignTransform(ref, [](auto a, auto b)
+        {
+            return a + b;
+        });
+        return *this;
+    }
+
+    MathVectorAdapter<Type>& operator*=(Type scalar)
+    {
+        for(auto& a : m_values)
+        {
+            a *= scalar;
+        }
+        return *this;
+    }
+
     operator ArrayView<Type const>() const
     {
         return m_values;
+    }
+
+    MathVectorAdapter<Type>& operator/=(Type scalar)
+    {
+        for(auto& a : m_values)
+        {
+            a /= scalar;
+        }
+        return *this;
     }
 
     operator ArrayView<Type>()

@@ -33,6 +33,7 @@ struct BackPropagationNetwork
     void setVariables(ArrayView<BNN_TYPE const> values);
     void setVariables(std::function<BNN_TYPE()> generator);
     void applyDeltaOnVariables();
+    void applyDeltaOnVariables(ArrayView<BNN_TYPE const> delta);
 
     ArrayView<BNN_TYPE const> getVariables() const;
     ArrayView<BNN_TYPE const> getVariableDeltas() const;
