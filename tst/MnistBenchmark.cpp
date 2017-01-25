@@ -9,7 +9,7 @@
 #include <chrono>
 
 
-TEST(MnistBenchmark, DISABLED_SingleEpoch)
+TEST(MnistBenchmark, SingleEpoch)
 {
     std::string imagesPath = "../../../data/train-images-idx3-ubyte";
     std::string labelsPath = "../../../data/train-labels-idx1-ubyte";
