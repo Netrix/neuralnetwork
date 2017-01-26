@@ -30,18 +30,17 @@ int main()
     auto mnistDataset = MnistPreprocessedDataSet<float>(loadMnistDataset(imagesPath, labelsPath));
     std::cout << mnistDataset.getInputSampleSize() << " " << mnistDataset.getNumSamples() << " " << mnistDataset.getOutputSampleSize() << std::endl;
 
-    LayeredNetworkBuilder LayeredNetworkBuilder;
-    auto outLayer = LayeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{mnistDataset.getOutputSampleSize(), "relu"});
+    LayeredNetworkBuilder layeredNetworkBuilder;
+    auto outLayer = layeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{mnistDataset.getOutputSampleSize(), "relu"});
     auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{32, "relu"});
     hiddenLayer->setInputLayer(InputLayerSpecs{mnistDataset.getInputSampleSize()});
-    auto network = LayeredNetworkBuilder.buildBackPropagationNetwork(0.01f);
+    auto network = layeredNetworkBuilder.buildBackPropagationNetwork(0.01f);
 
     network->setVariables(NormalDistributionGenerator<BNN_TYPE>(17, 0, 1e-1));
 
-
     for(int i = 0; i < 500; ++i)
     {
-        auto errorSum = learnEpoch(network, mnistDataset, 256);
+        auto errorSum = learnEpochParallel(layeredNetworkBuilder, network, mnistDataset, 256, 0.01, i);
         std::cout << "epoch: " << i << " errorSum: " << errorSum <<  std::endl;
 
     }

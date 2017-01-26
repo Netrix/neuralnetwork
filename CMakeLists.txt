@@ -1,7 +1,12 @@
 cmake_minimum_required(VERSION 3.3)
 
-#set(CMAKE_CXX_FLAGS "-std=c++14 -g -march=native -O3 -pedantic -Wall -Werror")
+#set(CMAKE_CXX_FLAGS "-std=c++14 -g -march=native -O3 -pedantic -Wall -Werror -lpthread")
 add_definitions(-std=c++14)
+add_definitions(-march=native)
+add_definitions(-O3)
+add_definitions(-Wall)
+
+link_libraries(pthread)
 
 add_subdirectory(src)
 

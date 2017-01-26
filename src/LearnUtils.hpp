@@ -13,6 +13,7 @@ struct BatchResult
 {
     MathVectorAdapter<Type> weightDelta;
     Type error;
+    std::size_t batchEnd;
 };
 
 struct Task
@@ -34,11 +35,9 @@ struct BatchJob
         {
             while(m_isRunning)
             {
-//                std::cout << "BatchJob started" << std::endl;
                 auto future = m_taskPromise.get_future();
                 auto task = future.get();
 
-//                std::cout << "BatchJob assigned task: " << task.batchStart << ", " << task.batchEnd << std::endl;
                 if(!m_isRunning)
                 {
                     break;
@@ -57,7 +56,7 @@ struct BatchJob
                 }
 
                 m_taskPromise = {};
-                m_resultPromise.set_value(BatchResult<Type>{m_network->getVariableDeltas(), errorSum});
+                m_resultPromise.set_value(BatchResult<Type>{m_network->getVariableDeltas(), errorSum, task.batchEnd});
             }
         });
     }
@@ -117,8 +116,8 @@ auto learnEpoch(Network & network, Dataset const& dataset, std::size_t batchSize
 }
 
 
-template<class Dataset, class NetworkBuilder>
-auto learnEpochParallel(NetworkBuilder & networkBuilder, Dataset const& dataset, std::size_t batchSize, float learningRate)
+template<class Dataset, class NetworkBuilder, class Network>
+auto learnEpochParallel(NetworkBuilder & networkBuilder, Network & mainNetwork, Dataset const& dataset, std::size_t batchSize, float learningRate, std::size_t epoch)
 {
     auto numThreads = std::max(2u, std::thread::hardware_concurrency());
     std::vector<std::unique_ptr<BatchJob<Dataset, BNN_TYPE>>> jobs;
@@ -129,8 +128,6 @@ auto learnEpochParallel(NetworkBuilder & networkBuilder, Dataset const& dataset,
     }
 
     std::cout << "started learnEpochParallel on threads num: " << numThreads << std::endl;
-    auto mainNetwork = networkBuilder.buildBackPropagationNetwork(learningRate);
-    mainNetwork->setVariables(NormalDistributionGenerator<BNN_TYPE>(17, 0, 1e-1));
 
     while((batchSize % numThreads) != 0)
     {
@@ -152,7 +149,7 @@ auto learnEpochParallel(NetworkBuilder & networkBuilder, Dataset const& dataset,
             {
                 jobs[k]->setWeights(mainNetwork->getVariables());
                 jobs[k]->startBatch(i, i + numSamplesPerBatch);
-                std::cout << "Started batch: [" << i << ", " << "], on job: " << k << std::endl;
+//                std::cout << "Started batch: [" << i << ", " << "], on job: " << k << std::endl;
             }
 
             for(int k = 0; k < jobs.size(); ++k)
@@ -160,7 +157,7 @@ auto learnEpochParallel(NetworkBuilder & networkBuilder, Dataset const& dataset,
                 auto result = jobs[k]->getResults();
                 weightsDelta += result.weightDelta;
                 errorSum += result.error;
-                std::cout << "Finished job: "<< k << ", error: " << result.error << ", sum: " << errorSum << std::endl;
+                std::cout << "Epoch: " << epoch << ", finished job: "<< k << " (batchEnd: " << result.batchEnd << "), error: " << result.error << ", sum: " << errorSum << std::endl;
             }
 
             weightsDelta /= batchSize;

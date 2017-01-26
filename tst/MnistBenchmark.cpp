@@ -51,7 +51,10 @@ TEST(MnistBenchmark, SingleEpochParallel)
     using namespace std::chrono;
     auto start = steady_clock::now();
 
-    auto errorSum = learnEpochParallel(layeredNetworkBuilder, mnistDataset, 512, 0.01f);
+    auto mainNetwork = layeredNetworkBuilder.buildBackPropagationNetwork(0.01f);
+    mainNetwork->setVariables(NormalDistributionGenerator<BNN_TYPE>(17, 0, 1e-1));
+
+    auto errorSum = learnEpochParallel(layeredNetworkBuilder, mainNetwork, mnistDataset, 512, 0.01f, 0);
 
     auto end = steady_clock::now();
 
