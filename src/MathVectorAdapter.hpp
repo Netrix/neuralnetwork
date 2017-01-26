@@ -46,75 +46,31 @@ struct MathVectorAdapter
         : m_values(numItems)
     {}
 
-    template<class OtherType>
-    MathVectorAdapter<Type> operator-(MathVectorAdapter<OtherType> const& ref) const
-    {
-        return Details::getBinaryResult(m_values, ref.m_values, [](auto a, auto b)
-        {
-            return a - b;
-        });
-    }
+    template<class FirstType, class SecondType>
+    friend MathVectorAdapter<FirstType> operator-(MathVectorAdapter<FirstType> const& lhs, MathVectorAdapter<SecondType> const& rhs);
 
-    template<class OtherType>
-    MathVectorAdapter<Type> operator*(MathVectorAdapter<OtherType> const& ref) const
-    {
-        return Details::getBinaryResult(m_values, ref.m_values, [](auto a, auto b)
-        {
-            return a * b;
-        });
-    }
+    template<class FirstType, class SecondType>
+    friend MathVectorAdapter<FirstType> operator*(MathVectorAdapter<FirstType> const& lhs, MathVectorAdapter<SecondType> const& rhs);
 
-    template<class OtherType>
-    MathVectorAdapter<Type>& operator+=(MathVectorAdapter<OtherType> const& ref)
-    {
-        Details::assignTransform(m_values, ref.m_values, [](auto a, auto b)
-        {
-            return a + b;
-        });
-        return *this;
-    }
+    template<class FirstType, class SecondType>
+    friend MathVectorAdapter<FirstType>& operator+=(MathVectorAdapter<FirstType> & lhs, MathVectorAdapter<SecondType> const& rhs);
 
-    template<class OtherType>
-    MathVectorAdapter<Type>& operator/=(MathVectorAdapter<OtherType> const& ref)
-    {
-        Details::assignTransform(m_values, ref.m_values, [](auto a, auto b)
-        {
-            return a / b;
-        });
-        return *this;
-    }
+    template<class FirstType, class SecondType>
+    friend MathVectorAdapter<FirstType>& operator/=(MathVectorAdapter<FirstType> & lhs, MathVectorAdapter<SecondType> const& rhs);
 
-    template<class OtherType>
-    MathVectorAdapter<Type>& operator*=(MathVectorAdapter<OtherType> const& ref)
-    {
-        Details::assignTransform(m_values, ref.m_values, [](auto a, auto b)
-        {
-            return a + b;
-        });
-        return *this;
-    }
+    template<class FirstType, class SecondType>
+    friend MathVectorAdapter<FirstType>& operator*=(MathVectorAdapter<FirstType> & lhs, MathVectorAdapter<SecondType> const& rhs);
 
-    MathVectorAdapter<Type>& operator*=(Type scalar)
-    {
-        for(auto& a : m_values)
-        {
-            a *= scalar;
-        }
-        return *this;
-    }
+    template<class FirstType, class SecondType>
+    friend MathVectorAdapter<FirstType>& operator*=(MathVectorAdapter<FirstType> & lhs, SecondType scalar);
+
+    template<class FirstType, class SecondType>
+    friend MathVectorAdapter<FirstType>& operator/=(MathVectorAdapter<FirstType> & lhs, SecondType scalar);
+
 
     operator ArrayView<Type const>() const
     {
         return m_values;
-    }
-
-    MathVectorAdapter<Type>& operator/=(Type scalar)
-    {
-        for(auto& a : m_values)
-        {
-            a /= scalar;
-        }
-        return *this;
     }
 
     auto sum() const
@@ -134,6 +90,75 @@ struct MathVectorAdapter
 private:
     std::vector<Type> m_values;
 };
+
+template<class FirstType, class SecondType>
+MathVectorAdapter<FirstType> operator-(MathVectorAdapter<FirstType> const& lhs, MathVectorAdapter<SecondType> const& rhs)
+{
+    return Details::getBinaryResult(lhs.m_values, rhs.m_values, [](auto a, auto b)
+    {
+        return a - b;
+    });
+}
+
+template<class FirstType, class SecondType>
+MathVectorAdapter<FirstType> operator*(MathVectorAdapter<FirstType> const& lhs, MathVectorAdapter<SecondType> const& rhs)
+{
+    return Details::getBinaryResult(lhs.m_values, rhs.m_values, [](auto a, auto b)
+    {
+        return a * b;
+    });
+}
+
+template<class FirstType, class SecondType>
+MathVectorAdapter<FirstType>& operator+=(MathVectorAdapter<FirstType> & lhs, MathVectorAdapter<SecondType> const& rhs)
+{
+    Details::assignTransform(lhs.m_values, rhs.m_values, [](auto a, auto b)
+    {
+        return a + b;
+    });
+    return lhs;
+}
+
+template<class FirstType, class SecondType>
+MathVectorAdapter<FirstType>& operator/=(MathVectorAdapter<FirstType> & lhs, MathVectorAdapter<SecondType> const& rhs)
+{
+    Details::assignTransform(lhs.m_values, rhs.m_values, [](auto a, auto b)
+    {
+        return a / b;
+    });
+    return lhs;
+}
+
+
+template<class FirstType, class SecondType>
+MathVectorAdapter<FirstType>& operator*=(MathVectorAdapter<FirstType> & lhs, MathVectorAdapter<SecondType> const& rhs)
+{
+    Details::assignTransform(lhs.m_values, rhs.m_values, [](auto a, auto b)
+    {
+        return a + b;
+    });
+    return lhs;
+}
+
+template<class FirstType, class SecondType>
+MathVectorAdapter<FirstType>& operator*=(MathVectorAdapter<FirstType> & lhs, SecondType scalar)
+{
+    for(auto& a : lhs.m_values)
+    {
+        a *= scalar;
+    }
+    return lhs;
+}
+
+template<class FirstType, class SecondType>
+MathVectorAdapter<FirstType>& operator/=(MathVectorAdapter<FirstType> & lhs, SecondType scalar)
+{
+    for(auto& a : lhs.m_values)
+    {
+        a /= scalar;
+    }
+    return lhs;
+}
 
 template<class Type>
 auto make_math_adapter(Type const& args)
