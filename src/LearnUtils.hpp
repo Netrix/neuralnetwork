@@ -136,7 +136,7 @@ auto learnEpochParallel(NetworkBuilder & networkBuilder, Network & mainNetwork, 
 
     auto numSamplesPerBatch = batchSize / numThreads;
 
-    auto weightsDelta = make_math_adapter(mainNetwork->getVariables());
+    auto weightsDelta = make_math_vector_adapter(mainNetwork->getVariables());
 
     std::cout << "samples to compute: " << dataset.getNumSamples() << std::endl;
     BNN_TYPE errorSum = 0;

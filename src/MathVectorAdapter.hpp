@@ -34,48 +34,47 @@ auto assignTransform(FirstContainer & firstContainer, SecondContainer const& sec
 } // namespace
 
 
-template<class Type>
-struct MathVectorAdapter
+template<class Sequence>
+struct MathSequenceAdapter
 {
-    template<class Container>
-    MathVectorAdapter(Container const& c)
-        : m_values(std::begin(c), std::end(c))
-    {}
+    using value_type = typename Sequence::value_type;
 
-    MathVectorAdapter(std::size_t numItems)
-        : m_values(numItems)
-    {}
-
-    template<class FirstType, class SecondType>
-    friend MathVectorAdapter<FirstType> operator-(MathVectorAdapter<FirstType> const& lhs, MathVectorAdapter<SecondType> const& rhs);
+    template<class... Args>
+    MathSequenceAdapter(Args &&... args)
+        : m_values(std::forward<Args>(args)...)
+    {
+    }
 
     template<class FirstType, class SecondType>
-    friend MathVectorAdapter<FirstType> operator*(MathVectorAdapter<FirstType> const& lhs, MathVectorAdapter<SecondType> const& rhs);
+    friend MathSequenceAdapter<FirstType> operator-(MathSequenceAdapter<FirstType> const& lhs, MathSequenceAdapter<SecondType> const& rhs);
 
     template<class FirstType, class SecondType>
-    friend MathVectorAdapter<FirstType>& operator+=(MathVectorAdapter<FirstType> & lhs, MathVectorAdapter<SecondType> const& rhs);
+    friend MathSequenceAdapter<FirstType> operator*(MathSequenceAdapter<FirstType> const& lhs, MathSequenceAdapter<SecondType> const& rhs);
 
     template<class FirstType, class SecondType>
-    friend MathVectorAdapter<FirstType>& operator/=(MathVectorAdapter<FirstType> & lhs, MathVectorAdapter<SecondType> const& rhs);
+    friend MathSequenceAdapter<FirstType>& operator+=(MathSequenceAdapter<FirstType> & lhs, MathSequenceAdapter<SecondType> const& rhs);
 
     template<class FirstType, class SecondType>
-    friend MathVectorAdapter<FirstType>& operator*=(MathVectorAdapter<FirstType> & lhs, MathVectorAdapter<SecondType> const& rhs);
+    friend MathSequenceAdapter<FirstType>& operator/=(MathSequenceAdapter<FirstType> & lhs, MathSequenceAdapter<SecondType> const& rhs);
 
     template<class FirstType, class SecondType>
-    friend MathVectorAdapter<FirstType>& operator*=(MathVectorAdapter<FirstType> & lhs, SecondType scalar);
+    friend MathSequenceAdapter<FirstType>& operator*=(MathSequenceAdapter<FirstType> & lhs, MathSequenceAdapter<SecondType> const& rhs);
 
     template<class FirstType, class SecondType>
-    friend MathVectorAdapter<FirstType>& operator/=(MathVectorAdapter<FirstType> & lhs, SecondType scalar);
+    friend MathSequenceAdapter<FirstType>& operator*=(MathSequenceAdapter<FirstType> & lhs, SecondType scalar);
+
+    template<class FirstType, class SecondType>
+    friend MathSequenceAdapter<FirstType>& operator/=(MathSequenceAdapter<FirstType> & lhs, SecondType scalar);
 
 
-    operator ArrayView<Type const>() const
+    operator ArrayView<value_type const>() const
     {
         return m_values;
     }
 
     auto sum() const
     {
-        return std::accumulate(std::begin(m_values), std::end(m_values), Type{});
+        return std::accumulate(std::begin(m_values), std::end(m_values), value_type{});
     }
 
     template<class Generator>
@@ -87,12 +86,13 @@ struct MathVectorAdapter
         }
     }
 
-private:
-    std::vector<Type> m_values;
+protected:
+    Sequence m_values;
 };
 
+
 template<class FirstType, class SecondType>
-MathVectorAdapter<FirstType> operator-(MathVectorAdapter<FirstType> const& lhs, MathVectorAdapter<SecondType> const& rhs)
+MathSequenceAdapter<FirstType> operator-(MathSequenceAdapter<FirstType> const& lhs, MathSequenceAdapter<SecondType> const& rhs)
 {
     return Details::getBinaryResult(lhs.m_values, rhs.m_values, [](auto a, auto b)
     {
@@ -101,7 +101,7 @@ MathVectorAdapter<FirstType> operator-(MathVectorAdapter<FirstType> const& lhs, 
 }
 
 template<class FirstType, class SecondType>
-MathVectorAdapter<FirstType> operator*(MathVectorAdapter<FirstType> const& lhs, MathVectorAdapter<SecondType> const& rhs)
+MathSequenceAdapter<FirstType> operator*(MathSequenceAdapter<FirstType> const& lhs, MathSequenceAdapter<SecondType> const& rhs)
 {
     return Details::getBinaryResult(lhs.m_values, rhs.m_values, [](auto a, auto b)
     {
@@ -110,7 +110,7 @@ MathVectorAdapter<FirstType> operator*(MathVectorAdapter<FirstType> const& lhs, 
 }
 
 template<class FirstType, class SecondType>
-MathVectorAdapter<FirstType>& operator+=(MathVectorAdapter<FirstType> & lhs, MathVectorAdapter<SecondType> const& rhs)
+MathSequenceAdapter<FirstType>& operator+=(MathSequenceAdapter<FirstType> & lhs, MathSequenceAdapter<SecondType> const& rhs)
 {
     Details::assignTransform(lhs.m_values, rhs.m_values, [](auto a, auto b)
     {
@@ -120,7 +120,7 @@ MathVectorAdapter<FirstType>& operator+=(MathVectorAdapter<FirstType> & lhs, Mat
 }
 
 template<class FirstType, class SecondType>
-MathVectorAdapter<FirstType>& operator/=(MathVectorAdapter<FirstType> & lhs, MathVectorAdapter<SecondType> const& rhs)
+MathSequenceAdapter<FirstType>& operator/=(MathSequenceAdapter<FirstType> & lhs, MathSequenceAdapter<SecondType> const& rhs)
 {
     Details::assignTransform(lhs.m_values, rhs.m_values, [](auto a, auto b)
     {
@@ -131,7 +131,7 @@ MathVectorAdapter<FirstType>& operator/=(MathVectorAdapter<FirstType> & lhs, Mat
 
 
 template<class FirstType, class SecondType>
-MathVectorAdapter<FirstType>& operator*=(MathVectorAdapter<FirstType> & lhs, MathVectorAdapter<SecondType> const& rhs)
+MathSequenceAdapter<FirstType>& operator*=(MathSequenceAdapter<FirstType> & lhs, MathSequenceAdapter<SecondType> const& rhs)
 {
     Details::assignTransform(lhs.m_values, rhs.m_values, [](auto a, auto b)
     {
@@ -141,7 +141,7 @@ MathVectorAdapter<FirstType>& operator*=(MathVectorAdapter<FirstType> & lhs, Mat
 }
 
 template<class FirstType, class SecondType>
-MathVectorAdapter<FirstType>& operator*=(MathVectorAdapter<FirstType> & lhs, SecondType scalar)
+MathSequenceAdapter<FirstType>& operator*=(MathSequenceAdapter<FirstType> & lhs, SecondType scalar)
 {
     for(auto& a : lhs.m_values)
     {
@@ -151,7 +151,7 @@ MathVectorAdapter<FirstType>& operator*=(MathVectorAdapter<FirstType> & lhs, Sec
 }
 
 template<class FirstType, class SecondType>
-MathVectorAdapter<FirstType>& operator/=(MathVectorAdapter<FirstType> & lhs, SecondType scalar)
+MathSequenceAdapter<FirstType>& operator/=(MathSequenceAdapter<FirstType> & lhs, SecondType scalar)
 {
     for(auto& a : lhs.m_values)
     {
@@ -160,9 +160,46 @@ MathVectorAdapter<FirstType>& operator/=(MathVectorAdapter<FirstType> & lhs, Sec
     return lhs;
 }
 
+//template<class Type>
+//using MathVectorAdapter = MathSequenceAdapter<std::vector<typename std::remove_cv<Type>::type>>;
+
+template<class Type>
+struct MathVectorAdapter : MathSequenceAdapter<std::vector<typename std::remove_cv<Type>::type>>
+{
+    using value_type = typename std::remove_cv<Type>::type;
+    using sequence_type = std::vector<value_type>;
+
+    template<class Container, typename=std::enable_if<std::is_same<typename std::remove_cv<typename Container::value_type>::type,
+                                                                   typename std::remove_cv<value_type>::type>::value>>
+    MathVectorAdapter(Container const& c)
+        : MathSequenceAdapter<sequence_type>(std::begin(c), std::end(c))
+    {}
+
+    MathVectorAdapter(std::size_t numItems)
+        : MathSequenceAdapter<sequence_type>(numItems)
+    {}
+};
+
+
+template<class Type>
+using MathArrayViewAdapter = MathSequenceAdapter<ArrayView<Type>>;
+
+
+
+template<class Type>
+auto make_math_vector_adapter(Type const& args)
+{
+    return MathVectorAdapter<typename Type::value_type>(args);
+}
+
 template<class Type>
 auto make_math_adapter(Type const& args)
 {
-    return MathVectorAdapter<typename std::remove_cv<typename Type::value_type>::type>(args);
+    return MathVectorAdapter<typename Type::value_type>(args);
 }
 
+template<class Type>
+auto make_math_adapter(ArrayView<Type> args)
+{
+    return MathArrayViewAdapter<Type>(args);
+}

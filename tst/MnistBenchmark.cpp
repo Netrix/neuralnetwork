@@ -8,7 +8,7 @@
 #include "LearnUtils.hpp"
 #include <chrono>
 
-// 240s
+// 240s -> 231s
 TEST(MnistBenchmark, SingleEpoch)
 {
     std::string imagesPath = "../../../data/train-images-idx3-ubyte";
@@ -35,7 +35,7 @@ TEST(MnistBenchmark, SingleEpoch)
     std::cout << "Time taken: " << duration_cast<seconds>(end - start).count() << "s. errorSum: " << errorSum <<  std::endl;
 }
 
-// 236s
+// 236s -> 212s
 TEST(MnistBenchmark, SingleEpochParallel)
 {
     std::string imagesPath = "../../../data/train-images-idx3-ubyte";
