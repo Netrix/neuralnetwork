@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "Nodes/LayerNodes/PassThroughLayerNode.hpp"
+#include "Nodes/MultipleInputLayerNodes/PassThroughMultipleInputLayerNode.hpp"
 #include "LayeredNetworkBuilder.hpp"
 #include "LayeredNetworkBuilders/FullyConnectedLayerSpecs.hpp"
 #include "LayeredNetworkBuilders/FullyConnectedLayerBuilder.hpp"

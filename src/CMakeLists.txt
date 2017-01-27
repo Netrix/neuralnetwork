@@ -15,8 +15,8 @@ set(NODES_FILES
     Nodes/BinaryOperations/BinaryOperationNode.hpp
     Nodes/MultipleInputOperators/AddOperation.hpp
     Nodes/MultipleInputOperators/MultipleInputOperationNode.hpp
-    Nodes/LayerNodes/LayerNode.hpp
-    Nodes/LayerNodes/PassThroughLayerNode.hpp
+    Nodes/MultipleInputLayerNodes/MultipleInputLayerNode.hpp
+    Nodes/MultipleInputLayerNodes/PassThroughMultipleInputLayerNode.hpp
     )
 
 set(FILES
@@ -31,14 +31,14 @@ set(FILES
     NodeBuilders/OperationNodeBuilder.hpp
     NodeBuilders/MultipleInputNodeBuilder.cpp
     NodeBuilders/MultipleInputNodeBuilder.hpp
-    NodeBuilders/LayerNodeBuilder.cpp
-    NodeBuilders/LayerNodeBuilder.hpp
+    NodeBuilders/MultipleInputLayerNodeBuilder.cpp
+    NodeBuilders/MultipleInputLayerNodeBuilder.hpp
     LayeredNetworkBuilders/FullyConnectedLayerBuilder.hpp
     LayeredNetworkBuilders/FullyConnectedLayerBuilder.cpp
     LayeredNetworkBuilders/LayerBuilder.hpp
     LayeredNetworkBuilders/FullyConnectedLayerSpecs.hpp
     LayeredNetworkBuilders/InputLayerSpecs.hpp
-    LayerNodeFactories/PassThrough.hpp
+    MultipleInputLayerNodeFactories/PassThrough.hpp
     Datasets/MnistLoader.cpp
     Datasets/MnistLoader.hpp
     ArrayView.hpp

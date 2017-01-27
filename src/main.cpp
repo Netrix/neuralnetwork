@@ -46,7 +46,6 @@ int main()
     }
 
     // TODO
-    // 2. abstract initialization of weightsl
     // 3. multiple output layer (sigmoid, tanh, relu)
     // 4. abstract backprop
     //

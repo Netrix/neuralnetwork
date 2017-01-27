@@ -1,11 +1,11 @@
 #include "LayeredNetworkBuilder.hpp"
 #include "LayeredNetworkBuilders/FullyConnectedLayerSpecs.hpp"
 #include "LayeredNetworkBuilders/FullyConnectedLayerBuilder.hpp"
-#include "LayerNodeFactories/PassThrough.hpp"
+#include "MultipleInputLayerNodeFactories/PassThrough.hpp"
 
 NotNull<FullyConnectedLayerBuilder> LayeredNetworkBuilder::setOutputLayer(FullyConnectedLayerSpecs const& specs)
 {
-    auto layerNode = m_networkBuilder.setRootNode(LayerNodeTag{}, std::make_unique<PassThroughLayerNodeFactory<BNN_TYPE>>());
+    auto layerNode = m_networkBuilder.setRootNode(MultipleInputLayerNodeTag{}, std::make_unique<PassThroughMultipleInputLayerNodeFactory<BNN_TYPE>>());
     std::vector<NotNull<UnaryNodeBuilder>> activations;
     activations.reserve(specs.numNeurons);
 

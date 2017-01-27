@@ -37,9 +37,9 @@ NotNull<UnaryNodeBuilder> NetworkBuilder::setRootNode(UnaryNodeTag, std::string 
     return l_builder;
 }
 
-NotNull<LayerNodeBuilder> NetworkBuilder::setRootNode(LayerNodeTag, std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory)
+NotNull<MultipleInputLayerNodeBuilder> NetworkBuilder::setRootNode(MultipleInputLayerNodeTag, std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory)
 {
-    auto l_builder = m_storage.createLayerNodeBuilder(std::move(factory));
+    auto l_builder = m_storage.createMultipleInputLayerNodeBuilder(std::move(factory));
     m_root = l_builder;
     return l_builder;
 }

@@ -1,12 +1,12 @@
 #pragma once
-#include "LayerNode.hpp"
+#include "MultipleInputLayerNode.hpp"
 #include "NotNull.hpp"
 #include <algorithm>
 
 template<class Type>
-struct PassThroughLayerNode : LayerNode<Type>
+struct PassThroughMultipleInputLayerNode : MultipleInputLayerNode<Type>
 {
-    PassThroughLayerNode(std::vector<NotNull<ComputationNode<Type>>> const& inputs)
+    PassThroughMultipleInputLayerNode(std::vector<NotNull<ComputationNode<Type>>> const& inputs)
         : m_inputs(inputs)
         , m_outputs(inputs.size())
     {}

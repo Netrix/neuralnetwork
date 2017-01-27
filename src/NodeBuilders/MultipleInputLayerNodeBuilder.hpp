@@ -14,9 +14,9 @@
 struct BuilderStorage;
 struct BinaryNodeBuilder;
 
-struct LayerNodeBuilder : OperationNodeBuilder
+struct MultipleInputLayerNodeBuilder : OperationNodeBuilder
 {
-    LayerNodeBuilder(BuilderStorage& builderStorage, std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory);
+    MultipleInputLayerNodeBuilder(BuilderStorage& builderStorage, std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory);
 
     NotNull<MultipleInputNodeBuilder> addInput(MultipleInputTag, std::string const& operation); // TODO can be done by template with traits MultipleInputTag -> MultipleInputNodeBuilder
     NotNull<BinaryNodeBuilder> addInput(BinaryNodeTag, std::string const& operation);

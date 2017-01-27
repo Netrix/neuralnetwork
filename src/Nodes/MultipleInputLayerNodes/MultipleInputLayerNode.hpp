@@ -2,6 +2,6 @@
 #include "Nodes/OperationNode.hpp"
 
 template<class Type>
-struct LayerNode : OperationNode<Type>
+struct MultipleInputLayerNode : OperationNode<Type>
 {
 };

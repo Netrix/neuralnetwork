@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include "Nodes/LayerNodes/PassThroughLayerNode.hpp"
+#include "Nodes/MultipleInputLayerNodes/PassThroughMultipleInputLayerNode.hpp"
 
-struct PassThroughLayerNodeTest : testing::Test
+struct PassThroughMultipleInputLayerNodeTest : testing::Test
 {
 };
 
@@ -25,13 +25,13 @@ struct CustomComputationNode : ComputationNode<float>
 };
 
 
-TEST_F(PassThroughLayerNodeTest, PassThroughTest)
+TEST_F(PassThroughMultipleInputLayerNodeTest, PassThroughTest)
 {
     CustomComputationNode first{5}, second{7};
     std::vector<NotNull<ComputationNode<float>>> inputs = { &first, &second };
 
 
-    PassThroughLayerNode<float> sut{inputs};
+    PassThroughMultipleInputLayerNode<float> sut{inputs};
 
     sut.forwardPass();
     EXPECT_EQ(sut.getOutputValues()[0], first.output);
