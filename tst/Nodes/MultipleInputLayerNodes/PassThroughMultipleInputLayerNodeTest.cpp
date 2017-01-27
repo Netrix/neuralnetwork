@@ -16,6 +16,11 @@ struct CustomComputationNode : ComputationNode<float>
         return output;
     }
 
+    std::size_t getNumOutputs() const override
+    {
+        return 1;
+    }
+
     void backPropagate(ArrayView<float const> v) override
     {
         std::cout << "propagated error " << v[0] << std::endl;

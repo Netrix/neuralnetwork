@@ -14,6 +14,11 @@ struct ConstNode : ComputationNode<Type>
         return ArrayView<Type const>(&m_value, 1);
     }
 
+    std::size_t getNumOutputs() const override
+    {
+        return 1;
+    }
+
     void backPropagate(ArrayView<Type const>) override
     {
     }

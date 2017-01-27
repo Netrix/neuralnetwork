@@ -6,7 +6,7 @@
 #include "NodeBuilders/VariableNodeBuilder.hpp"
 #include "NodeBuilders/OperationNodeBuilder.hpp"
 #include "NodeBuilders/MultipleInputNodeBuilder.hpp"
-#include "ILayerOperationsFactory.hpp"
+#include "IMultipleInputLayerOperationsFactory.hpp"
 #include "NodeTags.hpp"
 #include <string>
 #include <vector>
@@ -16,7 +16,7 @@ struct BinaryNodeBuilder;
 
 struct MultipleInputLayerNodeBuilder : OperationNodeBuilder
 {
-    MultipleInputLayerNodeBuilder(BuilderStorage& builderStorage, std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory);
+    MultipleInputLayerNodeBuilder(BuilderStorage& builderStorage, std::unique_ptr<IMultipleInputLayerOperationsFactory<BNN_TYPE>> factory);
 
     NotNull<MultipleInputNodeBuilder> addInput(MultipleInputTag, std::string const& operation); // TODO can be done by template with traits MultipleInputTag -> MultipleInputNodeBuilder
     NotNull<BinaryNodeBuilder> addInput(BinaryNodeTag, std::string const& operation);
@@ -32,7 +32,7 @@ struct MultipleInputLayerNodeBuilder : OperationNodeBuilder
 
 private:
     BuilderStorage& m_builderStorage;
-    std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> m_factory;
+    std::unique_ptr<IMultipleInputLayerOperationsFactory<BNN_TYPE>> m_factory;
 
     std::vector<OperationNodeBuilder*> m_inputOperationBuilders;
     std::vector<NodeBuilder*> m_inputBuilders;

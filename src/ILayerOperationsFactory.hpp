@@ -7,5 +7,5 @@
 template<class Type>
 struct ILayerOperationsFactory
 {
-    virtual std::unique_ptr<OperationNode<Type>> create(std::vector<NotNull<ComputationNode<Type>>> const& inputs) = 0;
+    virtual std::unique_ptr<OperationNode<Type>> create(NotNull<ComputationNode<Type>> const& input) = 0;
 };

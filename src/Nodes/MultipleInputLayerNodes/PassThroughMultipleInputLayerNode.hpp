@@ -20,6 +20,11 @@ struct PassThroughMultipleInputLayerNode : MultipleInputLayerNode<Type>
         });
     }
 
+    std::size_t getNumOutputs() const override
+    {
+        return m_outputs.size();
+    }
+
     ArrayView<Type const> getOutputValues() const override
     {
         return m_outputs;

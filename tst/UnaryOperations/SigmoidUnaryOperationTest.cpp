@@ -21,6 +21,11 @@ struct CustomComputationNode : ComputationNode<float>
         std::cout << "propagated error " << v[0] << std::endl;
     }
 
+    std::size_t getNumOutputs() const override
+    {
+        return 1;
+    }
+
     float output;
 };
 

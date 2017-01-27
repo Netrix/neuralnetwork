@@ -8,5 +8,7 @@ struct ComputationNode  // TODO change it to BackPropagateComputationNode
 
     virtual ArrayView<Type const> getOutputValues() const = 0;
 
+    virtual std::size_t getNumOutputs() const = 0;
+
     virtual void backPropagate(ArrayView<Type const> errors) = 0;
 };

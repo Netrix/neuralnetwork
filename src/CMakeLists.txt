@@ -17,6 +17,7 @@ set(NODES_FILES
     Nodes/MultipleInputOperators/MultipleInputOperationNode.hpp
     Nodes/MultipleInputLayerNodes/MultipleInputLayerNode.hpp
     Nodes/MultipleInputLayerNodes/PassThroughMultipleInputLayerNode.hpp
+    Nodes/LayerNodes/LayerNode.hpp
     )
 
 set(FILES
@@ -33,6 +34,8 @@ set(FILES
     NodeBuilders/MultipleInputNodeBuilder.hpp
     NodeBuilders/MultipleInputLayerNodeBuilder.cpp
     NodeBuilders/MultipleInputLayerNodeBuilder.hpp
+    NodeBuilders/LayerNodeBuilder.cpp
+    NodeBuilders/LayerNodeBuilder.hpp
     LayeredNetworkBuilders/FullyConnectedLayerBuilder.hpp
     LayeredNetworkBuilders/FullyConnectedLayerBuilder.cpp
     LayeredNetworkBuilders/LayerBuilder.hpp
@@ -63,6 +66,7 @@ set(FILES
     ConstStorage.hpp
     LayeredNetworkBuilder.cpp
     LayeredNetworkBuilder.hpp
+    IMultipleInputLayerOperationsFactory.hpp
     ILayerOperationsFactory.hpp
     NormalDistributionGenerator.hpp
     MnistPreprocessedDataSet.hpp

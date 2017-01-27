@@ -15,6 +15,11 @@ struct VariableNode : ComputationNode<Type>
         return ArrayView<Type const>(m_value);
     }
 
+    std::size_t getNumOutputs() const override
+    {
+        return 1;
+    }
+
     void backPropagate(ArrayView<Type const> errors) override
     {
         m_delta += errors[0];

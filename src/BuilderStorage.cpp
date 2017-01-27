@@ -24,7 +24,7 @@ NotNull<BinaryNodeBuilder> BuilderStorage::createBinaryNodeBuilder(std::string c
     return l_builderPointer;
 }
 
-NotNull<MultipleInputLayerNodeBuilder> BuilderStorage::createMultipleInputLayerNodeBuilder(std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory)
+NotNull<MultipleInputLayerNodeBuilder> BuilderStorage::createMultipleInputLayerNodeBuilder(std::unique_ptr<IMultipleInputLayerOperationsFactory<BNN_TYPE>> factory)
 {
     auto l_builder = std::make_unique<MultipleInputLayerNodeBuilder>(*this, std::move(factory));
     auto l_builderPointer = l_builder.get();

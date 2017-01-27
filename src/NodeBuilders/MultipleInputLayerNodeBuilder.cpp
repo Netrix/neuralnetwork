@@ -2,7 +2,7 @@
 #include "BuilderStorage.hpp"
 #include <algorithm>
 
-MultipleInputLayerNodeBuilder::MultipleInputLayerNodeBuilder(BuilderStorage& builderStorage, std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory)
+MultipleInputLayerNodeBuilder::MultipleInputLayerNodeBuilder(BuilderStorage& builderStorage, std::unique_ptr<IMultipleInputLayerOperationsFactory<BNN_TYPE>> factory)
     : m_builderStorage(builderStorage)
     , m_factory(std::move(factory))
 {
