@@ -6,21 +6,23 @@
 template<class Type>
 struct FullyConnectedLayerNode : LayerNode<Type>
 {
-    FullyConnectedLayerNode(NotNull<ComputationNode<Type>> const& inputLayer, std::size_t numOutputs)    // TODO change computation node to LayerNode? is that possible?
+    FullyConnectedLayerNode(NotNull<ComputationNode<Type>> const& inputLayer,
+                            ArrayView<ArrayView<Type const>> weights,
+                            std::size_t numOutputs)    // TODO change computation node to LayerNode? is that possible?
         : m_inputLayer(inputLayer)
         , m_outputs(numOutputs)
     {
-
+        // 1. input are weights
+        // 2. second input are previous inputs
     }
 
-//    void forwardPass() override
-//    {
-//        std::transform(std::begin(m_inputs), std::end(m_inputs), std::begin(m_outputs),
-//                       [](auto const& node)
-//        {
-//            return node->getOutputValues()[0];
-//        });
-//    }
+    void forwardPass() override
+    {
+        for(auto i = 0u; i m_outputs.size(); ++i)
+        {
+            m_outputs[i]  = calculateOutput()
+        }
+    }
 
 //    std::size_t getNumOutputs() const override
 //    {
@@ -42,5 +44,6 @@ struct FullyConnectedLayerNode : LayerNode<Type>
 
 private:
     NotNull<ComputationNode<Type>> m_inputLayer;
+    ArrayView<ArrayView<Type const>> m_weights;
     std::vector<Type> m_outputs;
 };
