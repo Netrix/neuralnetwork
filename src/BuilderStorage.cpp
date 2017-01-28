@@ -44,6 +44,7 @@ NotNull<VariableNodeBuilder> BuilderStorage::createVariableNodeBuilder()
 {
     auto l_builder = std::make_unique<VariableNodeBuilder>();
     variables.push_back(std::move(l_builder));
+    m_numVariables++;
     return variables.back().get();
 }
 
@@ -51,5 +52,15 @@ NotNull<ConstNodeBuilder> BuilderStorage::createConstNodeBuilder()
 {
     auto l_builder = std::make_unique<ConstNodeBuilder>();
     consts.push_back(std::move(l_builder));
+    m_numConsts++;
     return consts.back().get();
+}
+
+NotNull<VariableBufferNodeBuilder> BuilderStorage::createVariableBufferNodeBuilder(std::size_t numVariables)
+{
+    auto l_builder = std::make_unique<VariableBufferNodeBuilder>(numVariables);
+    auto l_pointer = l_builder.get();
+    variables.push_back(std::move(l_builder));
+    m_numVariables += numVariables;
+    return l_pointer;
 }

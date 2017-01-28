@@ -8,6 +8,8 @@
 #include "NodeBuilders/MultipleInputNodeBuilder.hpp"
 #include "NodeBuilders/MultipleInputLayerNodeBuilder.hpp"
 #include "NodeBuilders/LayerNodeBuilder.hpp"
+#include "NodeBuilders/VariableNodeBuilder.hpp"
+#include "NodeBuilders/VariableBufferNodeBuilder.hpp"
 #include <string>
 #include <vector>
 #include <memory>
@@ -22,15 +24,16 @@ struct BuilderStorage
     NotNull<LayerNodeBuilder> createLayerNodeBuilder(std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory);
     NotNull<VariableNodeBuilder> createVariableNodeBuilder();
     NotNull<ConstNodeBuilder> createConstNodeBuilder();
+    NotNull<VariableBufferNodeBuilder> createVariableBufferNodeBuilder(std::size_t numVariables);
 
     std::size_t getNumConsts() const
     {
-        return consts.size();
+        return m_numConsts;
     }
 
     std::size_t getNumVariables() const
     {
-        return variables.size();
+        return m_numVariables;
     }
 
     auto const& getConstBuilders() const
@@ -44,6 +47,8 @@ struct BuilderStorage
     }
 
 private:
+    std::size_t m_numConsts{};
+    std::size_t m_numVariables{};
     std::vector<std::unique_ptr<ConstNodeBuilder>> consts;
     std::vector<std::unique_ptr<VariableNodeBuilder>> variables;
     std::vector<std::unique_ptr<OperationNodeBuilder>> operations; // should have generic operations later

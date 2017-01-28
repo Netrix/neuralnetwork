@@ -3,7 +3,7 @@
 #include "ComputationNode.hpp"
 
 template<class Type>
-struct VariableNode : ComputationNode<Type>
+struct VariableNode : ComputationNode<Type> // Single variable node that inherits from VariablesNode
 {
     VariableNode(Type & value, Type & delta)
         : m_value(value)

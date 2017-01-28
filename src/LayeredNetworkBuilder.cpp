@@ -5,7 +5,10 @@
 
 NotNull<FullyConnectedLayerBuilder> LayeredNetworkBuilder::setOutputLayer(FullyConnectedLayerSpecs const& specs)
 {
-    auto layerNode = m_networkBuilder.setRootNode(MultipleInputLayerNodeTag{}, std::make_unique<PassThroughMultipleInputLayerNodeFactory<BNN_TYPE>>());
+    auto layerNode =
+            m_networkBuilder.setRootNode(
+                MultipleInputLayerNodeTag{},
+                std::make_unique<PassThroughMultipleInputLayerNodeFactory<BNN_TYPE>>(specs.numNeurons));
     std::vector<NotNull<UnaryNodeBuilder>> activations;
     activations.reserve(specs.numNeurons);
 

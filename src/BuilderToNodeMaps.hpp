@@ -29,6 +29,17 @@ struct BuilderToNodeMaps
     VariableBuilderToNodeMap<Type> variables;
     OperationBuilderToNodeMap<Type> operations;
 
+    NotNull<VariableNode<Type>> getVariableNodeFromMap(NotNull<NodeBuilder> nodeBuilder) const
+    {
+        auto variableNode = variables.find(nodeBuilder);
+        if(variableNode != variables.end())
+        {
+            return variableNode->second.get();
+        }
+
+        throw InvalidComputationGraph("Missing variable node");
+    }
+
     NotNull<ComputationNode<Type>> getComputationNodeFromMaps(NotNull<NodeBuilder> nodeBuilder) const
     {
         auto constNode = consts.find(nodeBuilder);
