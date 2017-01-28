@@ -18,6 +18,7 @@ set(NODES_FILES
     Nodes/MultipleInputLayerNodes/MultipleInputLayerNode.hpp
     Nodes/MultipleInputLayerNodes/PassThroughMultipleInputLayerNode.hpp
     Nodes/LayerNodes/LayerNode.hpp
+    Nodes/LayerNodes/FullyConnectedLayer.hpp
     )
 
 set(FILES
@@ -42,6 +43,7 @@ set(FILES
     LayeredNetworkBuilders/FullyConnectedLayerSpecs.hpp
     LayeredNetworkBuilders/InputLayerSpecs.hpp
     MultipleInputLayerNodeFactories/PassThrough.hpp
+    LayerNodeFactories/FullyConnectedLayer.hpp
     Datasets/MnistLoader.cpp
     Datasets/MnistLoader.hpp
     ArrayView.hpp

@@ -6,3 +6,4 @@ struct VariableTag{};
 struct ConstTag{};
 struct MultipleInputTag{};
 struct MultipleInputLayerNodeTag{};
+struct LayerNodeTag{};
