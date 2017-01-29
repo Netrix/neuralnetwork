@@ -8,7 +8,7 @@
 #include "NodeBuilders/ConstBufferNodeBuilder.hpp"
 #include "NodeBuilders/MultipleInputNodeBuilder.hpp"
 #include "NodeBuilders/MultipleInputLayerNodeBuilder.hpp"
-#include "NodeBuilders/LayerNodeBuilder.hpp"
+#include "NodeBuilders/ConnectedLayerNodeBuilder.hpp"
 #include "NodeBuilders/VariableSingleValueNodeBuilder.hpp"
 #include "NodeBuilders/VariableBufferNodeBuilder.hpp"       // TODO forward declare them and move it to cpp
 #include <string>
@@ -22,7 +22,7 @@ struct BuilderStorage
     NotNull<UnaryNodeBuilder> createUnaryNodeBuilder(std::unique_ptr<IUnaryOperationNodesFactory<BNN_TYPE>>);
     NotNull<BinaryNodeBuilder> createBinaryNodeBuilder(std::unique_ptr<IBinaryOperationNodesFactory<BNN_TYPE>> factory);
     NotNull<MultipleInputLayerNodeBuilder> createMultipleInputLayerNodeBuilder(std::unique_ptr<IMultipleInputLayerOperationsFactory<BNN_TYPE>> factory);
-    NotNull<LayerNodeBuilder> createLayerNodeBuilder(LayerNodeSpecs);
+    NotNull<ConnectedLayerNodeBuilder> createConnectedLayerNodeBuilder(ConnectedLayerNodeSpecs);
     NotNull<ConstSingleValueNodeBuilder> createConstSingleValueNodeBuilder();
     NotNull<VariableSingleValueNodeBuilder> createVariableSingleValueNodeBuilder();
     NotNull<VariableBufferNodeBuilder> createVariableBufferNodeBuilder(std::size_t numVariables);

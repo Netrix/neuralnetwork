@@ -44,9 +44,9 @@ NotNull<MultipleInputLayerNodeBuilder> NetworkBuilder::setRootNode(MultipleInput
     return l_builder;
 }
 
-NotNull<LayerNodeBuilder> NetworkBuilder::setRootNode(LayerNodeSpecs specs)
+NotNull<ConnectedLayerNodeBuilder> NetworkBuilder::setRootNode(ConnectedLayerNodeSpecs specs)
 {
-    auto l_builder = m_storage.createLayerNodeBuilder(std::move(specs));
+    auto l_builder = m_storage.createConnectedLayerNodeBuilder(std::move(specs));
     m_root = l_builder;
     return l_builder;
 }

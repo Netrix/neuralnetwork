@@ -3,7 +3,7 @@
 #include "OperationNodeBuilder.hpp"
 #include "BuilderToNodeMaps.hpp"
 #include "NodeBuilders/MultipleInputLayerNodeBuilder.hpp"
-#include "ILayerOperationsFactory.hpp"
+#include "IConnectedLayerOperationsFactory.hpp"
 #include "NodeTags.hpp"
 #include <string>
 
@@ -12,12 +12,12 @@ struct BinaryNodeBuilder;
 struct VariableBufferNodeBuilder;
 struct ConstBufferNodeBuilder;
 
-struct LayerNodeBuilder : OperationNodeBuilder
+struct ConnectedLayerNodeBuilder : OperationNodeBuilder
 {
-    LayerNodeBuilder(BuilderStorage& builderStorage, LayerNodeSpecs specs);
+    ConnectedLayerNodeBuilder(BuilderStorage& builderStorage, ConnectedLayerNodeSpecs specs);
 
     NotNull<MultipleInputLayerNodeBuilder> setInput(MultipleInputLayerNodeSpecs);
-    NotNull<LayerNodeBuilder> setInput(LayerNodeSpecs);
+    NotNull<ConnectedLayerNodeBuilder> setInput(ConnectedLayerNodeSpecs);
     NotNull<ConstBufferNodeBuilder> setInput(ConstBufferNodeSpecs const&);
 
     ArrayView<OperationNodeBuilder*> getOperations();
@@ -29,7 +29,7 @@ private:
 
 private:
     BuilderStorage& m_builderStorage;
-    LayerNodeSpecs m_specs;
+    ConnectedLayerNodeSpecs m_specs;
 
     VariableBufferNodeBuilder* m_variablesNodeBuilder;
     OperationNodeBuilder* m_inputOperationBuilder{};

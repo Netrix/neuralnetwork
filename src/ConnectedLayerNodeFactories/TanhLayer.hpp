@@ -1,10 +1,10 @@
 #pragma once
 
-#include "ILayerOperationsFactory.hpp"
-#include "Nodes/LayerNodes/TanhLayer.hpp"
+#include "IConnectedLayerOperationsFactory.hpp"
+#include "Nodes/ConnectedLayerNodes/TanhLayer.hpp"
 
 template<class Type>
-struct TanhLayerNodeFactory : ILayerOperationsFactory<Type>
+struct TanhLayerNodeFactory : IConnectedLayerOperationsFactory<Type>
 {
     TanhLayerNodeFactory(std::size_t beta)
         : m_beta(beta)

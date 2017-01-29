@@ -21,11 +21,11 @@ set(NODES_FILES
     Nodes/MultipleInputOperators/MultipleInputOperationNode.hpp
     Nodes/MultipleInputLayerNodes/MultipleInputLayerNode.hpp
     Nodes/MultipleInputLayerNodes/PassThroughMultipleInputLayerNode.hpp
-    Nodes/LayerNodes/LayerNode.hpp
-    Nodes/LayerNodes/FullyConnectedLayer.hpp
-    Nodes/LayerNodes/SigmoidLayer.hpp
-    Nodes/LayerNodes/ReLULayer.hpp
-    Nodes/LayerNodes/TanhLayer.hpp
+    Nodes/ConnectedLayerNodes/ConnectedLayerNode.hpp
+    Nodes/ConnectedLayerNodes/FullyConnectedLayer.hpp
+    Nodes/ConnectedLayerNodes/SigmoidLayer.hpp
+    Nodes/ConnectedLayerNodes/ReLULayer.hpp
+    Nodes/ConnectedLayerNodes/TanhLayer.hpp
     )
 
 set(FILES
@@ -44,8 +44,8 @@ set(FILES
     NodeBuilders/MultipleInputNodeBuilder.hpp
     NodeBuilders/MultipleInputLayerNodeBuilder.cpp
     NodeBuilders/MultipleInputLayerNodeBuilder.hpp
-    NodeBuilders/LayerNodeBuilder.cpp
-    NodeBuilders/LayerNodeBuilder.hpp
+    NodeBuilders/ConnectedLayerNodeBuilder.cpp
+    NodeBuilders/ConnectedLayerNodeBuilder.hpp
     NodeBuilders/VariableBufferNodeBuilder.hpp
     NodeBuilders/VariableSingleValueNodeBuilder.hpp
     LayeredNetworkBuilders/FullyConnectedLayerBuilder.hpp
@@ -54,10 +54,10 @@ set(FILES
     LayeredNetworkBuilders/FullyConnectedLayerSpecs.hpp
     LayeredNetworkBuilders/InputLayerSpecs.hpp
     MultipleInputLayerNodeFactories/PassThrough.hpp
-    LayerNodeFactories/FullyConnectedLayer.hpp
-    LayerNodeFactories/SigmoidLayer.hpp
-    LayerNodeFactories/ReLULayer.hpp
-    LayerNodeFactories/TanhLayer.hpp
+    ConnectedLayerNodeFactories/FullyConnectedLayer.hpp
+    ConnectedLayerNodeFactories/SigmoidLayer.hpp
+    ConnectedLayerNodeFactories/ReLULayer.hpp
+    ConnectedLayerNodeFactories/TanhLayer.hpp
     Datasets/MnistLoader.cpp
     Datasets/MnistLoader.hpp
     UnaryOperationNodesFactories/IUnaryOperationNodesFactory.hpp
@@ -90,7 +90,7 @@ set(FILES
     LayeredNetworkBuilder.cpp
     LayeredNetworkBuilder.hpp
     IMultipleInputLayerOperationsFactory.hpp
-    ILayerOperationsFactory.hpp
+    IConnectedLayerOperationsFactory.hpp
     NormalDistributionGenerator.hpp
     MnistPreprocessedDataSet.hpp
     LearnUtils.hpp

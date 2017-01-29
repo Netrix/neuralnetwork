@@ -1,5 +1,5 @@
 #pragma once
-#include "LayerNode.hpp"
+#include "ConnectedLayerNode.hpp"
 #include "NotNull.hpp"
 #include <algorithm>
 #include <cmath>

@@ -6,7 +6,7 @@
 #include "LayeredNetworkBuilders/InputLayerSpecs.hpp"
 #include "NormalDistributionGenerator.hpp"
 #include "LearnUtils.hpp"
-#include "LayerNodeFactories/SigmoidLayer.hpp"
+#include "ConnectedLayerNodeFactories/SigmoidLayer.hpp"
 #include <chrono>
 
 // (MathVectorAdapter without MathArrayViewAdapter, RELU) 240s

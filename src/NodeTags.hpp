@@ -2,7 +2,7 @@
 #include <string>
 #include <memory>
 #include "IMultipleInputLayerOperationsFactory.hpp"
-#include "ILayerOperationsFactory.hpp"
+#include "IConnectedLayerOperationsFactory.hpp"
 #include "UnaryOperationNodesFactories/IUnaryOperationNodesFactory.hpp"
 #include "BinaryOperationNodesFactories/IBinaryOperationNodesFactory.hpp"
 #include "MultipleInputOperationNodesFactories/IMultipleInputOperationNodesFactory.hpp"
@@ -23,9 +23,9 @@ struct MultipleInputNodeSpecs
     std::unique_ptr<IMultipleInputOperationNodesFactory<BNN_TYPE>> factory;
 };
 
-struct LayerNodeSpecs
+struct ConnectedLayerNodeSpecs
 {
-    std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory;
+    std::unique_ptr<IConnectedLayerOperationsFactory<BNN_TYPE>> factory;
     std::size_t numOutputs;
 };
 

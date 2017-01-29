@@ -8,7 +8,7 @@
 #include "ConstStorageBuilder.hpp"
 #include "VariableStorageBuilder.hpp"
 #include "BackPropagationNetwork.hpp"
-#include "ILayerOperationsFactory.hpp"
+#include "IConnectedLayerOperationsFactory.hpp"
 #include <map>
 
 
@@ -22,7 +22,7 @@ struct NetworkBuilder
 {
     NotNull<BinaryNodeBuilder> setRootNode(BinaryNodeSpecs);
     NotNull<UnaryNodeBuilder> setRootNode(UnaryNodeSpecs);
-    NotNull<LayerNodeBuilder> setRootNode(LayerNodeSpecs);
+    NotNull<ConnectedLayerNodeBuilder> setRootNode(ConnectedLayerNodeSpecs);
     NotNull<MultipleInputLayerNodeBuilder> setRootNode(MultipleInputLayerNodeSpecs);
 
     std::unique_ptr<BackPropagationNetwork> buildBackPropagationNetwork(BNN_TYPE learningRate=1.0f) const;   // should verify entire tree and return ready to work tree
