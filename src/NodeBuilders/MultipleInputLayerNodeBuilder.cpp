@@ -8,38 +8,38 @@ MultipleInputLayerNodeBuilder::MultipleInputLayerNodeBuilder(BuilderStorage& bui
 {
 }
 
-NotNull<MultipleInputNodeBuilder> MultipleInputLayerNodeBuilder::addInput(MultipleInputTag, std::string const& operation)
+NotNull<MultipleInputNodeBuilder> MultipleInputLayerNodeBuilder::addInput(MultipleInputNodeSpecs const& specs)
 {
-    auto l_builder = m_builderStorage.createMultipleInputNodeBuilder(operation);
+    auto l_builder = m_builderStorage.createMultipleInputNodeBuilder(specs.operation);
     m_inputBuilders.push_back(l_builder);
     m_inputOperationBuilders.push_back(l_builder);
     return l_builder;
 }
 
-NotNull<BinaryNodeBuilder> MultipleInputLayerNodeBuilder::addInput(BinaryNodeTag, std::string const& operation)
+NotNull<BinaryNodeBuilder> MultipleInputLayerNodeBuilder::addInput(BinaryNodeSpecs const& specs)
 {
-    auto l_builder = m_builderStorage.createBinaryNodeBuilder(operation);
+    auto l_builder = m_builderStorage.createBinaryNodeBuilder(specs.operation);
     m_inputBuilders.push_back(l_builder);
     m_inputOperationBuilders.push_back(l_builder);
     return l_builder;
 }
 
-NotNull<UnaryNodeBuilder> MultipleInputLayerNodeBuilder::addInput(UnaryNodeTag, std::string const& operation)
+NotNull<UnaryNodeBuilder> MultipleInputLayerNodeBuilder::addInput(UnaryNodeSpecs const& specs)
 {
-    auto l_builder = m_builderStorage.createUnaryNodeBuilder(operation);
+    auto l_builder = m_builderStorage.createUnaryNodeBuilder(specs.operation);
     m_inputBuilders.push_back(l_builder);
     m_inputOperationBuilders.push_back(l_builder);
     return l_builder;
 }
 
-NotNull<VariableNodeBuilder> MultipleInputLayerNodeBuilder::addInput(VariableTag)
+NotNull<VariableNodeBuilder> MultipleInputLayerNodeBuilder::addInput(VariableNodeSpecs)
 {
     auto l_builder = m_builderStorage.createVariableSingleValueNodeBuilder();
     m_inputBuilders.push_back(l_builder);
     return l_builder;
 }
 
-NotNull<ConstNodeBuilder> MultipleInputLayerNodeBuilder::addInput(ConstTag)
+NotNull<ConstNodeBuilder> MultipleInputLayerNodeBuilder::addInput(ConstNodeSpecs)
 {
     auto l_builder = m_builderStorage.createConstNodeBuilder();
     m_inputBuilders.push_back(l_builder);

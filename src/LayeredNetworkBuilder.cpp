@@ -11,11 +11,11 @@ NotNull<FullyConnectedLayerBuilder> LayeredNetworkBuilder::setOutputLayer(FullyC
     LayerNodeBuilder* activationsLayer;
     if(specs.activation == "sigmoid")   // TODO obviously change it to proper factory!
     {
-        activationsLayer = m_networkBuilder.setRootNode(LayerNodeTag{}, std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(specs.numNeurons));
+        activationsLayer = m_networkBuilder.setRootNode(LayerNodeSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(specs.numNeurons)});
     }
     else if(specs.activation == "relu")
     {
-        activationsLayer = m_networkBuilder.setRootNode(LayerNodeTag{}, std::make_unique<ReLULayerNodeFactory<BNN_TYPE>>(specs.numNeurons));
+        activationsLayer = m_networkBuilder.setRootNode(LayerNodeSpecs{std::make_unique<ReLULayerNodeFactory<BNN_TYPE>>(specs.numNeurons)});
     }
     else
     {

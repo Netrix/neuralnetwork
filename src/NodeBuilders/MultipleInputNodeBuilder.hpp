@@ -20,10 +20,10 @@ struct MultipleInputNodeBuilder : OperationNodeBuilder
 {
     MultipleInputNodeBuilder(BuilderStorage& builderStorage, std::string const& operation);
 
-    NotNull<UnaryNodeBuilder> addInput(UnaryNodeTag, std::string const& operation);
-    NotNull<BinaryNodeBuilder> addInput(BinaryNodeTag, std::string const& operation);
-    NotNull<VariableNodeBuilder> addInput(VariableTag);
-    NotNull<ConstNodeBuilder> addInput(ConstTag);
+    NotNull<UnaryNodeBuilder> addInput(UnaryNodeSpecs const& specs);
+    NotNull<BinaryNodeBuilder> addInput(BinaryNodeSpecs const& specs);
+    NotNull<VariableNodeBuilder> addInput(VariableNodeSpecs);
+    NotNull<ConstNodeBuilder> addInput(ConstNodeSpecs);
 
     void addInput(NotNull<ConstNodeBuilder>);
 

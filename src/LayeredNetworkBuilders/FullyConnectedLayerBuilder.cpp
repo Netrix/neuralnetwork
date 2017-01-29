@@ -12,22 +12,22 @@
 
 FullyConnectedLayerBuilder::FullyConnectedLayerBuilder(NotNull<LayerNodeBuilder> activationLayer, std::size_t numOutputs)
 {
-    m_fullyConnectedLayer = activationLayer->setInput(LayerNodeTag{}, std::make_unique<FullyConnectedLayerNodeFactory<BNN_TYPE>>(numOutputs));
+    m_fullyConnectedLayer = activationLayer->setInput(LayerNodeSpecs{std::make_unique<FullyConnectedLayerNodeFactory<BNN_TYPE>>(numOutputs)});
 }
 
 NotNull<FullyConnectedLayerBuilder> FullyConnectedLayerBuilder::setInputLayer(FullyConnectedLayerSpecs const& specs)
 {
-    assert(specs.activation == "sigmoid" or specs.activation == "relu");
+    assert(specs.activation == "sigmoid" or specs.activation == "relu");    // TODO replace it with proper factory
 
     LayerNodeBuilder* activationsLayer;
 
     if(specs.activation == "sigmoid")
     {
-        activationsLayer = m_fullyConnectedLayer->setInput(LayerNodeTag{}, std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(specs.numNeurons));
+        activationsLayer = m_fullyConnectedLayer->setInput(LayerNodeSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(specs.numNeurons)});
     }
     else if(specs.activation == "relu")
     {
-        activationsLayer = m_fullyConnectedLayer->setInput(LayerNodeTag{}, std::make_unique<ReLULayerNodeFactory<BNN_TYPE>>(specs.numNeurons));
+        activationsLayer = m_fullyConnectedLayer->setInput(LayerNodeSpecs{std::make_unique<ReLULayerNodeFactory<BNN_TYPE>>(specs.numNeurons)});
     }
     else
     {
@@ -42,9 +42,10 @@ NotNull<FullyConnectedLayerBuilder> FullyConnectedLayerBuilder::setInputLayer(Fu
 
 void FullyConnectedLayerBuilder::setInputLayer(InputLayerSpecs const& specs)
 {
-    auto passThrough = m_fullyConnectedLayer->setInput(MultipleInputLayerNodeTag{}, std::make_unique<PassThroughMultipleInputLayerNodeFactory<BNN_TYPE>>(specs.numInputs)); // TODO replace it with const layer node
+    auto passThrough = m_fullyConnectedLayer->setInput(MultipleInputLayerNodeSpecs{
+                                                           std::make_unique<PassThroughMultipleInputLayerNodeFactory<BNN_TYPE>>(specs.numInputs)}); // TODO replace it with const layer node
     for(decltype(specs.numInputs) i = 0; i < specs.numInputs; ++i)
     {
-        passThrough->addInput(ConstTag{});
+        passThrough->addInput(ConstNodeSpecs{});
     }
 }

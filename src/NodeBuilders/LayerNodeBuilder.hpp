@@ -16,8 +16,8 @@ struct LayerNodeBuilder : OperationNodeBuilder
     LayerNodeBuilder(BuilderStorage& builderStorage,
                      std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory);
 
-    NotNull<MultipleInputLayerNodeBuilder> setInput(MultipleInputLayerNodeTag, std::unique_ptr<IMultipleInputLayerOperationsFactory<BNN_TYPE>> factory); // TODO can be done by template with traits MultipleInputTag -> MultipleInputNodeBuilder
-    NotNull<LayerNodeBuilder> setInput(LayerNodeTag, std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory);
+    NotNull<MultipleInputLayerNodeBuilder> setInput(MultipleInputLayerNodeSpecs);
+    NotNull<LayerNodeBuilder> setInput(LayerNodeSpecs);
 
     ArrayView<OperationNodeBuilder*> getOperations();
 

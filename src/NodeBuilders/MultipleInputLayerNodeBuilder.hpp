@@ -18,11 +18,11 @@ struct MultipleInputLayerNodeBuilder : OperationNodeBuilder
 {
     MultipleInputLayerNodeBuilder(BuilderStorage& builderStorage, std::unique_ptr<IMultipleInputLayerOperationsFactory<BNN_TYPE>> factory);
 
-    NotNull<MultipleInputNodeBuilder> addInput(MultipleInputTag, std::string const& operation); // TODO can be done by template with traits MultipleInputTag -> MultipleInputNodeBuilder
-    NotNull<BinaryNodeBuilder> addInput(BinaryNodeTag, std::string const& operation);
-    NotNull<UnaryNodeBuilder> addInput(UnaryNodeTag, std::string const& operation);
-    NotNull<VariableNodeBuilder> addInput(VariableTag);
-    NotNull<ConstNodeBuilder> addInput(ConstTag);
+    NotNull<MultipleInputNodeBuilder> addInput(MultipleInputNodeSpecs const& specs);
+    NotNull<BinaryNodeBuilder> addInput(BinaryNodeSpecs const& specs);
+    NotNull<UnaryNodeBuilder> addInput(UnaryNodeSpecs const& specs);
+    NotNull<VariableNodeBuilder> addInput(VariableNodeSpecs);
+    NotNull<ConstNodeBuilder> addInput(ConstNodeSpecs);
 
     void addInput(NotNull<ConstNodeBuilder>);
 

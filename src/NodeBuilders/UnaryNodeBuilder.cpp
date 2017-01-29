@@ -10,34 +10,34 @@ UnaryNodeBuilder::UnaryNodeBuilder(BuilderStorage& builderStorage, std::string c
 {
 }
 
-NotNull<MultipleInputNodeBuilder> UnaryNodeBuilder::setInput(MultipleInputTag, std::string const& operation)
+NotNull<MultipleInputNodeBuilder> UnaryNodeBuilder::setInput(MultipleInputNodeSpecs const& specs)
 {
     assert(m_inputBuilder == nullptr);
-    auto l_builder = m_builderStorage.createMultipleInputNodeBuilder(operation);
+    auto l_builder = m_builderStorage.createMultipleInputNodeBuilder(specs.operation);
     m_inputBuilder = l_builder;
     m_operationBuilder = l_builder;
     return l_builder;
 }
 
-NotNull<BinaryNodeBuilder> UnaryNodeBuilder::setInput(BinaryNodeTag, std::string const& operation)
+NotNull<BinaryNodeBuilder> UnaryNodeBuilder::setInput(BinaryNodeSpecs const& specs)
 {
     assert(m_inputBuilder == nullptr);
-    auto l_builder = m_builderStorage.createBinaryNodeBuilder(operation);
+    auto l_builder = m_builderStorage.createBinaryNodeBuilder(specs.operation);
     m_inputBuilder = l_builder;
     m_operationBuilder = l_builder;
     return l_builder;
 }
 
-NotNull<UnaryNodeBuilder> UnaryNodeBuilder::setInput(UnaryNodeTag, std::string const& operation)
+NotNull<UnaryNodeBuilder> UnaryNodeBuilder::setInput(UnaryNodeSpecs const& specs)
 {
     assert(m_inputBuilder == nullptr);
-    auto l_builder = m_builderStorage.createUnaryNodeBuilder(operation);
+    auto l_builder = m_builderStorage.createUnaryNodeBuilder(specs.operation);
     m_inputBuilder = l_builder;
     m_operationBuilder = l_builder;
     return l_builder;
 }
 
-NotNull<VariableNodeBuilder> UnaryNodeBuilder::setInput(VariableTag)
+NotNull<VariableNodeBuilder> UnaryNodeBuilder::setInput(VariableNodeSpecs)
 {
     assert(m_inputBuilder == nullptr);
     auto l_builder = m_builderStorage.createVariableSingleValueNodeBuilder();
@@ -45,7 +45,7 @@ NotNull<VariableNodeBuilder> UnaryNodeBuilder::setInput(VariableTag)
     return l_builder;
 }
 
-NotNull<ConstNodeBuilder> UnaryNodeBuilder::setInput(ConstTag)
+NotNull<ConstNodeBuilder> UnaryNodeBuilder::setInput(ConstNodeSpecs)
 {
     assert(m_inputBuilder == nullptr);
     auto l_builder = m_builderStorage.createConstNodeBuilder();

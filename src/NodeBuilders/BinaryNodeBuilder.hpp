@@ -19,20 +19,20 @@ struct BinaryNodeBuilder : OperationNodeBuilder
 {
     BinaryNodeBuilder(BuilderStorage& builderStorage, std::string const& operation);    // TODO instead of operation let it pass the factory for the operation, the factory should be able to receive inputs, everything else should be passed through factory constructor
 
-    NotNull<MultipleInputNodeBuilder> setFirstInput(MultipleInputTag, std::string const& operation);
-    NotNull<MultipleInputNodeBuilder> setSecondInput(MultipleInputTag, std::string const& operation);
+    NotNull<MultipleInputNodeBuilder> setFirstInput(MultipleInputNodeSpecs const& specs);
+    NotNull<MultipleInputNodeBuilder> setSecondInput(MultipleInputNodeSpecs const& specs);
 
-    NotNull<UnaryNodeBuilder> setFirstInput(UnaryNodeTag, std::string const& operation);
-    NotNull<UnaryNodeBuilder> setSecondInput(UnaryNodeTag, std::string const& operation);
+    NotNull<UnaryNodeBuilder> setFirstInput(UnaryNodeSpecs const& specs);
+    NotNull<UnaryNodeBuilder> setSecondInput(UnaryNodeSpecs const& specs);
 
-    NotNull<BinaryNodeBuilder> setFirstInput(BinaryNodeTag, std::string const& operation);
-    NotNull<BinaryNodeBuilder> setSecondInput(BinaryNodeTag, std::string const& operation);
+    NotNull<BinaryNodeBuilder> setFirstInput(BinaryNodeSpecs const& specs);
+    NotNull<BinaryNodeBuilder> setSecondInput(BinaryNodeSpecs const& specs);
 
-    NotNull<VariableNodeBuilder> setFirstInput(VariableTag);
-    NotNull<VariableNodeBuilder> setSecondInput(VariableTag);
+    NotNull<VariableNodeBuilder> setFirstInput(VariableNodeSpecs);
+    NotNull<VariableNodeBuilder> setSecondInput(VariableNodeSpecs);
 
-    NotNull<ConstNodeBuilder> setFirstInput(ConstTag);
-    NotNull<ConstNodeBuilder> setSecondInput(ConstTag);
+    NotNull<ConstNodeBuilder> setFirstInput(ConstNodeSpecs);
+    NotNull<ConstNodeBuilder> setSecondInput(ConstNodeSpecs);
 
     void setFirstInput(NotNull<ConstNodeBuilder>);
     void setSecondInput(NotNull<ConstNodeBuilder>);

@@ -9,62 +9,62 @@ BinaryNodeBuilder::BinaryNodeBuilder(BuilderStorage& builderStorage, std::string
 {
 }
 
-NotNull<MultipleInputNodeBuilder> BinaryNodeBuilder::setFirstInput(MultipleInputTag, std::string const& operation)
+NotNull<MultipleInputNodeBuilder> BinaryNodeBuilder::setFirstInput(MultipleInputNodeSpecs const& specs)
 {
     assert(m_inputBuilders[0] == nullptr);
-    auto l_builder = m_builderStorage.createMultipleInputNodeBuilder(operation);
+    auto l_builder = m_builderStorage.createMultipleInputNodeBuilder(specs.operation);
     m_inputBuilders[0] = l_builder;
     m_operationBuilders[0] = l_builder;
     return l_builder;
 }
 
-NotNull<MultipleInputNodeBuilder> BinaryNodeBuilder::setSecondInput(MultipleInputTag, std::string const& operation)
+NotNull<MultipleInputNodeBuilder> BinaryNodeBuilder::setSecondInput(MultipleInputNodeSpecs const& specs)
 {
     assert(m_inputBuilders[1] == nullptr);
-    auto l_builder = m_builderStorage.createMultipleInputNodeBuilder(operation);
+    auto l_builder = m_builderStorage.createMultipleInputNodeBuilder(specs.operation);
     m_inputBuilders[1] = l_builder;
     m_operationBuilders[1] = l_builder;
     return l_builder;
 }
 
-NotNull<UnaryNodeBuilder> BinaryNodeBuilder::setFirstInput(UnaryNodeTag, std::string const& operation)
+NotNull<UnaryNodeBuilder> BinaryNodeBuilder::setFirstInput(UnaryNodeSpecs const& specs)  // change UnarayNodeTag with UnaryNodeSpecs
 {
     assert(m_inputBuilders[0] == nullptr);
-    auto l_builder = m_builderStorage.createUnaryNodeBuilder(operation);
+    auto l_builder = m_builderStorage.createUnaryNodeBuilder(specs.operation);
     m_inputBuilders[0] = l_builder;
     m_operationBuilders[0] = l_builder;
     return l_builder;
 }
 
-NotNull<UnaryNodeBuilder> BinaryNodeBuilder::setSecondInput(UnaryNodeTag, std::string const& operation)
+NotNull<UnaryNodeBuilder> BinaryNodeBuilder::setSecondInput(UnaryNodeSpecs const& specs)
 {
     assert(m_inputBuilders[1] == nullptr);
-    auto l_builder = m_builderStorage.createUnaryNodeBuilder(operation);
+    auto l_builder = m_builderStorage.createUnaryNodeBuilder(specs.operation);
     m_inputBuilders[1] = l_builder;
     m_operationBuilders[1] = l_builder;
     return l_builder;
 }
 
-NotNull<BinaryNodeBuilder> BinaryNodeBuilder::setFirstInput(BinaryNodeTag, std::string const& operation)
+NotNull<BinaryNodeBuilder> BinaryNodeBuilder::setFirstInput(BinaryNodeSpecs const& specs)
 {
     assert(m_inputBuilders[0] == nullptr);
-    auto l_builder = m_builderStorage.createBinaryNodeBuilder(operation);
+    auto l_builder = m_builderStorage.createBinaryNodeBuilder(specs.operation);
     m_inputBuilders[0] = l_builder;
     m_operationBuilders[0] = l_builder;
     return l_builder;
 }
 
-NotNull<BinaryNodeBuilder> BinaryNodeBuilder::setSecondInput(BinaryNodeTag, std::string const& operation)
+NotNull<BinaryNodeBuilder> BinaryNodeBuilder::setSecondInput(BinaryNodeSpecs const& specs)
 {
     assert(m_inputBuilders[1] == nullptr);
-    auto l_builder = m_builderStorage.createBinaryNodeBuilder(operation);
+    auto l_builder = m_builderStorage.createBinaryNodeBuilder(specs.operation);
     m_inputBuilders[1] = l_builder;
     m_operationBuilders[1] = l_builder;
     return l_builder;
 }
 
 
-NotNull<VariableNodeBuilder> BinaryNodeBuilder::setFirstInput(VariableTag)
+NotNull<VariableNodeBuilder> BinaryNodeBuilder::setFirstInput(VariableNodeSpecs)
 {
     assert(m_inputBuilders[0] == nullptr);
     auto l_builder = m_builderStorage.createVariableSingleValueNodeBuilder();
@@ -72,7 +72,7 @@ NotNull<VariableNodeBuilder> BinaryNodeBuilder::setFirstInput(VariableTag)
     return l_builder;
 }
 
-NotNull<VariableNodeBuilder> BinaryNodeBuilder::setSecondInput(VariableTag)
+NotNull<VariableNodeBuilder> BinaryNodeBuilder::setSecondInput(VariableNodeSpecs)
 {
     assert(m_inputBuilders[1] == nullptr);
     auto l_builder = m_builderStorage.createVariableSingleValueNodeBuilder();
@@ -81,7 +81,7 @@ NotNull<VariableNodeBuilder> BinaryNodeBuilder::setSecondInput(VariableTag)
 }
 
 
-NotNull<ConstNodeBuilder> BinaryNodeBuilder::setFirstInput(ConstTag)
+NotNull<ConstNodeBuilder> BinaryNodeBuilder::setFirstInput(ConstNodeSpecs)
 {
     assert(m_inputBuilders[0] == nullptr);
     auto l_builder = m_builderStorage.createConstNodeBuilder();
@@ -89,7 +89,7 @@ NotNull<ConstNodeBuilder> BinaryNodeBuilder::setFirstInput(ConstTag)
     return l_builder;
 }
 
-NotNull<ConstNodeBuilder> BinaryNodeBuilder::setSecondInput(ConstTag)
+NotNull<ConstNodeBuilder> BinaryNodeBuilder::setSecondInput(ConstNodeSpecs)
 {
     assert(m_inputBuilders[1] == nullptr);
     auto l_builder = m_builderStorage.createConstNodeBuilder();

@@ -9,23 +9,23 @@ LayerNodeBuilder::LayerNodeBuilder(BuilderStorage& builderStorage,
 
 }
 
-NotNull<MultipleInputLayerNodeBuilder> LayerNodeBuilder::setInput(MultipleInputLayerNodeTag, std::unique_ptr<IMultipleInputLayerOperationsFactory<BNN_TYPE>> factory)
+NotNull<MultipleInputLayerNodeBuilder> LayerNodeBuilder::setInput(MultipleInputLayerNodeSpecs specs)
 {
     assert(m_inputBuilder == nullptr);
-    m_variablesNodeBuilder = allocateVariableNodeBuilder(factory->getNumOutputs());
+    m_variablesNodeBuilder = allocateVariableNodeBuilder(specs.factory->getNumOutputs());
 
-    auto l_builder = m_builderStorage.createMultipleInputLayerNodeBuilder(std::move(factory));
+    auto l_builder = m_builderStorage.createMultipleInputLayerNodeBuilder(std::move(specs.factory));
     m_inputBuilder = l_builder;
     m_inputOperationBuilder = l_builder;
     return l_builder;
 }
 
-NotNull<LayerNodeBuilder> LayerNodeBuilder::setInput(LayerNodeTag, std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory)  // TODO replace LayerNodeTag and other tags with SpecsStruct that defines the Input, factory should be taken by name from library
+NotNull<LayerNodeBuilder> LayerNodeBuilder::setInput(LayerNodeSpecs specs)  // TODO factory should be taken by name from library
 {
     assert(m_inputBuilder == nullptr);
-    m_variablesNodeBuilder = allocateVariableNodeBuilder(factory->getNumOutputs());
+    m_variablesNodeBuilder = allocateVariableNodeBuilder(specs.factory->getNumOutputs());
 
-    auto l_builder = m_builderStorage.createLayerNodeBuilder(std::move(factory));
+    auto l_builder = m_builderStorage.createLayerNodeBuilder(std::move(specs.factory));
     m_inputBuilder = l_builder;
     m_inputOperationBuilder = l_builder;
     return l_builder;

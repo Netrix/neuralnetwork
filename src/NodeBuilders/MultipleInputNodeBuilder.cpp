@@ -10,30 +10,30 @@ MultipleInputNodeBuilder::MultipleInputNodeBuilder(BuilderStorage& builderStorag
 {
 }
 
-NotNull<UnaryNodeBuilder> MultipleInputNodeBuilder::addInput(UnaryNodeTag, std::string const& operation)
+NotNull<UnaryNodeBuilder> MultipleInputNodeBuilder::addInput(UnaryNodeSpecs const& specs)
 {
-    auto l_builder = m_builderStorage.createUnaryNodeBuilder(operation);
+    auto l_builder = m_builderStorage.createUnaryNodeBuilder(specs.operation);
     m_inputBuilders.push_back(l_builder);
     m_operationBuilders.push_back(l_builder);
     return l_builder;
 }
 
-NotNull<BinaryNodeBuilder> MultipleInputNodeBuilder::addInput(BinaryNodeTag, std::string const& operation)
+NotNull<BinaryNodeBuilder> MultipleInputNodeBuilder::addInput(BinaryNodeSpecs const& specs)
 {
-    auto l_builder = m_builderStorage.createBinaryNodeBuilder(operation);
+    auto l_builder = m_builderStorage.createBinaryNodeBuilder(specs.operation);
     m_inputBuilders.push_back(l_builder);
     m_operationBuilders.push_back(l_builder);
     return l_builder;
 }
 
-NotNull<VariableNodeBuilder> MultipleInputNodeBuilder::addInput(VariableTag)
+NotNull<VariableNodeBuilder> MultipleInputNodeBuilder::addInput(VariableNodeSpecs)
 {
     auto l_builder = m_builderStorage.createVariableSingleValueNodeBuilder();
     m_inputBuilders.push_back(l_builder);
     return l_builder;
 }
 
-NotNull<ConstNodeBuilder> MultipleInputNodeBuilder::addInput(ConstTag)
+NotNull<ConstNodeBuilder> MultipleInputNodeBuilder::addInput(ConstNodeSpecs)
 {
     auto l_builder = m_builderStorage.createConstNodeBuilder();
     m_inputBuilders.push_back(l_builder);

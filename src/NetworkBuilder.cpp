@@ -23,30 +23,30 @@ auto extractNodesFromMap(std::map<MapKeyType, std::unique_ptr<Type>> & p_map)
 
 }
 
-NotNull<BinaryNodeBuilder> NetworkBuilder::setRootNode(BinaryNodeTag, std::string const& operation)
+NotNull<BinaryNodeBuilder> NetworkBuilder::setRootNode(BinaryNodeSpecs const& specs)
 {
-    auto l_builder = m_storage.createBinaryNodeBuilder(operation);
+    auto l_builder = m_storage.createBinaryNodeBuilder(specs.operation);
     m_root = l_builder;
     return l_builder;
 }
 
-NotNull<UnaryNodeBuilder> NetworkBuilder::setRootNode(UnaryNodeTag, std::string const& operation)
+NotNull<UnaryNodeBuilder> NetworkBuilder::setRootNode(UnaryNodeSpecs const& specs)
 {
-    auto l_builder = m_storage.createUnaryNodeBuilder(operation);
+    auto l_builder = m_storage.createUnaryNodeBuilder(specs.operation);
     m_root = l_builder;
     return l_builder;
 }
 
-NotNull<MultipleInputLayerNodeBuilder> NetworkBuilder::setRootNode(MultipleInputLayerNodeTag, std::unique_ptr<IMultipleInputLayerOperationsFactory<BNN_TYPE>> factory)
+NotNull<MultipleInputLayerNodeBuilder> NetworkBuilder::setRootNode(MultipleInputLayerNodeSpecs specs)
 {
-    auto l_builder = m_storage.createMultipleInputLayerNodeBuilder(std::move(factory));
+    auto l_builder = m_storage.createMultipleInputLayerNodeBuilder(std::move(specs.factory));
     m_root = l_builder;
     return l_builder;
 }
 
-NotNull<LayerNodeBuilder> NetworkBuilder::setRootNode(LayerNodeTag, std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory)
+NotNull<LayerNodeBuilder> NetworkBuilder::setRootNode(LayerNodeSpecs specs)
 {
-    auto l_builder = m_storage.createLayerNodeBuilder(std::move(factory));
+    auto l_builder = m_storage.createLayerNodeBuilder(std::move(specs.factory));
     m_root = l_builder;
     return l_builder;
 }

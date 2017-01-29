@@ -11,7 +11,7 @@ struct SigmoidLayerNodeFactory : ILayerOperationsFactory<Type>
     {}
 
     std::unique_ptr<OperationNode<Type>> create(NotNull<ComputationNode<Type>> input,
-                                                NotNull<VariableNode<Type>> variables) override
+                                                NotNull<VariableNode<Type>>) override
     {
         return std::make_unique<SigmoidLayerNode<Type>>(input);
     }

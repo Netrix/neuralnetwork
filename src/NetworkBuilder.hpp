@@ -20,10 +20,10 @@ struct ForwardNetwork{};
 
 struct NetworkBuilder
 {
-    NotNull<BinaryNodeBuilder> setRootNode(BinaryNodeTag, std::string const& operation);
-    NotNull<UnaryNodeBuilder> setRootNode(UnaryNodeTag, std::string const& operation);
-    NotNull<MultipleInputLayerNodeBuilder> setRootNode(MultipleInputLayerNodeTag, std::unique_ptr<IMultipleInputLayerOperationsFactory<BNN_TYPE>> factory);
-    NotNull<LayerNodeBuilder> setRootNode(LayerNodeTag, std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory);
+    NotNull<BinaryNodeBuilder> setRootNode(BinaryNodeSpecs const&);
+    NotNull<UnaryNodeBuilder> setRootNode(UnaryNodeSpecs const&);
+    NotNull<LayerNodeBuilder> setRootNode(LayerNodeSpecs);
+    NotNull<MultipleInputLayerNodeBuilder> setRootNode(MultipleInputLayerNodeSpecs);
 
     std::unique_ptr<BackPropagationNetwork> buildBackPropagationNetwork(BNN_TYPE learningRate=1.0f) const;   // should verify entire tree and return ready to work tree
 
