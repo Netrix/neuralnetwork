@@ -15,26 +15,11 @@ FullyConnectedLayerBuilder::FullyConnectedLayerBuilder(NotNull<LayerNodeBuilder>
     m_fullyConnectedLayer = activationLayer->setInput(LayerNodeSpecs{std::make_unique<FullyConnectedLayerNodeFactory<BNN_TYPE>>(numOutputs)});
 }
 
-NotNull<FullyConnectedLayerBuilder> FullyConnectedLayerBuilder::setInputLayer(FullyConnectedLayerSpecs const& specs)
+NotNull<FullyConnectedLayerBuilder> FullyConnectedLayerBuilder::setInputLayer(FullyConnectedLayerSpecs specs)
 {
-    assert(specs.activation == "sigmoid" or specs.activation == "relu");    // TODO replace it with proper factory
-
-    LayerNodeBuilder* activationsLayer;
-
-    if(specs.activation == "sigmoid")
-    {
-        activationsLayer = m_fullyConnectedLayer->setInput(LayerNodeSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(specs.numNeurons, 1.0)});
-    }
-    else if(specs.activation == "relu")
-    {
-        activationsLayer = m_fullyConnectedLayer->setInput(LayerNodeSpecs{std::make_unique<ReLULayerNodeFactory<BNN_TYPE>>(specs.numNeurons)});
-    }
-    else
-    {
-        throw 1;
-    }
-
-    auto layer = std::make_unique<FullyConnectedLayerBuilder>(activationsLayer, specs.numNeurons);
+    auto numNeurons = specs.activationFactory->getNumOutputs();
+    auto activationsLayer = m_fullyConnectedLayer->setInput(LayerNodeSpecs{std::move(specs.activationFactory)});
+    auto layer = std::make_unique<FullyConnectedLayerBuilder>(activationsLayer, numNeurons);
     auto specificLayer = layer.get();
     m_inputLayer = std::move(layer);
     return specificLayer;

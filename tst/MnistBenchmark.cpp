@@ -6,6 +6,7 @@
 #include "LayeredNetworkBuilders/InputLayerSpecs.hpp"
 #include "NormalDistributionGenerator.hpp"
 #include "LearnUtils.hpp"
+#include "LayerNodeFactories/SigmoidLayer.hpp"
 #include <chrono>
 
 // (MathVectorAdapter without MathArrayViewAdapter, RELU) 240s
@@ -21,8 +22,8 @@ TEST(MnistBenchmark, SingleEpoch)
     std::cout << mnistDataset.getInputSampleSize() << " " << mnistDataset.getNumSamples() << " " << mnistDataset.getOutputSampleSize() << std::endl;
 
     LayeredNetworkBuilder LayeredNetworkBuilder;
-    auto outLayer = LayeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{mnistDataset.getOutputSampleSize(), "sigmoid"});
-    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{32, "sigmoid"});
+    auto outLayer = LayeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(mnistDataset.getOutputSampleSize())});
+    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(32)});
     hiddenLayer->setInputLayer(InputLayerSpecs{mnistDataset.getInputSampleSize()});
     auto network = LayeredNetworkBuilder.buildBackPropagationNetwork(0.01f);
 
@@ -51,8 +52,8 @@ TEST(MnistBenchmark, SingleEpochParallel)
     std::cout << mnistDataset.getInputSampleSize() << " " << mnistDataset.getNumSamples() << " " << mnistDataset.getOutputSampleSize() << std::endl;
 
     LayeredNetworkBuilder layeredNetworkBuilder;
-    auto outLayer = layeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{mnistDataset.getOutputSampleSize(), "sigmoid"});
-    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{32, "sigmoid"});
+    auto outLayer = layeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(mnistDataset.getOutputSampleSize())});
+    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(32)});
     hiddenLayer->setInputLayer(InputLayerSpecs{mnistDataset.getInputSampleSize()});
 
     using namespace std::chrono;

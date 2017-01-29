@@ -25,6 +25,7 @@ set(NODES_FILES
     Nodes/LayerNodes/FullyConnectedLayer.hpp
     Nodes/LayerNodes/SigmoidLayer.hpp
     Nodes/LayerNodes/ReLULayer.hpp
+    Nodes/LayerNodes/TanhLayer.hpp
     )
 
 set(FILES
@@ -56,6 +57,7 @@ set(FILES
     LayerNodeFactories/FullyConnectedLayer.hpp
     LayerNodeFactories/SigmoidLayer.hpp
     LayerNodeFactories/ReLULayer.hpp
+    LayerNodeFactories/TanhLayer.hpp
     Datasets/MnistLoader.cpp
     Datasets/MnistLoader.hpp
     UnaryOperationNodesFactories/IUnaryOperationNodesFactory.hpp

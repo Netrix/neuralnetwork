@@ -1,20 +1,20 @@
 #pragma once
 
 #include "ILayerOperationsFactory.hpp"
-#include "Nodes/LayerNodes/SigmoidLayer.hpp"
+#include "Nodes/LayerNodes/TanhLayer.hpp"
 
 template<class Type>
-struct SigmoidLayerNodeFactory : ILayerOperationsFactory<Type>
+struct TanhLayerNodeFactory : ILayerOperationsFactory<Type>
 {
-    SigmoidLayerNodeFactory(std::size_t numOutputs, std::size_t beta=1.0)
+    TanhLayerNodeFactory(std::size_t numOutputs, std::size_t beta)
         : m_numOutputs(numOutputs)
         , m_beta(beta)
     {}
 
     std::unique_ptr<OperationNode<Type>> create(NotNull<ComputationNode<Type>> input,
-                                                NotNull<VariableNode<Type>>) override
+                                                NotNull<VariableNode<Type>> ) override
     {
-        return std::make_unique<SigmoidLayerNode<Type>>(input, m_beta);
+        return std::make_unique<TanhLayerNode<Type>>(input, m_beta);
     }
 
     std::size_t getNumOutputs() const override

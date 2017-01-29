@@ -15,7 +15,7 @@ TEST(LayerNodeTests, ComparingOutputOfLayerNodeVsOldWayWithoutHiddenLayer)
 {
     // Reference network
     LayeredNetworkBuilder layeredNetworkBuilder;
-    auto outLayer = layeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{2, "sigmoid"});
+    auto outLayer = layeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(2)});
     outLayer->setInputLayer(InputLayerSpecs{2});
 
     auto network = layeredNetworkBuilder.buildBackPropagationNetwork(0.01f);
@@ -64,8 +64,8 @@ TEST(LayerNodeTests, ComparingOutputOfLayerNodeVsOldWayWithHiddenLayer)
 {
     // Reference network
     LayeredNetworkBuilder layeredNetworkBuilder;
-    auto outLayer = layeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{2, "sigmoid"});
-    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{2, "sigmoid"});
+    auto outLayer = layeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(2)});
+    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(2)});
     hiddenLayer->setInputLayer(InputLayerSpecs{2});
 
     auto network = layeredNetworkBuilder.buildBackPropagationNetwork(0.01f);

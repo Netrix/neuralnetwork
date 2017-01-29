@@ -8,7 +8,7 @@ struct FullyConnectedLayerBuilder;
 
 struct LayeredNetworkBuilder
 {
-    NotNull<FullyConnectedLayerBuilder> setOutputLayer(FullyConnectedLayerSpecs const& specs);
+    NotNull<FullyConnectedLayerBuilder> setOutputLayer(FullyConnectedLayerSpecs specs);
 
     std::unique_ptr<BackPropagationNetwork> buildBackPropagationNetwork(BNN_TYPE learningRate=1.0f) const
     {

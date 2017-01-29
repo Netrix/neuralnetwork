@@ -7,6 +7,7 @@
 #include "StreamOperators.hpp"
 #include "MathVectorAdapter.hpp"
 #include "NormalDistributionGenerator.hpp"
+#include "LayerNodeFactories/TanhLayer.hpp"
 #include <random>
 #include <iomanip>
 
@@ -28,8 +29,8 @@ TEST(XorTest, XorWithZeros)
     };
 
     LayeredNetworkBuilder LayeredNetworkBuilder;
-    auto outLayer = LayeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{2, "tanh"});
-    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{2, "tanh"});
+    auto outLayer = LayeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{std::make_unique<TanhLayerNodeFactory<BNN_TYPE>>(2, 1.0f)});
+    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{std::make_unique<TanhLayerNodeFactory<BNN_TYPE>>(2, 1.0f)});
     hiddenLayer->setInputLayer(InputLayerSpecs{2});
     auto network = LayeredNetworkBuilder.buildBackPropagationNetwork();
     network->setLearningRate(0.01f);
@@ -65,8 +66,8 @@ TEST(XorTest, XorWithMinusOnes)
     };
 
     LayeredNetworkBuilder LayeredNetworkBuilder;
-    auto outLayer = LayeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{2, "tanh"});
-    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{2, "tanh"});
+    auto outLayer = LayeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{std::make_unique<TanhLayerNodeFactory<BNN_TYPE>>(2, 1.0f)});
+    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{std::make_unique<TanhLayerNodeFactory<BNN_TYPE>>(2, 1.0f)});
     hiddenLayer->setInputLayer(InputLayerSpecs{2});
     auto network = LayeredNetworkBuilder.buildBackPropagationNetwork();
     network->setLearningRate(0.01f);

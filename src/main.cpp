@@ -21,6 +21,7 @@
 #include "NormalDistributionGenerator.hpp"
 #include "MnistPreprocessedDataSet.hpp"
 #include "LearnUtils.hpp"
+#include "LayerNodeFactories/ReLULayer.hpp"
 
 int main()
 {
@@ -31,8 +32,10 @@ int main()
     std::cout << mnistDataset.getInputSampleSize() << " " << mnistDataset.getNumSamples() << " " << mnistDataset.getOutputSampleSize() << std::endl;
 
     LayeredNetworkBuilder layeredNetworkBuilder;
-    auto outLayer = layeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{mnistDataset.getOutputSampleSize(), "relu"});
-    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{32, "relu"});
+    auto outLayer = layeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{
+                                                             std::make_unique<ReLULayerNodeFactory<BNN_TYPE>>(mnistDataset.getOutputSampleSize())});
+    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{
+                                                   std::make_unique<ReLULayerNodeFactory<BNN_TYPE>>(32)});// TODO try to remove 32
     hiddenLayer->setInputLayer(InputLayerSpecs{mnistDataset.getInputSampleSize()});
     auto network = layeredNetworkBuilder.buildBackPropagationNetwork(0.01f);
 

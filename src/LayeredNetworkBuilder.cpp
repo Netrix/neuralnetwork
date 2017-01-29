@@ -5,24 +5,11 @@
 #include "LayerNodeFactories/SigmoidLayer.hpp"
 #include "LayerNodeFactories/ReLULayer.hpp"
 
-NotNull<FullyConnectedLayerBuilder> LayeredNetworkBuilder::setOutputLayer(FullyConnectedLayerSpecs const& specs)
+NotNull<FullyConnectedLayerBuilder> LayeredNetworkBuilder::setOutputLayer(FullyConnectedLayerSpecs specs)
 {
-    assert(specs.activation == "sigmoid");
-    LayerNodeBuilder* activationsLayer;
-    if(specs.activation == "sigmoid")   // TODO obviously change it to proper factory!
-    {
-        activationsLayer = m_networkBuilder.setRootNode(LayerNodeSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(specs.numNeurons)});
-    }
-    else if(specs.activation == "relu")
-    {
-        activationsLayer = m_networkBuilder.setRootNode(LayerNodeSpecs{std::make_unique<ReLULayerNodeFactory<BNN_TYPE>>(specs.numNeurons)});
-    }
-    else
-    {
-        throw 1;
-    }
-
-    auto layer = std::make_unique<FullyConnectedLayerBuilder>(activationsLayer, specs.numNeurons);
+    auto numNeurons = specs.activationFactory->getNumOutputs();
+    auto activationsLayer = m_networkBuilder.setRootNode(LayerNodeSpecs{std::move(specs.activationFactory)});
+    auto layer = std::make_unique<FullyConnectedLayerBuilder>(activationsLayer, numNeurons);
     auto specificLayer = layer.get();
     m_outputLayer = std::move(layer);
     return specificLayer;

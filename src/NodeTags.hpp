@@ -26,6 +26,7 @@ struct MultipleInputNodeSpecs
 struct LayerNodeSpecs
 {
     std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory;
+    // TODO add here layer size
 };
 
 struct MultipleInputLayerNodeSpecs
