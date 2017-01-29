@@ -8,9 +8,10 @@ NotNull<MultipleInputNodeBuilder> BuilderStorage::createMultipleInputNodeBuilder
     return l_builderPointer;
 }
 
-NotNull<UnaryNodeBuilder> BuilderStorage::createUnaryNodeBuilder(std::string const& operation)
+NotNull<UnaryNodeBuilder> BuilderStorage::createUnaryNodeBuilder(
+        std::unique_ptr<IUnaryOperationNodesFactory<BNN_TYPE>> factory)
 {
-    auto l_builder = std::make_unique<UnaryNodeBuilder>(*this, operation);
+    auto l_builder = std::make_unique<UnaryNodeBuilder>(*this, std::move(factory));
     auto l_builderPointer = l_builder.get();
     operations.push_back(std::move(l_builder));
     return l_builderPointer;

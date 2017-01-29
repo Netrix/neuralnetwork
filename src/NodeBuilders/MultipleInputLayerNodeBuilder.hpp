@@ -20,7 +20,7 @@ struct MultipleInputLayerNodeBuilder : OperationNodeBuilder
 
     NotNull<MultipleInputNodeBuilder> addInput(MultipleInputNodeSpecs const& specs);
     NotNull<BinaryNodeBuilder> addInput(BinaryNodeSpecs const& specs);
-    NotNull<UnaryNodeBuilder> addInput(UnaryNodeSpecs const& specs);
+    NotNull<UnaryNodeBuilder> addInput(UnaryNodeSpecs);
     NotNull<VariableNodeBuilder> addInput(VariableNodeSpecs);
     NotNull<ConstSingleValueNodeBuilder> addInput(ConstNodeSpecs);
 

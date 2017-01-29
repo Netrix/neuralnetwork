@@ -21,7 +21,7 @@ struct ForwardNetwork{};
 struct NetworkBuilder
 {
     NotNull<BinaryNodeBuilder> setRootNode(BinaryNodeSpecs const&);
-    NotNull<UnaryNodeBuilder> setRootNode(UnaryNodeSpecs const&);
+    NotNull<UnaryNodeBuilder> setRootNode(UnaryNodeSpecs);
     NotNull<LayerNodeBuilder> setRootNode(LayerNodeSpecs);
     NotNull<MultipleInputLayerNodeBuilder> setRootNode(MultipleInputLayerNodeSpecs);
 

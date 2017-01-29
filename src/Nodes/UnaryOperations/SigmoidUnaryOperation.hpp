@@ -7,8 +7,10 @@ template<class Type>
 struct SigmoidUnaryOperationNode : UnaryOperationNode<Type>
 {
     SigmoidUnaryOperationNode(
-            NotNull<ComputationNode<Type>> input)
+            NotNull<ComputationNode<Type>> input,
+            Type beta)
         : m_input(*input)
+        , m_beta(beta)
     {}
 
     void forwardPass() override
@@ -34,7 +36,7 @@ private:
     }
 
 private:
-    Type m_beta = 1.0f; // TODO add as parameter
     ComputationNode<Type>& m_input;
+    Type m_beta;
     Type m_outputValue;
 };

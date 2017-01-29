@@ -33,7 +33,7 @@ struct CustomComputationNode : ComputationNode<float>
 TEST_F(SigmoidUnaryOperationTest, TestSetsCanBeCompared)
 {
     CustomComputationNode input(4.0f);
-    SigmoidUnaryOperationNode<float> sut(&input);
+    SigmoidUnaryOperationNode<float> sut(&input, 1.0);
     sut.forwardPass();
     std::cout << sut.getOutputValues()[0] << std::endl;
 

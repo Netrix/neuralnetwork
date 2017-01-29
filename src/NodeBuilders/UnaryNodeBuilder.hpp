@@ -13,17 +13,18 @@
 #include "NodeBuilders/VariableNodeBuilder.hpp"
 #include "NodeBuilders/OperationNodeBuilder.hpp"
 #include "NodeBuilders/MultipleInputNodeBuilder.hpp"
+#include "UnaryOperationNodesFactories/IUnaryOperationNodesFactory.hpp"
 
 struct BuilderStorage;
 struct BinaryNodeBuilder;
 
 struct UnaryNodeBuilder : OperationNodeBuilder
 {
-    UnaryNodeBuilder(BuilderStorage& builderStorage, std::string const& operation);
+    UnaryNodeBuilder(BuilderStorage& builderStorage, std::unique_ptr<IUnaryOperationNodesFactory<BNN_TYPE>> factory);
 
     NotNull<MultipleInputNodeBuilder> setInput(MultipleInputNodeSpecs const& specs);
     NotNull<BinaryNodeBuilder> setInput(BinaryNodeSpecs const& specs);
-    NotNull<UnaryNodeBuilder> setInput(UnaryNodeSpecs const& specs);
+    NotNull<UnaryNodeBuilder> setInput(UnaryNodeSpecs);
     NotNull<VariableNodeBuilder> setInput(VariableNodeSpecs);
     NotNull<ConstSingleValueNodeBuilder> setInput(ConstNodeSpecs);
 
@@ -35,7 +36,7 @@ struct UnaryNodeBuilder : OperationNodeBuilder
 
 private:
     BuilderStorage& m_builderStorage;
-    std::string m_operation;
+    std::unique_ptr<IUnaryOperationNodesFactory<BNN_TYPE>> m_factory;
 
     OperationNodeBuilder* m_operationBuilder{};
     NodeBuilder* m_inputBuilder{};

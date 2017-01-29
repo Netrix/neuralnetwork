@@ -30,9 +30,9 @@ NotNull<BinaryNodeBuilder> NetworkBuilder::setRootNode(BinaryNodeSpecs const& sp
     return l_builder;
 }
 
-NotNull<UnaryNodeBuilder> NetworkBuilder::setRootNode(UnaryNodeSpecs const& specs)
+NotNull<UnaryNodeBuilder> NetworkBuilder::setRootNode(UnaryNodeSpecs specs)
 {
-    auto l_builder = m_storage.createUnaryNodeBuilder(specs.operation);
+    auto l_builder = m_storage.createUnaryNodeBuilder(std::move(specs.factory));
     m_root = l_builder;
     return l_builder;
 }

@@ -7,8 +7,10 @@ template<class Type>
 struct PReLUUnaryOperationNode : UnaryOperationNode<Type>
 {
     PReLUUnaryOperationNode(
-            NotNull<ComputationNode<Type>> input)
+            NotNull<ComputationNode<Type>> input,
+            Type parameter = 0.01)
         : m_input(*input)
+        , m_parameter(parameter)
     {}
 
     void forwardPass() override
@@ -29,7 +31,7 @@ struct PReLUUnaryOperationNode : UnaryOperationNode<Type>
     }
 
 private:
-    Type m_parameter = 0.01;
     ComputationNode<Type>& m_input;
+    Type m_parameter;
     Type m_outputValue;
 };

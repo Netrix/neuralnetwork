@@ -58,6 +58,11 @@ set(FILES
     LayerNodeFactories/ReLULayer.hpp
     Datasets/MnistLoader.cpp
     Datasets/MnistLoader.hpp
+    UnaryOperationNodesFactories/IUnaryOperationNodesFactory.hpp
+    UnaryOperationNodesFactories/SigmoidNodeFactory.hpp
+    UnaryOperationNodesFactories/TanhNodeFactory.hpp
+    UnaryOperationNodesFactories/ReLUNodeFactory.hpp
+    UnaryOperationNodesFactories/PReLUNodeFactory.hpp
     ArrayView.hpp
     NotNull.hpp
     BuilderStorage.cpp

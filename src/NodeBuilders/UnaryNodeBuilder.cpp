@@ -1,12 +1,11 @@
 #include "UnaryNodeBuilder.hpp"
 #include "BuilderStorage.hpp"
-#include "UnaryOperationsFactory.hpp"
 #include "BinaryNodeBuilder.hpp"
 
 
-UnaryNodeBuilder::UnaryNodeBuilder(BuilderStorage& builderStorage, std::string const& operation)
+UnaryNodeBuilder::UnaryNodeBuilder(BuilderStorage& builderStorage, std::unique_ptr<IUnaryOperationNodesFactory<BNN_TYPE>> factory)
     : m_builderStorage(builderStorage)
-    , m_operation(operation)
+    , m_factory(std::move(factory))
 {
 }
 
@@ -28,10 +27,10 @@ NotNull<BinaryNodeBuilder> UnaryNodeBuilder::setInput(BinaryNodeSpecs const& spe
     return l_builder;
 }
 
-NotNull<UnaryNodeBuilder> UnaryNodeBuilder::setInput(UnaryNodeSpecs const& specs)
+NotNull<UnaryNodeBuilder> UnaryNodeBuilder::setInput(UnaryNodeSpecs specs)
 {
     assert(m_inputBuilder == nullptr);
-    auto l_builder = m_builderStorage.createUnaryNodeBuilder(specs.operation);
+    auto l_builder = m_builderStorage.createUnaryNodeBuilder(std::move(specs.factory));
     m_inputBuilder = l_builder;
     m_operationBuilder = l_builder;
     return l_builder;
@@ -66,8 +65,6 @@ ArrayView<OperationNodeBuilder*> UnaryNodeBuilder::getOperations()
 
 std::unique_ptr<OperationNode<BNN_TYPE>> UnaryNodeBuilder::build(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps)
 {
-    auto inputNode = builderToNodeMaps.getComputationNodeFromMaps(m_inputBuilder);
-
-    UnaryOperationsFactory<BNN_TYPE> factory;    // TODO Inject it
-    return factory.create(m_operation, inputNode);
+    return m_factory->create(
+                builderToNodeMaps.getComputationNodeFromMaps(m_inputBuilder));
 }

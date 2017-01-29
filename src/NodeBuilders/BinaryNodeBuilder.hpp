@@ -22,8 +22,8 @@ struct BinaryNodeBuilder : OperationNodeBuilder
     NotNull<MultipleInputNodeBuilder> setFirstInput(MultipleInputNodeSpecs const& specs);
     NotNull<MultipleInputNodeBuilder> setSecondInput(MultipleInputNodeSpecs const& specs);
 
-    NotNull<UnaryNodeBuilder> setFirstInput(UnaryNodeSpecs const& specs);
-    NotNull<UnaryNodeBuilder> setSecondInput(UnaryNodeSpecs const& specs);
+    NotNull<UnaryNodeBuilder> setFirstInput(UnaryNodeSpecs);
+    NotNull<UnaryNodeBuilder> setSecondInput(UnaryNodeSpecs);
 
     NotNull<BinaryNodeBuilder> setFirstInput(BinaryNodeSpecs const& specs);
     NotNull<BinaryNodeBuilder> setSecondInput(BinaryNodeSpecs const& specs);

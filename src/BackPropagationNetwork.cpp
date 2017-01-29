@@ -33,7 +33,7 @@ ArrayView<BNN_TYPE const> BackPropagationNetwork::forwardPass(ArrayView<BNN_TYPE
 
 void BackPropagationNetwork::backPropagate(ArrayView<BNN_TYPE const> errors)
 {
-    m_operationNodes.back()->backPropagate(errors);
+    m_operationNodes.back()->backPropagate(errors); // TODO change it from recursive to linear over the same but reversed list that forwardPass go!! it will require adding errors to every node.
     m_numBackpropagationPasses++;
 }
 
