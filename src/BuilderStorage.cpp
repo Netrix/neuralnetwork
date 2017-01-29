@@ -1,8 +1,8 @@
 #include "BuilderStorage.hpp"
 
-NotNull<MultipleInputNodeBuilder> BuilderStorage::createMultipleInputNodeBuilder(std::string const& operation)
+NotNull<MultipleInputNodeBuilder> BuilderStorage::createMultipleInputNodeBuilder(std::unique_ptr<IMultipleInputOperationNodesFactory<BNN_TYPE>> factory)
 {
-    auto l_builder = std::make_unique<MultipleInputNodeBuilder>(*this, operation);
+    auto l_builder = std::make_unique<MultipleInputNodeBuilder>(*this, std::move(factory));
     auto l_builderPointer = l_builder.get();
     operations.push_back(std::move(l_builder));
     return l_builderPointer;

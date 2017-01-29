@@ -9,10 +9,10 @@ UnaryNodeBuilder::UnaryNodeBuilder(BuilderStorage& builderStorage, std::unique_p
 {
 }
 
-NotNull<MultipleInputNodeBuilder> UnaryNodeBuilder::setInput(MultipleInputNodeSpecs const& specs)
+NotNull<MultipleInputNodeBuilder> UnaryNodeBuilder::setInput(MultipleInputNodeSpecs specs)
 {
     assert(m_inputBuilder == nullptr);
-    auto l_builder = m_builderStorage.createMultipleInputNodeBuilder(specs.operation);
+    auto l_builder = m_builderStorage.createMultipleInputNodeBuilder(std::move(specs.factory));
     m_inputBuilder = l_builder;
     m_operationBuilder = l_builder;
     return l_builder;

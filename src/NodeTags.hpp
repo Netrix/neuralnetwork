@@ -5,6 +5,7 @@
 #include "ILayerOperationsFactory.hpp"
 #include "UnaryOperationNodesFactories/IUnaryOperationNodesFactory.hpp"
 #include "BinaryOperationNodesFactories/IBinaryOperationNodesFactory.hpp"
+#include "MultipleInputOperationNodesFactories/IMultipleInputOperationNodesFactory.hpp"
 #include "NodeBuilders/NodeBuilder.hpp"
 
 struct BinaryNodeSpecs
@@ -19,7 +20,7 @@ struct UnaryNodeSpecs
 
 struct MultipleInputNodeSpecs
 {
-    std::string operation;
+    std::unique_ptr<IMultipleInputOperationNodesFactory<BNN_TYPE>> factory;
 };
 
 struct LayerNodeSpecs

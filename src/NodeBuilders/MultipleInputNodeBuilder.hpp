@@ -8,6 +8,7 @@
 #include <string>
 #include "OperationNodeBuilder.hpp"
 #include "BuilderToNodeMaps.hpp"
+#include "MultipleInputOperationNodesFactories/IMultipleInputOperationNodesFactory.hpp"
 #include <stdexcept>
 
 struct BuilderStorage;
@@ -18,7 +19,8 @@ struct ConstSingleValueNodeBuilder;
 
 struct MultipleInputNodeBuilder : OperationNodeBuilder
 {
-    MultipleInputNodeBuilder(BuilderStorage& builderStorage, std::string const& operation);
+    MultipleInputNodeBuilder(BuilderStorage& builderStorage,
+                             std::unique_ptr<IMultipleInputOperationNodesFactory<BNN_TYPE>> factory);
 
     NotNull<UnaryNodeBuilder> addInput(UnaryNodeSpecs);
     NotNull<BinaryNodeBuilder> addInput(BinaryNodeSpecs);
@@ -33,7 +35,7 @@ struct MultipleInputNodeBuilder : OperationNodeBuilder
 
 private:
     BuilderStorage& m_builderStorage;
-    std::string m_operation;
+    std::unique_ptr<IMultipleInputOperationNodesFactory<BNN_TYPE>> m_factory;
 
     std::vector<OperationNodeBuilder*> m_operationBuilders;
     std::vector<NodeBuilder*> m_inputBuilders;

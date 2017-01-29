@@ -7,8 +7,9 @@
 template<class Type>
 struct SigmoidLayerNode : LayerNode<Type>   // add passthrough LayerNode that doesn't need numOutputs because it should get them from parent
 {
-    SigmoidLayerNode(NotNull<ComputationNode<Type>> inputLayer)
+    SigmoidLayerNode(NotNull<ComputationNode<Type>> inputLayer, Type beta)
         : m_inputLayer(inputLayer)
+        , m_beta(beta)
         , m_errors(inputLayer->getNumOutputs())
         , m_outputs(inputLayer->getNumOutputs())
     {
@@ -49,8 +50,8 @@ private:
     }
 
 private:
-    Type m_beta = 1.0f; // TODO add as parameter
     NotNull<ComputationNode<Type>> m_inputLayer;
+    Type m_beta = 1.0f;
     std::vector<Type> m_errors;
     std::vector<Type> m_outputs;
 };

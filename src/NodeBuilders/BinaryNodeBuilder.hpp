@@ -20,8 +20,8 @@ struct BinaryNodeBuilder : OperationNodeBuilder
     BinaryNodeBuilder(BuilderStorage& builderStorage,
                       std::unique_ptr<IBinaryOperationNodesFactory<BNN_TYPE>> factory);
 
-    NotNull<MultipleInputNodeBuilder> setFirstInput(MultipleInputNodeSpecs const& specs);
-    NotNull<MultipleInputNodeBuilder> setSecondInput(MultipleInputNodeSpecs const& specs);
+    NotNull<MultipleInputNodeBuilder> setFirstInput(MultipleInputNodeSpecs);
+    NotNull<MultipleInputNodeBuilder> setSecondInput(MultipleInputNodeSpecs);
 
     NotNull<UnaryNodeBuilder> setFirstInput(UnaryNodeSpecs);
     NotNull<UnaryNodeBuilder> setSecondInput(UnaryNodeSpecs);

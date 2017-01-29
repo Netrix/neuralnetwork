@@ -8,9 +8,9 @@ MultipleInputLayerNodeBuilder::MultipleInputLayerNodeBuilder(BuilderStorage& bui
 {
 }
 
-NotNull<MultipleInputNodeBuilder> MultipleInputLayerNodeBuilder::addInput(MultipleInputNodeSpecs const& specs)
+NotNull<MultipleInputNodeBuilder> MultipleInputLayerNodeBuilder::addInput(MultipleInputNodeSpecs specs)
 {
-    auto l_builder = m_builderStorage.createMultipleInputNodeBuilder(specs.operation);
+    auto l_builder = m_builderStorage.createMultipleInputNodeBuilder(std::move(specs.factory));
     m_inputBuilders.push_back(l_builder);
     m_inputOperationBuilders.push_back(l_builder);
     return l_builder;

@@ -66,6 +66,8 @@ set(FILES
     BinaryOperationNodesFactories/IBinaryOperationNodesFactory.hpp
     BinaryOperationNodesFactories/MulNodeFactory.hpp
     BinaryOperationNodesFactories/AddNodeFactory.hpp
+    MultipleInputOperationNodesFactories/IMultipleInputOperationNodesFactory.hpp
+    MultipleInputOperationNodesFactories/AddNodeFactory.hpp
     ArrayView.hpp
     NotNull.hpp
     BuilderStorage.cpp
@@ -82,7 +84,6 @@ set(FILES
     StreamOperators.hpp
     VariableStorage.hpp
     VariableStorageBuilder.hpp
-    MultipleInputOperationsFactory.hpp
     ConstStorage.hpp
     LayeredNetworkBuilder.cpp
     LayeredNetworkBuilder.hpp

@@ -8,19 +8,19 @@ BinaryNodeBuilder::BinaryNodeBuilder(BuilderStorage& builderStorage,
 {
 }
 
-NotNull<MultipleInputNodeBuilder> BinaryNodeBuilder::setFirstInput(MultipleInputNodeSpecs const& specs)
+NotNull<MultipleInputNodeBuilder> BinaryNodeBuilder::setFirstInput(MultipleInputNodeSpecs specs)
 {
     assert(m_inputBuilders[0] == nullptr);
-    auto l_builder = m_builderStorage.createMultipleInputNodeBuilder(specs.operation);
+    auto l_builder = m_builderStorage.createMultipleInputNodeBuilder(std::move(specs.factory));
     m_inputBuilders[0] = l_builder;
     m_operationBuilders[0] = l_builder;
     return l_builder;
 }
 
-NotNull<MultipleInputNodeBuilder> BinaryNodeBuilder::setSecondInput(MultipleInputNodeSpecs const& specs)
+NotNull<MultipleInputNodeBuilder> BinaryNodeBuilder::setSecondInput(MultipleInputNodeSpecs specs)
 {
     assert(m_inputBuilders[1] == nullptr);
-    auto l_builder = m_builderStorage.createMultipleInputNodeBuilder(specs.operation);
+    auto l_builder = m_builderStorage.createMultipleInputNodeBuilder(std::move(specs.factory));
     m_inputBuilders[1] = l_builder;
     m_operationBuilders[1] = l_builder;
     return l_builder;

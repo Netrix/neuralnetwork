@@ -1,12 +1,12 @@
 #include "MultipleInputNodeBuilder.hpp"
 #include "Nodes/MultipleInputOperators/MultipleInputOperationNode.hpp"
 #include "BuilderStorage.hpp"
-#include "MultipleInputOperationsFactory.hpp"
 #include <algorithm>
 
-MultipleInputNodeBuilder::MultipleInputNodeBuilder(BuilderStorage& builderStorage, std::string const& operation)
+MultipleInputNodeBuilder::MultipleInputNodeBuilder(BuilderStorage& builderStorage,
+                                                   std::unique_ptr<IMultipleInputOperationNodesFactory<BNN_TYPE>> factory)
     : m_builderStorage(builderStorage)
-    , m_operation(operation)
+    , m_factory(std::move(factory))
 {
 }
 
@@ -59,8 +59,7 @@ std::unique_ptr<OperationNode<BNN_TYPE>> MultipleInputNodeBuilder::build(Builder
         return builderToNodeMaps.getComputationNodeFromMaps(inputBuilder);
     });
 
-    MultipleInputOperationsFactory<BNN_TYPE> factory;    // TODO Inject it
-    return factory.create(m_operation, l_inputs);
+    return m_factory->create(l_inputs);
 }
 
 

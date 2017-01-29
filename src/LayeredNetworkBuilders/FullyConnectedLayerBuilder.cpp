@@ -23,7 +23,7 @@ NotNull<FullyConnectedLayerBuilder> FullyConnectedLayerBuilder::setInputLayer(Fu
 
     if(specs.activation == "sigmoid")
     {
-        activationsLayer = m_fullyConnectedLayer->setInput(LayerNodeSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(specs.numNeurons)});
+        activationsLayer = m_fullyConnectedLayer->setInput(LayerNodeSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(specs.numNeurons, 1.0)});
     }
     else if(specs.activation == "relu")
     {
