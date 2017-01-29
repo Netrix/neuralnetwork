@@ -13,8 +13,8 @@ struct VariableBufferNodeBuilder : VariableNodeBuilder
         : m_numVariables(numVariables)
     {}
 
-    std::unique_ptr<VariableBufferNode<BNN_TYPE>> build(VariableStorageBuilder<BNN_TYPE> & variableStorage,
-                                                  VariableDeltaStorageBuilder<BNN_TYPE> & variableDeltaStorageBuilder)
+    std::unique_ptr<VariableNode<BNN_TYPE>> build(VariableStorageBuilder<BNN_TYPE> & variableStorage,
+                                                  VariableDeltaStorageBuilder<BNN_TYPE> & variableDeltaStorageBuilder) override
     {
         return std::make_unique<VariableBufferNode<BNN_TYPE>>(variableStorage.getValues(m_numVariables),
                                                               variableDeltaStorageBuilder.getValues(m_numVariables));

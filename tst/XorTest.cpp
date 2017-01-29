@@ -6,6 +6,7 @@
 #include "LayeredNetworkBuilders/InputLayerSpecs.hpp"
 #include "StreamOperators.hpp"
 #include "MathVectorAdapter.hpp"
+#include "NormalDistributionGenerator.hpp"
 #include <random>
 #include <iomanip>
 
@@ -32,13 +33,7 @@ TEST(XorTest, XorWithZeros)
     hiddenLayer->setInputLayer(InputLayerSpecs{2});
     auto network = LayeredNetworkBuilder.buildBackPropagationNetwork();
     network->setLearningRate(0.01f);
-
-    std::mt19937 mt(17);
-    std::normal_distribution<> normal_dist(0, 1e-1);
-    network->setVariables([&normal_dist, &mt]
-    {
-        return normal_dist(mt);
-    });
+    network->setVariables(NormalDistributionGenerator<BNN_TYPE>(17, 0, 1e-1));
 
 
     for(int i = 0; i < 100; ++i)

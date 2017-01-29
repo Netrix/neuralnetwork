@@ -67,7 +67,7 @@ NotNull<BinaryNodeBuilder> BinaryNodeBuilder::setSecondInput(BinaryNodeTag, std:
 NotNull<VariableNodeBuilder> BinaryNodeBuilder::setFirstInput(VariableTag)
 {
     assert(m_inputBuilders[0] == nullptr);
-    auto l_builder = m_builderStorage.createVariableNodeBuilder();
+    auto l_builder = m_builderStorage.createVariableSingleValueNodeBuilder();
     m_inputBuilders[0] = l_builder;
     return l_builder;
 }
@@ -75,7 +75,7 @@ NotNull<VariableNodeBuilder> BinaryNodeBuilder::setFirstInput(VariableTag)
 NotNull<VariableNodeBuilder> BinaryNodeBuilder::setSecondInput(VariableTag)
 {
     assert(m_inputBuilders[1] == nullptr);
-    auto l_builder = m_builderStorage.createVariableNodeBuilder();
+    auto l_builder = m_builderStorage.createVariableSingleValueNodeBuilder();
     m_inputBuilders[1] = l_builder;
     return l_builder;
 }

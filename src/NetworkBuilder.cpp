@@ -44,6 +44,13 @@ NotNull<MultipleInputLayerNodeBuilder> NetworkBuilder::setRootNode(MultipleInput
     return l_builder;
 }
 
+NotNull<LayerNodeBuilder> NetworkBuilder::setRootNode(LayerNodeTag, std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory)
+{
+    auto l_builder = m_storage.createLayerNodeBuilder(std::move(factory));
+    m_root = l_builder;
+    return l_builder;
+}
+
 std::unique_ptr<BackPropagationNetwork> NetworkBuilder::buildBackPropagationNetwork(BNN_TYPE learningRate) const
 {
     auto constStorageBuilder = ConstStorageBuilder<BNN_TYPE>(m_storage.getNumConsts());

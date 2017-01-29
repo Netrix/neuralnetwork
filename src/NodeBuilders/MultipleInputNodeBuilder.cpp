@@ -28,7 +28,7 @@ NotNull<BinaryNodeBuilder> MultipleInputNodeBuilder::addInput(BinaryNodeTag, std
 
 NotNull<VariableNodeBuilder> MultipleInputNodeBuilder::addInput(VariableTag)
 {
-    auto l_builder = m_builderStorage.createVariableNodeBuilder();
+    auto l_builder = m_builderStorage.createVariableSingleValueNodeBuilder();
     m_inputBuilders.push_back(l_builder);
     return l_builder;
 }

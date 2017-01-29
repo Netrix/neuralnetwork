@@ -12,8 +12,8 @@ struct FullyConnectedLayerNode : LayerNode<Type>
                             std::size_t numOutputs)
         : m_inputLayer(inputLayer)
         , m_weights(variables)
-        , m_errorsForInput(inputLayer.getNumOutputs())
-        , m_errorsForWeights(variables.getNumOutputs())
+        , m_errorsForInput(inputLayer->getNumOutputs())
+        , m_errorsForWeights(variables->getNumOutputs())
         , m_outputs(numOutputs)
     {
     }
@@ -54,14 +54,14 @@ private:
         std::fill(std::begin(m_errorsForWeights), std::end(m_errorsForWeights), Type{});
     }
 
-    void backPropagateSingleError(Type error, ArrayView<Type> weights, ArrayView<Type> deltas)
+    void backPropagateSingleError(Type error, ArrayView<Type const> weights, ArrayView<Type> deltas)
     {
         auto inputs = m_inputLayer->getOutputValues();
-        m_errorsForWeights[0] += error;
-        for(auto i = 0u; i < m_inputLayer.size(); ++i)
+        deltas[0] += error;
+        for(auto i = 0u; i < inputs.size(); ++i)
         {
             m_errorsForInput[i] += error * weights[i];
-            m_errorsForWeights[i + 1] += error * inputs[i];
+            deltas[i + 1] += error * inputs[i];
         }
     }
 
@@ -75,16 +75,16 @@ private:
         return output;
     }
 
-    ArrayView<Type> getNthLayerWeights(std::size_t layerIndex) const
+    ArrayView<Type const> getNthLayerWeights(std::size_t layerIndex) const
     {
-        auto layerSize =(m_inputLayer.size() + 1);
+        auto layerSize =(m_inputLayer->getNumOutputs() + 1);
         auto layerStart = layerSize * layerIndex;
-        return m_weights(layerStart, layerStart + layerSize);
+        return m_weights->getOutputValues()(layerStart, layerStart + layerSize);
     }
 
-    ArrayView<Type> getNthLayerWeightsErrors(std::size_t layerIndex) const
+    ArrayView<Type> getNthLayerWeightsErrors(std::size_t layerIndex)
     {
-        auto layerSize =(m_inputLayer.size() + 1);
+        auto layerSize =(m_inputLayer->getNumOutputs() + 1);
         auto layerStart = layerSize * layerIndex;
         return ArrayView<Type>(m_errorsForWeights)(layerStart, layerStart + layerSize);
     }

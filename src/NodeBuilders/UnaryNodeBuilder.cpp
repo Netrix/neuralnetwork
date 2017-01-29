@@ -40,7 +40,7 @@ NotNull<UnaryNodeBuilder> UnaryNodeBuilder::setInput(UnaryNodeTag, std::string c
 NotNull<VariableNodeBuilder> UnaryNodeBuilder::setInput(VariableTag)
 {
     assert(m_inputBuilder == nullptr);
-    auto l_builder = m_builderStorage.createVariableNodeBuilder();
+    auto l_builder = m_builderStorage.createVariableSingleValueNodeBuilder();
     m_inputBuilder = l_builder;
     return l_builder;
 }

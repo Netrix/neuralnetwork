@@ -3,6 +3,7 @@ project(neural-networks-tests)
 set(SOURCES main.cpp
     XorTest.cpp
     MnistBenchmark.cpp
+    LayerNodeTests.cpp
     Nodes/MultipleInputLayerNodes/PassThroughMultipleInputLayerNodeTest.cpp
     UnaryOperations/SigmoidUnaryOperationTest.cpp
 )

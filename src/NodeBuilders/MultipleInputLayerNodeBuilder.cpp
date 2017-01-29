@@ -34,7 +34,7 @@ NotNull<UnaryNodeBuilder> MultipleInputLayerNodeBuilder::addInput(UnaryNodeTag, 
 
 NotNull<VariableNodeBuilder> MultipleInputLayerNodeBuilder::addInput(VariableTag)
 {
-    auto l_builder = m_builderStorage.createVariableNodeBuilder();
+    auto l_builder = m_builderStorage.createVariableSingleValueNodeBuilder();
     m_inputBuilders.push_back(l_builder);
     return l_builder;
 }

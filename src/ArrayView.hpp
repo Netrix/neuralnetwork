@@ -22,8 +22,8 @@ public:
         : m_pointerToArray(dynamicArray)
         , m_arraySize(arraySize)
     {
-        assert(dynamicArray);
-        assert(arraySize > 0);
+//        assert(dynamicArray);
+//        assert(arraySize > 0);
     }
 
     ArrayView(ArrayView<Type> const& av)

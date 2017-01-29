@@ -6,6 +6,7 @@ set(NODES_FILES
     Nodes/ConstNode.hpp
     Nodes/VariableNode.hpp
     Nodes/VariableBufferNode.hpp
+    Nodes/VariableSingleValueNode.hpp
     Nodes/UnaryOperations/UnaryOperationNode.hpp
     Nodes/UnaryOperations/SigmoidUnaryOperation.hpp
     Nodes/UnaryOperations/TanhUnaryOperation.hpp
@@ -40,6 +41,7 @@ set(FILES
     NodeBuilders/LayerNodeBuilder.cpp
     NodeBuilders/LayerNodeBuilder.hpp
     NodeBuilders/VariableBufferNodeBuilder.hpp
+    NodeBuilders/VariableSingleValueNodeBuilder.hpp
     LayeredNetworkBuilders/FullyConnectedLayerBuilder.hpp
     LayeredNetworkBuilders/FullyConnectedLayerBuilder.cpp
     LayeredNetworkBuilders/LayerBuilder.hpp

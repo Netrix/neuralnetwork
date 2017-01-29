@@ -40,12 +40,13 @@ NotNull<LayerNodeBuilder> BuilderStorage::createLayerNodeBuilder(std::unique_ptr
     return l_builderPointer;
 }
 
-NotNull<VariableNodeBuilder> BuilderStorage::createVariableNodeBuilder()
+NotNull<VariableSingleValueNodeBuilder> BuilderStorage::createVariableSingleValueNodeBuilder()
 {
-    auto l_builder = std::make_unique<VariableNodeBuilder>();
+    auto l_builder = std::make_unique<VariableSingleValueNodeBuilder>();
+    auto l_builderPointer = l_builder.get();
     variables.push_back(std::move(l_builder));
     m_numVariables++;
-    return variables.back().get();
+    return l_builderPointer;
 }
 
 NotNull<ConstNodeBuilder> BuilderStorage::createConstNodeBuilder()

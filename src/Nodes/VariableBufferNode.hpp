@@ -1,9 +1,9 @@
 #pragma once
 #include "ArrayView.hpp"
-#include "ComputationNode.hpp"
+#include "VariableNode.hpp"
 
 template<class Type>
-struct VariableBufferNode : ComputationNode<Type>
+struct VariableBufferNode : VariableNode<Type>
 {
     VariableBufferNode(ArrayView<Type> values, ArrayView<Type> deltas)
         : m_values(values)

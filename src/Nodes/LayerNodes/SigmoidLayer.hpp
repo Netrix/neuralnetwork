@@ -8,8 +8,8 @@ struct SigmoidLayerNode : LayerNode<Type>   // add passthrough LayerNode that do
 {
     SigmoidLayerNode(NotNull<ComputationNode<Type>> inputLayer)
         : m_inputLayer(inputLayer)
-        , m_errors(inputLayer.getNumOutputs())
-        , m_outputs(inputLayer.getNumOutputs())
+        , m_errors(inputLayer->getNumOutputs())
+        , m_outputs(inputLayer->getNumOutputs())
     {
     }
 
@@ -36,7 +36,7 @@ struct SigmoidLayerNode : LayerNode<Type>   // add passthrough LayerNode that do
     {
         for(std::size_t i = 0; i < errors.size(); ++i)
         {
-            m_errors[i] (m_beta * m_outputs[i] * ((Type)1.0 - m_outputs[i])) * errors[i];
+            m_errors[i] = (m_beta * m_outputs[i] * ((Type)1.0 - m_outputs[i])) * errors[i];
         }
         m_inputLayer->backPropagate(m_errors);
     }

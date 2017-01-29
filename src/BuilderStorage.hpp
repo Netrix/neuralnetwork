@@ -8,7 +8,7 @@
 #include "NodeBuilders/MultipleInputNodeBuilder.hpp"
 #include "NodeBuilders/MultipleInputLayerNodeBuilder.hpp"
 #include "NodeBuilders/LayerNodeBuilder.hpp"
-#include "NodeBuilders/VariableNodeBuilder.hpp"
+#include "NodeBuilders/VariableSingleValueNodeBuilder.hpp"
 #include "NodeBuilders/VariableBufferNodeBuilder.hpp"
 #include <string>
 #include <vector>
@@ -22,8 +22,8 @@ struct BuilderStorage
     NotNull<BinaryNodeBuilder> createBinaryNodeBuilder(std::string const& operation);
     NotNull<MultipleInputLayerNodeBuilder> createMultipleInputLayerNodeBuilder(std::unique_ptr<IMultipleInputLayerOperationsFactory<BNN_TYPE>> factory);
     NotNull<LayerNodeBuilder> createLayerNodeBuilder(std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory);
-    NotNull<VariableNodeBuilder> createVariableNodeBuilder();
     NotNull<ConstNodeBuilder> createConstNodeBuilder();
+    NotNull<VariableSingleValueNodeBuilder> createVariableSingleValueNodeBuilder();
     NotNull<VariableBufferNodeBuilder> createVariableBufferNodeBuilder(std::size_t numVariables);
 
     std::size_t getNumConsts() const
