@@ -19,7 +19,7 @@ NotNull<FullyConnectedLayerBuilder> LayeredNetworkBuilder::setOutputLayer(FullyC
 
     }
 
-    auto layer = std::make_unique<FullyConnectedLayerBuilder>(activations);    // TODO should be able to create many activations later
+    auto layer = std::make_unique<FullyConnectedLayerBuilder>(activations);
     auto specificLayer = layer.get();
     m_outputLayer = std::move(layer);
     return specificLayer;

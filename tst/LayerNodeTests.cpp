@@ -42,4 +42,17 @@ TEST(LayerNodeTests, ComparingOutputOfLayerNodeVsOldWay)
     std::cout << "old outputs: " << oldOutputs[0] << ", " << oldOutputs[1] << std::endl;
     std::cout << "new outputs: " << newOutputs[0] << ", " << newOutputs[1] << std::endl;
 
+    std::vector<BNN_TYPE> errors = { -1.0, 0.0 };
+    network->backPropagate(errors);
+    network->applyDeltaOnVariables();
+    newNetwork->backPropagate(errors);
+    newNetwork->applyDeltaOnVariables();
+
+    std::cout << "Old  network weights" << std::endl;
+    std::copy(std::begin(network->getVariables()), std::end(network->getVariables()), std::ostream_iterator<BNN_TYPE>(std::cout, ","));
+    std::cout << std::endl;
+
+    std::cout << "New  network weights" << std::endl;
+    std::copy(std::begin(newNetwork->getVariables()), std::end(newNetwork->getVariables()), std::ostream_iterator<BNN_TYPE>(std::cout, ","));
+    std::cout << std::endl;
 }
