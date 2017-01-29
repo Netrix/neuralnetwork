@@ -2,24 +2,13 @@
 #include "LayeredNetworkBuilders/FullyConnectedLayerSpecs.hpp"
 #include "LayeredNetworkBuilders/FullyConnectedLayerBuilder.hpp"
 #include "MultipleInputLayerNodeFactories/PassThrough.hpp"
+#include "LayerNodeFactories/SigmoidLayer.hpp"
 
 NotNull<FullyConnectedLayerBuilder> LayeredNetworkBuilder::setOutputLayer(FullyConnectedLayerSpecs const& specs)
 {
-    auto layerNode =
-            m_networkBuilder.setRootNode(
-                MultipleInputLayerNodeTag{},
-                std::make_unique<PassThroughMultipleInputLayerNodeFactory<BNN_TYPE>>(specs.numNeurons));
-    std::vector<NotNull<UnaryNodeBuilder>> activations;
-    activations.reserve(specs.numNeurons);
-
-    for(decltype(specs.numNeurons) i{}; i < specs.numNeurons; ++i)
-    {
-        activations.push_back(
-                    layerNode->addInput(UnaryNodeTag{}, specs.activation));
-
-    }
-
-    auto layer = std::make_unique<FullyConnectedLayerBuilder>(activations);
+    assert(specs.activation == "sigmoid");
+    auto activationNode = m_networkBuilder.setRootNode(LayerNodeTag{}, std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(specs.numNeurons));
+    auto layer = std::make_unique<FullyConnectedLayerBuilder>(activationNode, specs.numNeurons);
     auto specificLayer = layer.get();
     m_outputLayer = std::move(layer);
     return specificLayer;

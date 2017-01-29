@@ -4,7 +4,9 @@
 #include "FullyConnectedLayerSpecs.hpp"
 #include "NodeBuilders/UnaryNodeBuilder.hpp"
 #include "NodeBuilders/BinaryNodeBuilder.hpp"
-
+#include "LayerNodeFactories/FullyConnectedLayer.hpp"
+#include "LayerNodeFactories/SigmoidLayer.hpp"
+#include "MultipleInputLayerNodeFactories/PassThrough.hpp"
 
 namespace
 {
@@ -55,27 +57,36 @@ std::vector<NotNull<ConstNodeBuilder>> createFirstNeuronInputs(std::size_t numIn
     return inputs;
 }
 
+} // namespace
+
+FullyConnectedLayerBuilder::FullyConnectedLayerBuilder(NotNull<LayerNodeBuilder> activationLayer, std::size_t numOutputs)
+{
+    m_fullyConnectedLayer = activationLayer->setInput(LayerNodeTag{}, std::make_unique<FullyConnectedLayerNodeFactory<BNN_TYPE>>(numOutputs));
 }
 
-FullyConnectedLayerBuilder::FullyConnectedLayerBuilder(ArrayView<NotNull<UnaryNodeBuilder>> activations)
-{
-    m_addNodes.reserve(activations.size());
-    for(auto act : activations)
-    {
-        m_addNodes.push_back(act->setInput(MultipleInputTag{}, "add"));
-    }
-}
+//FullyConnectedLayerBuilder::FullyConnectedLayerBuilder(ArrayView<NotNull<UnaryNodeBuilder>> activations)
+//{
+//    m_addNodes.reserve(activations.size());
+//    for(auto act : activations)
+//    {
+//        m_addNodes.push_back(act->setInput(MultipleInputTag{}, "add"));
+//    }
+//}
 
 NotNull<FullyConnectedLayerBuilder> FullyConnectedLayerBuilder::setInputLayer(FullyConnectedLayerSpecs const& specs)
 {
-    auto inputActivations = createFirstNeuronInputs(specs, m_addNodes.front());
-    auto numNeurons = m_addNodes.size();
-    for(decltype(numNeurons) i = 1; i < numNeurons; ++i)
-    {
-        createOtherNeuron(m_addNodes[i], inputActivations);
-    }
+    assert(specs.activation == "sigmoid");
 
-    auto layer = std::make_unique<FullyConnectedLayerBuilder>(inputActivations);
+    auto activationsLayer = m_fullyConnectedLayer->setInput(LayerNodeTag{}, std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(specs.numNeurons));
+
+//    auto inputActivations = createFirstNeuronInputs(specs, m_addNodes.front());
+//    auto numNeurons = m_addNodes.size();
+//    for(decltype(numNeurons) i = 1; i < numNeurons; ++i)
+//    {
+//        createOtherNeuron(m_addNodes[i], inputActivations);
+//    }
+
+    auto layer = std::make_unique<FullyConnectedLayerBuilder>(activationsLayer, specs.numNeurons);
     auto specificLayer = layer.get();
     m_inputLayer = std::move(layer);
     return specificLayer;
@@ -83,10 +94,14 @@ NotNull<FullyConnectedLayerBuilder> FullyConnectedLayerBuilder::setInputLayer(Fu
 
 void FullyConnectedLayerBuilder::setInputLayer(InputLayerSpecs const& specs)
 {
-    auto inputs = createFirstNeuronInputs(specs.numInputs, m_addNodes.front());
-    auto numNeurons = m_addNodes.size();
-    for(decltype(numNeurons) i = 1; i < numNeurons; ++i)
+    auto passThrough = m_fullyConnectedLayer->setInput(MultipleInputLayerNodeTag{}, std::make_unique<PassThroughMultipleInputLayerNodeFactory<BNN_TYPE>>(specs.numInputs)); // TODO replace it with const layer node
+//    passThrough->addInput(ConstTag{});
+//    passThrough->addInput(ConstTag{});
+
+//    auto inputs = createFirstNeuronInputs(specs.numInputs, m_addNodes.front());
+    for(decltype(specs.numInputs) i = 0; i < specs.numInputs; ++i)
     {
-        createOtherNeuron(m_addNodes[i], inputs);
+        passThrough->addInput(ConstTag{});
+//        createOtherNeuron(m_addNodes[i], inputs);
     }
 }

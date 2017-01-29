@@ -8,7 +8,10 @@
 #include "LearnUtils.hpp"
 #include <chrono>
 
-// 240s -> 231s, errorSum: 48010.46
+// (MathVectorAdapter without MathArrayViewAdapter, RELU) 240s
+// (MathVectorAdapter with MathArrayViewAdapter, RELU) 231s, errorSum: 48010.46
+// (MathVectorAdapter with MathArrayViewAdapter, Sigmoid) 242s, errorSum: 82750.74
+// (MathVectorAdapter with MathArrayViewAdapter, LayerFullyConnected, Sigmoid) 4s, errorSum: 82750.73
 TEST(MnistBenchmark, SingleEpoch)
 {
     std::string imagesPath = "../../../data/train-images-idx3-ubyte";
@@ -18,8 +21,8 @@ TEST(MnistBenchmark, SingleEpoch)
     std::cout << mnistDataset.getInputSampleSize() << " " << mnistDataset.getNumSamples() << " " << mnistDataset.getOutputSampleSize() << std::endl;
 
     LayeredNetworkBuilder LayeredNetworkBuilder;
-    auto outLayer = LayeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{mnistDataset.getOutputSampleSize(), "relu"});
-    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{32, "relu"});
+    auto outLayer = LayeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{mnistDataset.getOutputSampleSize(), "sigmoid"});
+    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{32, "sigmoid"});
     hiddenLayer->setInputLayer(InputLayerSpecs{mnistDataset.getInputSampleSize()});
     auto network = LayeredNetworkBuilder.buildBackPropagationNetwork(0.01f);
 
@@ -35,7 +38,10 @@ TEST(MnistBenchmark, SingleEpoch)
     std::cout << "Time taken: " << duration_cast<seconds>(end - start).count() << "s. errorSum: " << errorSum <<  std::endl;
 }
 
-// 236s -> 212s, errorSum: 48011.12
+// (MathVectorAdapter without MathArrayViewAdapter, RELU) 236s
+// (MathVectorAdapter with MathArrayViewAdapter, RELU) 212s, errorSum: 48011.12
+// (MathVectorAdapter with MathArrayViewAdapter, Sigmoid) 218s, errorSum: 82750.84
+// (MathVectorAdapter with MathArrayViewAdapter, LayerFullyConnected, Sigmoid) 2s, errorSum: 82750.84
 TEST(MnistBenchmark, SingleEpochParallel)
 {
     std::string imagesPath = "../../../data/train-images-idx3-ubyte";
@@ -45,8 +51,8 @@ TEST(MnistBenchmark, SingleEpochParallel)
     std::cout << mnistDataset.getInputSampleSize() << " " << mnistDataset.getNumSamples() << " " << mnistDataset.getOutputSampleSize() << std::endl;
 
     LayeredNetworkBuilder layeredNetworkBuilder;
-    auto outLayer = layeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{mnistDataset.getOutputSampleSize(), "relu"});
-    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{32, "relu"});
+    auto outLayer = layeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{mnistDataset.getOutputSampleSize(), "sigmoid"});
+    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{32, "sigmoid"});
     hiddenLayer->setInputLayer(InputLayerSpecs{mnistDataset.getInputSampleSize()});
 
     using namespace std::chrono;

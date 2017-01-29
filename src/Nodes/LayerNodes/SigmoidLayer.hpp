@@ -2,6 +2,7 @@
 #include "LayerNode.hpp"
 #include "NotNull.hpp"
 #include <algorithm>
+#include <cmath>
 
 template<class Type>
 struct SigmoidLayerNode : LayerNode<Type>   // add passthrough LayerNode that doesn't need numOutputs because it should get them from parent

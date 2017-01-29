@@ -3,6 +3,7 @@
 #include "ArrayView.hpp"
 #include "NotNull.hpp"
 #include "LayerBuilder.hpp"
+#include "NodeBuilders/LayerNodeBuilder.hpp"
 #include <vector>
 #include <memory>
 
@@ -15,13 +16,15 @@ struct InputLayerSpecs;
 
 struct FullyConnectedLayerBuilder : LayerBuilder
 {
-    FullyConnectedLayerBuilder(ArrayView<NotNull<UnaryNodeBuilder>> activations);
+    FullyConnectedLayerBuilder(NotNull<LayerNodeBuilder> activationLayer, std::size_t numOutputs);
+//    FullyConnectedLayerBuilder(ArrayView<NotNull<UnaryNodeBuilder>> activations);
 
     NotNull<FullyConnectedLayerBuilder> setInputLayer(FullyConnectedLayerSpecs const& specs);
 
     void setInputLayer(InputLayerSpecs const& specs);
 
 private:
-    std::vector<NotNull<MultipleInputNodeBuilder>> m_addNodes;
+    LayerNodeBuilder* m_fullyConnectedLayer;
+//    std::vector<NotNull<MultipleInputNodeBuilder>> m_addNodes;
     std::unique_ptr<LayerBuilder> m_inputLayer;
 };
