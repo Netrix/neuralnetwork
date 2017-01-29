@@ -4,12 +4,13 @@
 #include "NodeBuilders/NodeBuilder.hpp"
 #include "NodeBuilders/BinaryNodeBuilder.hpp"
 #include "NodeBuilders/UnaryNodeBuilder.hpp"
-#include "NodeBuilders/ConstNodeBuilder.hpp"
+#include "NodeBuilders/ConstSingleValueNodeBuilder.hpp"
+#include "NodeBuilders/ConstBufferNodeBuilder.hpp"
 #include "NodeBuilders/MultipleInputNodeBuilder.hpp"
 #include "NodeBuilders/MultipleInputLayerNodeBuilder.hpp"
 #include "NodeBuilders/LayerNodeBuilder.hpp"
 #include "NodeBuilders/VariableSingleValueNodeBuilder.hpp"
-#include "NodeBuilders/VariableBufferNodeBuilder.hpp"
+#include "NodeBuilders/VariableBufferNodeBuilder.hpp"       // TODO forward declare them and move it to cpp
 #include <string>
 #include <vector>
 #include <memory>
@@ -22,9 +23,10 @@ struct BuilderStorage
     NotNull<BinaryNodeBuilder> createBinaryNodeBuilder(std::string const& operation);
     NotNull<MultipleInputLayerNodeBuilder> createMultipleInputLayerNodeBuilder(std::unique_ptr<IMultipleInputLayerOperationsFactory<BNN_TYPE>> factory);
     NotNull<LayerNodeBuilder> createLayerNodeBuilder(std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory);
-    NotNull<ConstNodeBuilder> createConstNodeBuilder();
+    NotNull<ConstSingleValueNodeBuilder> createConstSingleValueNodeBuilder();
     NotNull<VariableSingleValueNodeBuilder> createVariableSingleValueNodeBuilder();
     NotNull<VariableBufferNodeBuilder> createVariableBufferNodeBuilder(std::size_t numVariables);
+    NotNull<ConstBufferNodeBuilder> createConstBufferNodeBuilder(std::size_t numConsts);
 
     std::size_t getNumConsts() const
     {

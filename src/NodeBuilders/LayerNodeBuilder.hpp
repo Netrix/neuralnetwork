@@ -10,6 +10,7 @@
 struct BuilderStorage;
 struct BinaryNodeBuilder;
 struct VariableBufferNodeBuilder;
+struct ConstBufferNodeBuilder;
 
 struct LayerNodeBuilder : OperationNodeBuilder
 {
@@ -18,6 +19,7 @@ struct LayerNodeBuilder : OperationNodeBuilder
 
     NotNull<MultipleInputLayerNodeBuilder> setInput(MultipleInputLayerNodeSpecs);
     NotNull<LayerNodeBuilder> setInput(LayerNodeSpecs);
+    NotNull<ConstBufferNodeBuilder> setInput(ConstBufferNodeSpecs const&);
 
     ArrayView<OperationNodeBuilder*> getOperations();
 

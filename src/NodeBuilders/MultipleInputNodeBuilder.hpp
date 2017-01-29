@@ -14,7 +14,7 @@ struct BuilderStorage;
 struct UnaryNodeBuilder;
 struct BinaryNodeBuilder;
 struct VariableNodeBuilder;
-struct ConstNodeBuilder;
+struct ConstSingleValueNodeBuilder;
 
 struct MultipleInputNodeBuilder : OperationNodeBuilder
 {
@@ -23,9 +23,9 @@ struct MultipleInputNodeBuilder : OperationNodeBuilder
     NotNull<UnaryNodeBuilder> addInput(UnaryNodeSpecs const& specs);
     NotNull<BinaryNodeBuilder> addInput(BinaryNodeSpecs const& specs);
     NotNull<VariableNodeBuilder> addInput(VariableNodeSpecs);
-    NotNull<ConstNodeBuilder> addInput(ConstNodeSpecs);
+    NotNull<ConstSingleValueNodeBuilder> addInput(ConstNodeSpecs);
 
-    void addInput(NotNull<ConstNodeBuilder>);
+    void addInput(NotNull<ConstSingleValueNodeBuilder>);
 
     ArrayView<OperationNodeBuilder*> getOperations() override;
 

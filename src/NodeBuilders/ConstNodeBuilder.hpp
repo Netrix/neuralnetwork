@@ -9,8 +9,5 @@
 
 struct ConstNodeBuilder : NodeBuilder
 {
-    std::unique_ptr<ConstNode<BNN_TYPE>> build(ConstStorageBuilder<BNN_TYPE> & constStorage)
-    {
-        return std::make_unique<ConstNode<BNN_TYPE>>(constStorage.getSingleValueRef());
-    }
+    virtual std::unique_ptr<ConstNode<BNN_TYPE>> build(ConstStorageBuilder<BNN_TYPE> & constStorage) = 0;
 };

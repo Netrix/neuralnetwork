@@ -31,6 +31,16 @@ NotNull<LayerNodeBuilder> LayerNodeBuilder::setInput(LayerNodeSpecs specs)  // T
     return l_builder;
 }
 
+NotNull<ConstBufferNodeBuilder> LayerNodeBuilder::setInput(ConstBufferNodeSpecs const& specs)
+{
+    assert(m_inputBuilder == nullptr);
+    m_variablesNodeBuilder = allocateVariableNodeBuilder(specs.numConsts);
+
+    auto l_builder = m_builderStorage.createConstBufferNodeBuilder(specs.numConsts);
+    m_inputBuilder = l_builder;
+    return l_builder;
+}
+
 ArrayView<OperationNodeBuilder*> LayerNodeBuilder::getOperations()
 {
     return m_inputOperationBuilder;

@@ -1,9 +1,8 @@
 #pragma once
-#include <iostream>
 #include "ComputationNode.hpp"
 
 template<class Type>
-struct VariableNode : ComputationNode<Type> // Single variable node that inherits from VariablesNode
+struct VariableNode : ComputationNode<Type>
 {
 };
 

@@ -37,3 +37,8 @@ struct VariableNodeSpecs
 struct ConstNodeSpecs
 {
 };
+
+struct ConstBufferNodeSpecs
+{
+    std::size_t numConsts;
+};

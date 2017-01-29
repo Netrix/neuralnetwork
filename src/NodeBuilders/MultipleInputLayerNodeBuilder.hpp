@@ -2,7 +2,7 @@
 
 #include "OperationNodeBuilder.hpp"
 #include "BuilderToNodeMaps.hpp"
-#include "NodeBuilders/ConstNodeBuilder.hpp"
+#include "NodeBuilders/ConstSingleValueNodeBuilder.hpp"
 #include "NodeBuilders/VariableNodeBuilder.hpp"
 #include "NodeBuilders/OperationNodeBuilder.hpp"
 #include "NodeBuilders/MultipleInputNodeBuilder.hpp"
@@ -22,9 +22,9 @@ struct MultipleInputLayerNodeBuilder : OperationNodeBuilder
     NotNull<BinaryNodeBuilder> addInput(BinaryNodeSpecs const& specs);
     NotNull<UnaryNodeBuilder> addInput(UnaryNodeSpecs const& specs);
     NotNull<VariableNodeBuilder> addInput(VariableNodeSpecs);
-    NotNull<ConstNodeBuilder> addInput(ConstNodeSpecs);
+    NotNull<ConstSingleValueNodeBuilder> addInput(ConstNodeSpecs);
 
-    void addInput(NotNull<ConstNodeBuilder>);
+    void addInput(NotNull<ConstSingleValueNodeBuilder>);
 
     ArrayView<OperationNodeBuilder*> getOperations();
 

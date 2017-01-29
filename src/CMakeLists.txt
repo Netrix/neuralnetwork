@@ -4,6 +4,8 @@ set(NODES_FILES
     Nodes/OperationNode.hpp
     Nodes/ComputationNode.hpp
     Nodes/ConstNode.hpp
+    Nodes/ConstSingleValueNode.hpp
+    Nodes/ConstBufferNode.hpp
     Nodes/VariableNode.hpp
     Nodes/VariableBufferNode.hpp
     Nodes/VariableSingleValueNode.hpp
@@ -33,6 +35,8 @@ set(FILES
     NodeBuilders/BinaryNodeBuilder.hpp
     NodeBuilders/NodeBuilder.hpp
     NodeBuilders/ConstNodeBuilder.hpp
+    NodeBuilders/ConstSingleValueNodeBuilder.hpp
+    NodeBuilders/ConstBufferNodeBuilder.hpp
     NodeBuilders/VariableNodeBuilder.hpp
     NodeBuilders/OperationNodeBuilder.hpp
     NodeBuilders/MultipleInputNodeBuilder.cpp

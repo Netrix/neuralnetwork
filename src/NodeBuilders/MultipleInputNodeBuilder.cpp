@@ -33,14 +33,14 @@ NotNull<VariableNodeBuilder> MultipleInputNodeBuilder::addInput(VariableNodeSpec
     return l_builder;
 }
 
-NotNull<ConstNodeBuilder> MultipleInputNodeBuilder::addInput(ConstNodeSpecs)
+NotNull<ConstSingleValueNodeBuilder> MultipleInputNodeBuilder::addInput(ConstNodeSpecs)
 {
-    auto l_builder = m_builderStorage.createConstNodeBuilder();
+    auto l_builder = m_builderStorage.createConstSingleValueNodeBuilder();
     m_inputBuilders.push_back(l_builder);
     return l_builder;
 }
 
-void MultipleInputNodeBuilder::addInput(NotNull<ConstNodeBuilder> node)
+void MultipleInputNodeBuilder::addInput(NotNull<ConstSingleValueNodeBuilder> node)
 {
     m_inputBuilders.push_back(node);
 }

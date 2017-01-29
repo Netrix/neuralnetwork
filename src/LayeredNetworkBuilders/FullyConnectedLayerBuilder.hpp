@@ -8,7 +8,7 @@
 #include <memory>
 
 struct UnaryNodeBuilder;
-struct ConstNodeBuilder;
+struct ConstSingleValueNodeBuilder;
 struct MultipleInputLayerNodeBuilder;
 struct MultipleInputNodeBuilder;
 struct FullyConnectedLayerSpecs;

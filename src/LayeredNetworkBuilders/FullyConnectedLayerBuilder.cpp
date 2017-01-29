@@ -42,10 +42,5 @@ NotNull<FullyConnectedLayerBuilder> FullyConnectedLayerBuilder::setInputLayer(Fu
 
 void FullyConnectedLayerBuilder::setInputLayer(InputLayerSpecs const& specs)
 {
-    auto passThrough = m_fullyConnectedLayer->setInput(MultipleInputLayerNodeSpecs{
-                                                           std::make_unique<PassThroughMultipleInputLayerNodeFactory<BNN_TYPE>>(specs.numInputs)}); // TODO replace it with const layer node
-    for(decltype(specs.numInputs) i = 0; i < specs.numInputs; ++i)
-    {
-        passThrough->addInput(ConstNodeSpecs{});
-    }
+    m_fullyConnectedLayer->setInput(ConstBufferNodeSpecs{specs.numInputs});
 }

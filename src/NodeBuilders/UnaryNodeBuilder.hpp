@@ -9,7 +9,7 @@
 #include <string>
 #include "OperationNodeBuilder.hpp"
 #include "BuilderToNodeMaps.hpp"
-#include "NodeBuilders/ConstNodeBuilder.hpp"
+#include "NodeBuilders/ConstSingleValueNodeBuilder.hpp"
 #include "NodeBuilders/VariableNodeBuilder.hpp"
 #include "NodeBuilders/OperationNodeBuilder.hpp"
 #include "NodeBuilders/MultipleInputNodeBuilder.hpp"
@@ -25,9 +25,9 @@ struct UnaryNodeBuilder : OperationNodeBuilder
     NotNull<BinaryNodeBuilder> setInput(BinaryNodeSpecs const& specs);
     NotNull<UnaryNodeBuilder> setInput(UnaryNodeSpecs const& specs);
     NotNull<VariableNodeBuilder> setInput(VariableNodeSpecs);
-    NotNull<ConstNodeBuilder> setInput(ConstNodeSpecs);
+    NotNull<ConstSingleValueNodeBuilder> setInput(ConstNodeSpecs);
 
-    void setInput(NotNull<ConstNodeBuilder>);
+    void setInput(NotNull<ConstSingleValueNodeBuilder>);
 
     ArrayView<OperationNodeBuilder*> getOperations();
 

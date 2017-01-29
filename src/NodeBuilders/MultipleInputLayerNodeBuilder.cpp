@@ -39,14 +39,14 @@ NotNull<VariableNodeBuilder> MultipleInputLayerNodeBuilder::addInput(VariableNod
     return l_builder;
 }
 
-NotNull<ConstNodeBuilder> MultipleInputLayerNodeBuilder::addInput(ConstNodeSpecs)
+NotNull<ConstSingleValueNodeBuilder> MultipleInputLayerNodeBuilder::addInput(ConstNodeSpecs)
 {
-    auto l_builder = m_builderStorage.createConstNodeBuilder();
+    auto l_builder = m_builderStorage.createConstSingleValueNodeBuilder();
     m_inputBuilders.push_back(l_builder);
     return l_builder;
 }
 
-void MultipleInputLayerNodeBuilder::addInput(NotNull<ConstNodeBuilder> node)
+void MultipleInputLayerNodeBuilder::addInput(NotNull<ConstSingleValueNodeBuilder> node)
 {
     m_inputBuilders.push_back(node);
 }

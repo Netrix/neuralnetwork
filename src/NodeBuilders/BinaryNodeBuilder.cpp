@@ -81,28 +81,28 @@ NotNull<VariableNodeBuilder> BinaryNodeBuilder::setSecondInput(VariableNodeSpecs
 }
 
 
-NotNull<ConstNodeBuilder> BinaryNodeBuilder::setFirstInput(ConstNodeSpecs)
+NotNull<ConstSingleValueNodeBuilder> BinaryNodeBuilder::setFirstInput(ConstNodeSpecs)
 {
     assert(m_inputBuilders[0] == nullptr);
-    auto l_builder = m_builderStorage.createConstNodeBuilder();
+    auto l_builder = m_builderStorage.createConstSingleValueNodeBuilder();
     m_inputBuilders[0] = l_builder;
     return l_builder;
 }
 
-NotNull<ConstNodeBuilder> BinaryNodeBuilder::setSecondInput(ConstNodeSpecs)
+NotNull<ConstSingleValueNodeBuilder> BinaryNodeBuilder::setSecondInput(ConstNodeSpecs)
 {
     assert(m_inputBuilders[1] == nullptr);
-    auto l_builder = m_builderStorage.createConstNodeBuilder();
+    auto l_builder = m_builderStorage.createConstSingleValueNodeBuilder();
     m_inputBuilders[1] = l_builder;
     return l_builder;
 }
 
-void BinaryNodeBuilder::setFirstInput(NotNull<ConstNodeBuilder> node)
+void BinaryNodeBuilder::setFirstInput(NotNull<ConstSingleValueNodeBuilder> node)
 {
     m_inputBuilders[0] = node;
 }
 
-void BinaryNodeBuilder::setSecondInput(NotNull<ConstNodeBuilder> node)
+void BinaryNodeBuilder::setSecondInput(NotNull<ConstSingleValueNodeBuilder> node)
 {
     m_inputBuilders[1] = node;
 }

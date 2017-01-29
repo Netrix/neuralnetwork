@@ -45,15 +45,15 @@ NotNull<VariableNodeBuilder> UnaryNodeBuilder::setInput(VariableNodeSpecs)
     return l_builder;
 }
 
-NotNull<ConstNodeBuilder> UnaryNodeBuilder::setInput(ConstNodeSpecs)
+NotNull<ConstSingleValueNodeBuilder> UnaryNodeBuilder::setInput(ConstNodeSpecs)
 {
     assert(m_inputBuilder == nullptr);
-    auto l_builder = m_builderStorage.createConstNodeBuilder();
+    auto l_builder = m_builderStorage.createConstSingleValueNodeBuilder();
     m_inputBuilder = l_builder;
     return l_builder;
 }
 
-void UnaryNodeBuilder::setInput(NotNull<ConstNodeBuilder> node)
+void UnaryNodeBuilder::setInput(NotNull<ConstSingleValueNodeBuilder> node)
 {
     assert(m_inputBuilder == nullptr);
     m_inputBuilder = node;

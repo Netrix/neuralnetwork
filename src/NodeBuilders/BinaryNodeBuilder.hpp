@@ -31,11 +31,11 @@ struct BinaryNodeBuilder : OperationNodeBuilder
     NotNull<VariableNodeBuilder> setFirstInput(VariableNodeSpecs);
     NotNull<VariableNodeBuilder> setSecondInput(VariableNodeSpecs);
 
-    NotNull<ConstNodeBuilder> setFirstInput(ConstNodeSpecs);
-    NotNull<ConstNodeBuilder> setSecondInput(ConstNodeSpecs);
+    NotNull<ConstSingleValueNodeBuilder> setFirstInput(ConstNodeSpecs);
+    NotNull<ConstSingleValueNodeBuilder> setSecondInput(ConstNodeSpecs);
 
-    void setFirstInput(NotNull<ConstNodeBuilder>);
-    void setSecondInput(NotNull<ConstNodeBuilder>);
+    void setFirstInput(NotNull<ConstSingleValueNodeBuilder>);
+    void setSecondInput(NotNull<ConstSingleValueNodeBuilder>);
 
     void setFirstInput(NotNull<BinaryNodeBuilder>);
     void setSecondInput(NotNull<BinaryNodeBuilder>);

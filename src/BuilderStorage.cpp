@@ -49,12 +49,13 @@ NotNull<VariableSingleValueNodeBuilder> BuilderStorage::createVariableSingleValu
     return l_builderPointer;
 }
 
-NotNull<ConstNodeBuilder> BuilderStorage::createConstNodeBuilder()
+NotNull<ConstSingleValueNodeBuilder> BuilderStorage::createConstSingleValueNodeBuilder()
 {
-    auto l_builder = std::make_unique<ConstNodeBuilder>();
+    auto l_builder = std::make_unique<ConstSingleValueNodeBuilder>();
+    auto l_pointer = l_builder.get();
     consts.push_back(std::move(l_builder));
     m_numConsts++;
-    return consts.back().get();
+    return l_pointer;
 }
 
 NotNull<VariableBufferNodeBuilder> BuilderStorage::createVariableBufferNodeBuilder(std::size_t numVariables)
@@ -63,5 +64,14 @@ NotNull<VariableBufferNodeBuilder> BuilderStorage::createVariableBufferNodeBuild
     auto l_pointer = l_builder.get();
     variables.push_back(std::move(l_builder));
     m_numVariables += numVariables;
+    return l_pointer;
+}
+
+NotNull<ConstBufferNodeBuilder> BuilderStorage::createConstBufferNodeBuilder(std::size_t numConsts)
+{
+    auto l_builder = std::make_unique<ConstBufferNodeBuilder>(numConsts);
+    auto l_pointer = l_builder.get();
+    consts.push_back(std::move(l_builder));
+    m_numConsts += numConsts;
     return l_pointer;
 }
