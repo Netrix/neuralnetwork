@@ -14,8 +14,7 @@ struct ConstBufferNodeBuilder;
 
 struct LayerNodeBuilder : OperationNodeBuilder
 {
-    LayerNodeBuilder(BuilderStorage& builderStorage,
-                     std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory);
+    LayerNodeBuilder(BuilderStorage& builderStorage, LayerNodeSpecs specs);
 
     NotNull<MultipleInputLayerNodeBuilder> setInput(MultipleInputLayerNodeSpecs);
     NotNull<LayerNodeBuilder> setInput(LayerNodeSpecs);
@@ -26,11 +25,11 @@ struct LayerNodeBuilder : OperationNodeBuilder
     std::unique_ptr<OperationNode<BNN_TYPE>> build(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps);
 
 private:
-    VariableBufferNodeBuilder* allocateVariableNodeBuilder(std::size_t numInputs);
+    VariableBufferNodeBuilder* allocateVariableNodeBuilder(std::size_t numInputs, std::size_t numOutputs);
 
 private:
     BuilderStorage& m_builderStorage;
-    std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> m_factory;
+    LayerNodeSpecs m_specs;
 
     VariableBufferNodeBuilder* m_variablesNodeBuilder;
     OperationNodeBuilder* m_inputOperationBuilder{};

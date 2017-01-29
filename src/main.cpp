@@ -33,9 +33,9 @@ int main()
 
     LayeredNetworkBuilder layeredNetworkBuilder;
     auto outLayer = layeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{
-                                                             std::make_unique<ReLULayerNodeFactory<BNN_TYPE>>(mnistDataset.getOutputSampleSize())});
+                                                             std::make_unique<ReLULayerNodeFactory<BNN_TYPE>>(), mnistDataset.getOutputSampleSize()});
     auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{
-                                                   std::make_unique<ReLULayerNodeFactory<BNN_TYPE>>(32)});// TODO try to remove 32
+                                                   std::make_unique<ReLULayerNodeFactory<BNN_TYPE>>(), 32});
     hiddenLayer->setInputLayer(InputLayerSpecs{mnistDataset.getInputSampleSize()});
     auto network = layeredNetworkBuilder.buildBackPropagationNetwork(0.01f);
 

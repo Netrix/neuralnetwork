@@ -7,9 +7,8 @@
 
 NotNull<FullyConnectedLayerBuilder> LayeredNetworkBuilder::setOutputLayer(FullyConnectedLayerSpecs specs)
 {
-    auto numNeurons = specs.activationFactory->getNumOutputs();
-    auto activationsLayer = m_networkBuilder.setRootNode(LayerNodeSpecs{std::move(specs.activationFactory)});
-    auto layer = std::make_unique<FullyConnectedLayerBuilder>(activationsLayer, numNeurons);
+    auto activationsLayer = m_networkBuilder.setRootNode(LayerNodeSpecs{std::move(specs.activationFactory), specs.numNeurons});
+    auto layer = std::make_unique<FullyConnectedLayerBuilder>(activationsLayer, specs.numNeurons);
     auto specificLayer = layer.get();
     m_outputLayer = std::move(layer);
     return specificLayer;

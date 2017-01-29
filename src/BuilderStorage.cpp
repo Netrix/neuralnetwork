@@ -33,9 +33,9 @@ NotNull<MultipleInputLayerNodeBuilder> BuilderStorage::createMultipleInputLayerN
     return l_builderPointer;
 }
 
-NotNull<LayerNodeBuilder> BuilderStorage::createLayerNodeBuilder(std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory)
+NotNull<LayerNodeBuilder> BuilderStorage::createLayerNodeBuilder(LayerNodeSpecs layerNodeSpecs)
 {
-    auto l_builder = std::make_unique<LayerNodeBuilder>(*this, std::move(factory));
+    auto l_builder = std::make_unique<LayerNodeBuilder>(*this, std::move(layerNodeSpecs));
     auto l_builderPointer = l_builder.get();
     operations.push_back(std::move(l_builder));
     return l_builderPointer;

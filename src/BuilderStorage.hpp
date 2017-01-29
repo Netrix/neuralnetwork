@@ -22,7 +22,7 @@ struct BuilderStorage
     NotNull<UnaryNodeBuilder> createUnaryNodeBuilder(std::unique_ptr<IUnaryOperationNodesFactory<BNN_TYPE>>);
     NotNull<BinaryNodeBuilder> createBinaryNodeBuilder(std::unique_ptr<IBinaryOperationNodesFactory<BNN_TYPE>> factory);
     NotNull<MultipleInputLayerNodeBuilder> createMultipleInputLayerNodeBuilder(std::unique_ptr<IMultipleInputLayerOperationsFactory<BNN_TYPE>> factory);
-    NotNull<LayerNodeBuilder> createLayerNodeBuilder(std::unique_ptr<ILayerOperationsFactory<BNN_TYPE>> factory);
+    NotNull<LayerNodeBuilder> createLayerNodeBuilder(LayerNodeSpecs);
     NotNull<ConstSingleValueNodeBuilder> createConstSingleValueNodeBuilder();
     NotNull<VariableSingleValueNodeBuilder> createVariableSingleValueNodeBuilder();
     NotNull<VariableBufferNodeBuilder> createVariableBufferNodeBuilder(std::size_t numVariables);

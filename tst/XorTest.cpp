@@ -29,8 +29,8 @@ TEST(XorTest, XorWithZeros)
     };
 
     LayeredNetworkBuilder LayeredNetworkBuilder;
-    auto outLayer = LayeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{std::make_unique<TanhLayerNodeFactory<BNN_TYPE>>(2, 1.0f)});
-    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{std::make_unique<TanhLayerNodeFactory<BNN_TYPE>>(2, 1.0f)});
+    auto outLayer = LayeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{std::make_unique<TanhLayerNodeFactory<BNN_TYPE>>(1.0f), 2});
+    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{std::make_unique<TanhLayerNodeFactory<BNN_TYPE>>(1.0f), 2});
     hiddenLayer->setInputLayer(InputLayerSpecs{2});
     auto network = LayeredNetworkBuilder.buildBackPropagationNetwork();
     network->setLearningRate(0.01f);
@@ -66,8 +66,8 @@ TEST(XorTest, XorWithMinusOnes)
     };
 
     LayeredNetworkBuilder LayeredNetworkBuilder;
-    auto outLayer = LayeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{std::make_unique<TanhLayerNodeFactory<BNN_TYPE>>(2, 1.0f)});
-    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{std::make_unique<TanhLayerNodeFactory<BNN_TYPE>>(2, 1.0f)});
+    auto outLayer = LayeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{std::make_unique<TanhLayerNodeFactory<BNN_TYPE>>(1.0f), 2});
+    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{std::make_unique<TanhLayerNodeFactory<BNN_TYPE>>(1.0f), 2});
     hiddenLayer->setInputLayer(InputLayerSpecs{2});
     auto network = LayeredNetworkBuilder.buildBackPropagationNetwork();
     network->setLearningRate(0.01f);

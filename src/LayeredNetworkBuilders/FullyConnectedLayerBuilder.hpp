@@ -24,6 +24,5 @@ struct FullyConnectedLayerBuilder : LayerBuilder
 
 private:
     LayerNodeBuilder* m_fullyConnectedLayer;
-//    std::vector<NotNull<MultipleInputNodeBuilder>> m_addNodes;
     std::unique_ptr<LayerBuilder> m_inputLayer;
 };

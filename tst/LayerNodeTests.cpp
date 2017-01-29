@@ -15,7 +15,7 @@ TEST(LayerNodeTests, ComparingOutputOfLayerNodeVsOldWayWithoutHiddenLayer)
 {
     // Reference network
     LayeredNetworkBuilder layeredNetworkBuilder;
-    auto outLayer = layeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(2)});
+    auto outLayer = layeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(), 2});
     outLayer->setInputLayer(InputLayerSpecs{2});
 
     auto network = layeredNetworkBuilder.buildBackPropagationNetwork(0.01f);
@@ -23,8 +23,8 @@ TEST(LayerNodeTests, ComparingOutputOfLayerNodeVsOldWayWithoutHiddenLayer)
 
     // New network
     NetworkBuilder networkBuilder;
-    auto outActivationLayer = networkBuilder.setRootNode(LayerNodeSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(2)});
-    auto outFullyConnected = outActivationLayer->setInput(LayerNodeSpecs{std::make_unique<FullyConnectedLayerNodeFactory<BNN_TYPE>>(2)});
+    auto outActivationLayer = networkBuilder.setRootNode(LayerNodeSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(), 2});
+    auto outFullyConnected = outActivationLayer->setInput(LayerNodeSpecs{std::make_unique<FullyConnectedLayerNodeFactory<BNN_TYPE>>(), 2});
     outFullyConnected->setInput(ConstBufferNodeSpecs{2});
 
     auto newNetwork = networkBuilder.buildBackPropagationNetwork(0.01f);
@@ -64,8 +64,8 @@ TEST(LayerNodeTests, ComparingOutputOfLayerNodeVsOldWayWithHiddenLayer)
 {
     // Reference network
     LayeredNetworkBuilder layeredNetworkBuilder;
-    auto outLayer = layeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(2)});
-    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(2)});
+    auto outLayer = layeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(), 2});
+    auto hiddenLayer = outLayer->setInputLayer(FullyConnectedLayerSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(), 2});
     hiddenLayer->setInputLayer(InputLayerSpecs{2});
 
     auto network = layeredNetworkBuilder.buildBackPropagationNetwork(0.01f);
@@ -73,10 +73,10 @@ TEST(LayerNodeTests, ComparingOutputOfLayerNodeVsOldWayWithHiddenLayer)
 
     // New network
     NetworkBuilder networkBuilder;
-    auto outActivationLayer = networkBuilder.setRootNode(LayerNodeSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(2)});
-    auto outFullyConnected = outActivationLayer->setInput(LayerNodeSpecs{std::make_unique<FullyConnectedLayerNodeFactory<BNN_TYPE>>(2)});
-    auto hiddenActivationLayer = outFullyConnected->setInput(LayerNodeSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(2)});
-    auto hiddenFullyConnected = hiddenActivationLayer->setInput(LayerNodeSpecs{std::make_unique<FullyConnectedLayerNodeFactory<BNN_TYPE>>(2)});
+    auto outActivationLayer = networkBuilder.setRootNode(LayerNodeSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(), 2});
+    auto outFullyConnected = outActivationLayer->setInput(LayerNodeSpecs{std::make_unique<FullyConnectedLayerNodeFactory<BNN_TYPE>>(), 2});
+    auto hiddenActivationLayer = outFullyConnected->setInput(LayerNodeSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(), 2});
+    auto hiddenFullyConnected = hiddenActivationLayer->setInput(LayerNodeSpecs{std::make_unique<FullyConnectedLayerNodeFactory<BNN_TYPE>>(), 2});
     hiddenFullyConnected->setInput(ConstBufferNodeSpecs{2});
 
     auto newNetwork = networkBuilder.buildBackPropagationNetwork(0.01f);
