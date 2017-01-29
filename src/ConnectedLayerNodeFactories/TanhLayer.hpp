@@ -1,7 +1,7 @@
 #pragma once
 
 #include "IConnectedLayerOperationsFactory.hpp"
-#include "Nodes/ConnectedLayerNodes/TanhLayer.hpp"
+#include "Nodes/LayerNodes/TanhLayer.hpp"
 
 template<class Type>
 struct TanhLayerNodeFactory : IConnectedLayerOperationsFactory<Type>

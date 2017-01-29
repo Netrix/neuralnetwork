@@ -1,7 +1,7 @@
 #pragma once
 
 #include "IConnectedLayerOperationsFactory.hpp"
-#include "Nodes/ConnectedLayerNodes/FullyConnectedLayer.hpp"
+#include "Nodes/LayerNodes/FullyConnectedLayer.hpp"
 
 template<class Type>
 struct FullyConnectedLayerNodeFactory : IConnectedLayerOperationsFactory<Type>

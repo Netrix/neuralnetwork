@@ -21,11 +21,11 @@ set(NODES_FILES
     Nodes/MultipleInputOperators/MultipleInputOperationNode.hpp
     Nodes/MultipleInputLayerNodes/MultipleInputLayerNode.hpp
     Nodes/MultipleInputLayerNodes/PassThroughMultipleInputLayerNode.hpp
-    Nodes/ConnectedLayerNodes/ConnectedLayerNode.hpp
-    Nodes/ConnectedLayerNodes/FullyConnectedLayer.hpp
-    Nodes/ConnectedLayerNodes/SigmoidLayer.hpp
-    Nodes/ConnectedLayerNodes/ReLULayer.hpp
-    Nodes/ConnectedLayerNodes/TanhLayer.hpp
+    Nodes/LayerNodes/LayerNode.hpp
+    Nodes/LayerNodes/FullyConnectedLayer.hpp
+    Nodes/LayerNodes/SigmoidLayer.hpp
+    Nodes/LayerNodes/ReLULayer.hpp
+    Nodes/LayerNodes/TanhLayer.hpp
     )
 
 set(FILES

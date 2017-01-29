@@ -1,7 +1,7 @@
 #pragma once
 
 #include "IConnectedLayerOperationsFactory.hpp"
-#include "Nodes/ConnectedLayerNodes/SigmoidLayer.hpp"
+#include "Nodes/LayerNodes/SigmoidLayer.hpp"
 
 template<class Type>
 struct SigmoidLayerNodeFactory : IConnectedLayerOperationsFactory<Type>
