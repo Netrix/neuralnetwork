@@ -62,3 +62,5 @@ TEST(MnistBenchmark, SingleEpochParallel)
     std::cout << "Time taken: " << duration_cast<seconds>(end - start).count() << "s. errorSum: " << errorSum <<  std::endl;
 }
 
+// TODO run all -> write time and error after single epoch, then reimplement LayeredNetworkBuilder with new layered nodes!!!
+
