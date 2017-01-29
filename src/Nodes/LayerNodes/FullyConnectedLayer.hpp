@@ -41,7 +41,7 @@ struct FullyConnectedLayerNode : LayerNode<Type>
         resetErrorsForInput();
         for(std::size_t i = 0; i < errors.size(); ++i)
         {
-            backPropagateSingleError(errors[0], getNthLayerWeights(i), getNthLayerWeightsErrors(i));
+            backPropagateSingleError(errors[i], getNthLayerWeights(i), getNthLayerWeightsErrors(i));
         }
         m_inputLayer->backPropagate(m_errorsForInput);
         m_weights->backPropagate(m_errorsForWeights);  // maybe there is a way to update some variables from VariableNode selectively?
@@ -60,7 +60,7 @@ private:
         deltas[0] += error;
         for(auto i = 0u; i < inputs.size(); ++i)
         {
-            m_errorsForInput[i] += error * weights[i];
+            m_errorsForInput[i] += error * weights[i + 1];
             deltas[i + 1] += error * inputs[i];
         }
     }
