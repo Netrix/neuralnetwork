@@ -4,11 +4,12 @@
 #include "IMultipleInputLayerOperationsFactory.hpp"
 #include "ILayerOperationsFactory.hpp"
 #include "UnaryOperationNodesFactories/IUnaryOperationNodesFactory.hpp"
+#include "BinaryOperationNodesFactories/IBinaryOperationNodesFactory.hpp"
 #include "NodeBuilders/NodeBuilder.hpp"
 
 struct BinaryNodeSpecs
 {
-    std::string operation;
+    std::unique_ptr<IBinaryOperationNodesFactory<BNN_TYPE>> factory;
 };
 
 struct UnaryNodeSpecs

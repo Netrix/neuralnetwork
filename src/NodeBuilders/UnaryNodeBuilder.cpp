@@ -18,10 +18,10 @@ NotNull<MultipleInputNodeBuilder> UnaryNodeBuilder::setInput(MultipleInputNodeSp
     return l_builder;
 }
 
-NotNull<BinaryNodeBuilder> UnaryNodeBuilder::setInput(BinaryNodeSpecs const& specs)
+NotNull<BinaryNodeBuilder> UnaryNodeBuilder::setInput(BinaryNodeSpecs specs)
 {
     assert(m_inputBuilder == nullptr);
-    auto l_builder = m_builderStorage.createBinaryNodeBuilder(specs.operation);
+    auto l_builder = m_builderStorage.createBinaryNodeBuilder(std::move(specs.factory));
     m_inputBuilder = l_builder;
     m_operationBuilder = l_builder;
     return l_builder;

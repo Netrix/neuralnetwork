@@ -17,9 +17,9 @@ NotNull<UnaryNodeBuilder> BuilderStorage::createUnaryNodeBuilder(
     return l_builderPointer;
 }
 
-NotNull<BinaryNodeBuilder> BuilderStorage::createBinaryNodeBuilder(std::string const& operation)
+NotNull<BinaryNodeBuilder> BuilderStorage::createBinaryNodeBuilder(std::unique_ptr<IBinaryOperationNodesFactory<BNN_TYPE>> factory)
 {
-    auto l_builder = std::make_unique<BinaryNodeBuilder>(*this, operation);
+    auto l_builder = std::make_unique<BinaryNodeBuilder>(*this, std::move(factory));
     auto l_builderPointer = l_builder.get();
     operations.push_back(std::move(l_builder));
     return l_builderPointer;

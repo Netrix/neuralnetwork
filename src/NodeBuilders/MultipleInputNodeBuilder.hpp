@@ -21,7 +21,7 @@ struct MultipleInputNodeBuilder : OperationNodeBuilder
     MultipleInputNodeBuilder(BuilderStorage& builderStorage, std::string const& operation);
 
     NotNull<UnaryNodeBuilder> addInput(UnaryNodeSpecs);
-    NotNull<BinaryNodeBuilder> addInput(BinaryNodeSpecs const& specs);
+    NotNull<BinaryNodeBuilder> addInput(BinaryNodeSpecs);
     NotNull<VariableNodeBuilder> addInput(VariableNodeSpecs);
     NotNull<ConstSingleValueNodeBuilder> addInput(ConstNodeSpecs);
 

@@ -18,9 +18,9 @@ NotNull<UnaryNodeBuilder> MultipleInputNodeBuilder::addInput(UnaryNodeSpecs spec
     return l_builder;
 }
 
-NotNull<BinaryNodeBuilder> MultipleInputNodeBuilder::addInput(BinaryNodeSpecs const& specs)
+NotNull<BinaryNodeBuilder> MultipleInputNodeBuilder::addInput(BinaryNodeSpecs specs)
 {
-    auto l_builder = m_builderStorage.createBinaryNodeBuilder(specs.operation);
+    auto l_builder = m_builderStorage.createBinaryNodeBuilder(std::move(specs.factory));
     m_inputBuilders.push_back(l_builder);
     m_operationBuilders.push_back(l_builder);
     return l_builder;

@@ -23,7 +23,7 @@ struct UnaryNodeBuilder : OperationNodeBuilder
     UnaryNodeBuilder(BuilderStorage& builderStorage, std::unique_ptr<IUnaryOperationNodesFactory<BNN_TYPE>> factory);
 
     NotNull<MultipleInputNodeBuilder> setInput(MultipleInputNodeSpecs const& specs);
-    NotNull<BinaryNodeBuilder> setInput(BinaryNodeSpecs const& specs);
+    NotNull<BinaryNodeBuilder> setInput(BinaryNodeSpecs specs);
     NotNull<UnaryNodeBuilder> setInput(UnaryNodeSpecs);
     NotNull<VariableNodeBuilder> setInput(VariableNodeSpecs);
     NotNull<ConstSingleValueNodeBuilder> setInput(ConstNodeSpecs);

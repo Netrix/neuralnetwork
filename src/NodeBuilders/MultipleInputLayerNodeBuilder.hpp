@@ -19,7 +19,7 @@ struct MultipleInputLayerNodeBuilder : OperationNodeBuilder
     MultipleInputLayerNodeBuilder(BuilderStorage& builderStorage, std::unique_ptr<IMultipleInputLayerOperationsFactory<BNN_TYPE>> factory);
 
     NotNull<MultipleInputNodeBuilder> addInput(MultipleInputNodeSpecs const& specs);
-    NotNull<BinaryNodeBuilder> addInput(BinaryNodeSpecs const& specs);
+    NotNull<BinaryNodeBuilder> addInput(BinaryNodeSpecs);
     NotNull<UnaryNodeBuilder> addInput(UnaryNodeSpecs);
     NotNull<VariableNodeBuilder> addInput(VariableNodeSpecs);
     NotNull<ConstSingleValueNodeBuilder> addInput(ConstNodeSpecs);

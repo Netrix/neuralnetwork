@@ -17,7 +17,8 @@ struct BuilderStorage;
 
 struct BinaryNodeBuilder : OperationNodeBuilder
 {
-    BinaryNodeBuilder(BuilderStorage& builderStorage, std::string const& operation);    // TODO instead of operation let it pass the factory for the operation, the factory should be able to receive inputs, everything else should be passed through factory constructor
+    BinaryNodeBuilder(BuilderStorage& builderStorage,
+                      std::unique_ptr<IBinaryOperationNodesFactory<BNN_TYPE>> factory);
 
     NotNull<MultipleInputNodeBuilder> setFirstInput(MultipleInputNodeSpecs const& specs);
     NotNull<MultipleInputNodeBuilder> setSecondInput(MultipleInputNodeSpecs const& specs);
@@ -25,8 +26,8 @@ struct BinaryNodeBuilder : OperationNodeBuilder
     NotNull<UnaryNodeBuilder> setFirstInput(UnaryNodeSpecs);
     NotNull<UnaryNodeBuilder> setSecondInput(UnaryNodeSpecs);
 
-    NotNull<BinaryNodeBuilder> setFirstInput(BinaryNodeSpecs const& specs);
-    NotNull<BinaryNodeBuilder> setSecondInput(BinaryNodeSpecs const& specs);
+    NotNull<BinaryNodeBuilder> setFirstInput(BinaryNodeSpecs);
+    NotNull<BinaryNodeBuilder> setSecondInput(BinaryNodeSpecs);
 
     NotNull<VariableNodeBuilder> setFirstInput(VariableNodeSpecs);
     NotNull<VariableNodeBuilder> setSecondInput(VariableNodeSpecs);
@@ -49,7 +50,7 @@ struct BinaryNodeBuilder : OperationNodeBuilder
 
 private:
     BuilderStorage& m_builderStorage;
-    std::string m_operation;
+    std::unique_ptr<IBinaryOperationNodesFactory<BNN_TYPE>> m_factory;
 
     std::array<OperationNodeBuilder*, 2> m_operationBuilders{};
     std::array<NodeBuilder*, 2> m_inputBuilders{};

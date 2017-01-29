@@ -63,6 +63,9 @@ set(FILES
     UnaryOperationNodesFactories/TanhNodeFactory.hpp
     UnaryOperationNodesFactories/ReLUNodeFactory.hpp
     UnaryOperationNodesFactories/PReLUNodeFactory.hpp
+    BinaryOperationNodesFactories/IBinaryOperationNodesFactory.hpp
+    BinaryOperationNodesFactories/MulNodeFactory.hpp
+    BinaryOperationNodesFactories/AddNodeFactory.hpp
     ArrayView.hpp
     NotNull.hpp
     BuilderStorage.cpp
@@ -70,7 +73,6 @@ set(FILES
     BuilderToNodeMaps.hpp
     BackPropagationNetwork.hpp
     BackPropagationNetwork.cpp
-    BinaryOperationsFactory.hpp
     ConstStorageBuilder.hpp
     NodeTags.hpp
     NetworkBuilder.cpp
@@ -80,7 +82,6 @@ set(FILES
     StreamOperators.hpp
     VariableStorage.hpp
     VariableStorageBuilder.hpp
-    UnaryOperationsFactory.hpp
     MultipleInputOperationsFactory.hpp
     ConstStorage.hpp
     LayeredNetworkBuilder.cpp

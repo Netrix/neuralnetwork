@@ -1,11 +1,10 @@
 #include "BinaryNodeBuilder.hpp"
 #include "BuilderStorage.hpp"
-#include "BinaryOperationsFactory.hpp"
 
-
-BinaryNodeBuilder::BinaryNodeBuilder(BuilderStorage& builderStorage, std::string const& operation)
+BinaryNodeBuilder::BinaryNodeBuilder(BuilderStorage& builderStorage,
+                                     std::unique_ptr<IBinaryOperationNodesFactory<BNN_TYPE>> factory)
     : m_builderStorage(builderStorage)
-    , m_operation(operation)
+    , m_factory(std::move(factory))
 {
 }
 
@@ -45,19 +44,19 @@ NotNull<UnaryNodeBuilder> BinaryNodeBuilder::setSecondInput(UnaryNodeSpecs specs
     return l_builder;
 }
 
-NotNull<BinaryNodeBuilder> BinaryNodeBuilder::setFirstInput(BinaryNodeSpecs const& specs)
+NotNull<BinaryNodeBuilder> BinaryNodeBuilder::setFirstInput(BinaryNodeSpecs specs)
 {
     assert(m_inputBuilders[0] == nullptr);
-    auto l_builder = m_builderStorage.createBinaryNodeBuilder(specs.operation);
+    auto l_builder = m_builderStorage.createBinaryNodeBuilder(std::move(specs.factory));
     m_inputBuilders[0] = l_builder;
     m_operationBuilders[0] = l_builder;
     return l_builder;
 }
 
-NotNull<BinaryNodeBuilder> BinaryNodeBuilder::setSecondInput(BinaryNodeSpecs const& specs)
+NotNull<BinaryNodeBuilder> BinaryNodeBuilder::setSecondInput(BinaryNodeSpecs specs)
 {
     assert(m_inputBuilders[1] == nullptr);
-    auto l_builder = m_builderStorage.createBinaryNodeBuilder(specs.operation);
+    auto l_builder = m_builderStorage.createBinaryNodeBuilder(std::move(specs.factory));
     m_inputBuilders[1] = l_builder;
     m_operationBuilders[1] = l_builder;
     return l_builder;
@@ -137,6 +136,5 @@ std::unique_ptr<OperationNode<BNN_TYPE>> BinaryNodeBuilder::build(BuilderToNodeM
     auto firstInputNode = builderToNodeMaps.getComputationNodeFromMaps(m_inputBuilders[0]);
     auto secondInputNode = builderToNodeMaps.getComputationNodeFromMaps(m_inputBuilders[1]);
 
-    BinaryOperationsFactory<BNN_TYPE> factory;    // TODO Inject it
-    return factory.create(m_operation, firstInputNode, secondInputNode);
+    return m_factory->create(firstInputNode, secondInputNode);
 }

@@ -23,9 +23,9 @@ auto extractNodesFromMap(std::map<MapKeyType, std::unique_ptr<Type>> & p_map)
 
 }
 
-NotNull<BinaryNodeBuilder> NetworkBuilder::setRootNode(BinaryNodeSpecs const& specs)
+NotNull<BinaryNodeBuilder> NetworkBuilder::setRootNode(BinaryNodeSpecs specs)
 {
-    auto l_builder = m_storage.createBinaryNodeBuilder(specs.operation);
+    auto l_builder = m_storage.createBinaryNodeBuilder(std::move(specs.factory));
     m_root = l_builder;
     return l_builder;
 }
