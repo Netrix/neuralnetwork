@@ -38,15 +38,14 @@ int main()
 
     network->setVariables(NormalDistributionGenerator<BNN_TYPE>(17, 0, 1e-1));
 
-    for(int i = 0; i < 500; ++i)
+    for(auto i = 0u; i < 500u; ++i)
     {
-        auto errorSum = learnEpochParallel(layeredNetworkBuilder, network, mnistDataset, 256, 0.01, i);
+        auto errorSum = learnEpochParallel(layeredNetworkBuilder, network, mnistDataset, 256, 0.01f, i);
         std::cout << "epoch: " << i << " errorSum: " << errorSum <<  std::endl;
 
     }
 
     // TODO
-    // 3. multiple output layer (sigmoid, tanh, relu)
     // 4. abstract backprop
     //
     // zero-centering data! mean centering
