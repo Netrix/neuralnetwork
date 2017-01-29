@@ -22,6 +22,7 @@ set(NODES_FILES
     Nodes/LayerNodes/LayerNode.hpp
     Nodes/LayerNodes/FullyConnectedLayer.hpp
     Nodes/LayerNodes/SigmoidLayer.hpp
+    Nodes/LayerNodes/ReLULayer.hpp
     )
 
 set(FILES
@@ -50,6 +51,7 @@ set(FILES
     MultipleInputLayerNodeFactories/PassThrough.hpp
     LayerNodeFactories/FullyConnectedLayer.hpp
     LayerNodeFactories/SigmoidLayer.hpp
+    LayerNodeFactories/ReLULayer.hpp
     Datasets/MnistLoader.cpp
     Datasets/MnistLoader.hpp
     ArrayView.hpp

@@ -6,6 +6,7 @@
 #include "NodeBuilders/BinaryNodeBuilder.hpp"
 #include "LayerNodeFactories/FullyConnectedLayer.hpp"
 #include "LayerNodeFactories/SigmoidLayer.hpp"
+#include "LayerNodeFactories/ReLULayer.hpp"
 #include "MultipleInputLayerNodeFactories/PassThrough.hpp"
 
 namespace
@@ -75,9 +76,22 @@ FullyConnectedLayerBuilder::FullyConnectedLayerBuilder(NotNull<LayerNodeBuilder>
 
 NotNull<FullyConnectedLayerBuilder> FullyConnectedLayerBuilder::setInputLayer(FullyConnectedLayerSpecs const& specs)
 {
-    assert(specs.activation == "sigmoid");
+    assert(specs.activation == "sigmoid" or specs.activation == "relu");
 
-    auto activationsLayer = m_fullyConnectedLayer->setInput(LayerNodeTag{}, std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(specs.numNeurons));
+    LayerNodeBuilder* activationsLayer;
+
+    if(specs.activation == "sigmoid")
+    {
+        activationsLayer = m_fullyConnectedLayer->setInput(LayerNodeTag{}, std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(specs.numNeurons));
+    }
+    else if(specs.activation == "relu")
+    {
+        activationsLayer = m_fullyConnectedLayer->setInput(LayerNodeTag{}, std::make_unique<ReLULayerNodeFactory<BNN_TYPE>>(specs.numNeurons));
+    }
+    else
+    {
+        throw 1;
+    }
 
 //    auto inputActivations = createFirstNeuronInputs(specs, m_addNodes.front());
 //    auto numNeurons = m_addNodes.size();
