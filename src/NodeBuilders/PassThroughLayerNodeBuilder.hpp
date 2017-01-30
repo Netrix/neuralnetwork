@@ -4,7 +4,7 @@
 #include "BuilderToNodeMaps.hpp"
 #include "NodeBuilders/MultipleInputLayerNodeBuilder.hpp"
 #include "IConnectedLayerOperationsFactory.hpp"
-#include "NodeTags.hpp"
+#include "NodeSpecs.hpp"
 #include <string>
 
 struct BuilderStorage;

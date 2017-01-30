@@ -4,7 +4,7 @@
 #include "UnaryOperationNodesFactories/IUnaryOperationNodesFactory.hpp"
 #include "BinaryOperationNodesFactories/IBinaryOperationNodesFactory.hpp"
 #include "IMultipleInputLayerOperationsFactory.hpp"                         // TODO move it to proper directory
-#include "NodeTags.hpp"                                                     // TODO change name to NodeSpecs
+#include "NodeSpecs.hpp"
 #include "NodeBuilders/ConstNodeBuilder.hpp"
 #include "NodeBuilders/VariableNodeBuilder.hpp"
 #include "NodeBuilders/NodeBuilder.hpp"

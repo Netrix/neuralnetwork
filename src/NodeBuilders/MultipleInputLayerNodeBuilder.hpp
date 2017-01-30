@@ -7,7 +7,7 @@
 #include "NodeBuilders/OperationNodeBuilder.hpp"
 #include "NodeBuilders/MultipleInputNodeBuilder.hpp"
 #include "IMultipleInputLayerOperationsFactory.hpp"
-#include "NodeTags.hpp"
+#include "NodeSpecs.hpp"
 #include <string>
 #include <vector>
 

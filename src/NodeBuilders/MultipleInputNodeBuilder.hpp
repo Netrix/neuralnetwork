@@ -3,7 +3,7 @@
 #include "NodeBuilder.hpp"
 #include "ArrayView.hpp"
 #include "NotNull.hpp"
-#include "NodeTags.hpp"
+#include "NodeSpecs.hpp"
 #include <array>
 #include <string>
 #include "OperationNodeBuilder.hpp"

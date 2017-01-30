@@ -5,7 +5,7 @@
 #include <random>
 #include <iomanip>
 #include "NotNull.hpp"
-#include "NodeTags.hpp"
+#include "NodeSpecs.hpp"
 #include "NodeBuilders/NodeBuilder.hpp"
 #include "NodeBuilders/BinaryNodeBuilder.hpp"
 #include "BuilderStorage.hpp"

@@ -80,7 +80,7 @@ set(FILES
     BackPropagationNetwork.hpp
     BackPropagationNetwork.cpp
     ConstStorageBuilder.hpp
-    NodeTags.hpp
+    NodeSpecs.hpp
     NetworkBuilder.cpp
     NetworkBuilder.hpp
     ScalarStorage.hpp

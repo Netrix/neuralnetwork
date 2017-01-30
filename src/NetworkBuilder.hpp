@@ -1,7 +1,7 @@
 #pragma once
 
 #include "NotNull.hpp"
-#include "NodeTags.hpp"
+#include "NodeSpecs.hpp"
 #include "BuilderStorage.hpp"
 #include "Nodes/ConstNode.hpp"
 #include "Nodes/VariableNode.hpp"
