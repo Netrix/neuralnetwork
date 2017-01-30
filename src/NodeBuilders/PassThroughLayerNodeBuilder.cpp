@@ -1,5 +1,9 @@
 #include "PassThroughLayerNodeBuilder.hpp"
 #include "BuilderStorage.hpp"
+#include "ConnectedLayerNodeBuilder.hpp"
+#include "ConstBufferNodeBuilder.hpp"
+#include "VariableSingleValueNodeBuilder.hpp"
+#include "VariableBufferNodeBuilder.hpp"
 
 PassThroughLayerNodeBuilder::PassThroughLayerNodeBuilder(BuilderStorage& builderStorage, PassThroughLayerNodeSpecs specs)
     : m_builderStorage(builderStorage)

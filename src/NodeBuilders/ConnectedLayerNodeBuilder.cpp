@@ -1,4 +1,7 @@
 #include "ConnectedLayerNodeBuilder.hpp"
+#include "PassThroughLayerNodeBuilder.hpp"
+#include "ConstBufferNodeBuilder.hpp"
+#include "VariableBufferNodeBuilder.hpp"
 #include "BuilderStorage.hpp"
 
 ConnectedLayerNodeBuilder::ConnectedLayerNodeBuilder(BuilderStorage& builderStorage, ConnectedLayerNodeSpecs specs)

@@ -1,5 +1,7 @@
 #include "MultipleInputLayerNodeBuilder.hpp"
 #include "BuilderStorage.hpp"
+#include "BinaryNodeBuilder.hpp"
+#include "VariableSingleValueNodeBuilder.hpp"
 #include <algorithm>
 
 MultipleInputLayerNodeBuilder::MultipleInputLayerNodeBuilder(BuilderStorage& builderStorage, std::unique_ptr<IMultipleInputLayerOperationsFactory<BNN_TYPE>> factory)

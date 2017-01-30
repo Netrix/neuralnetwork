@@ -1,6 +1,11 @@
 #include "MultipleInputNodeBuilder.hpp"
 #include "Nodes/MultipleInputOperators/MultipleInputOperationNode.hpp"
 #include "BuilderStorage.hpp"
+#include "UnaryNodeBuilder.hpp"
+#include "BinaryNodeBuilder.hpp"
+#include "PassThroughLayerNodeBuilder.hpp"
+#include "VariableSingleValueNodeBuilder.hpp"
+#include "VariableBufferNodeBuilder.hpp"
 #include <algorithm>
 
 MultipleInputNodeBuilder::MultipleInputNodeBuilder(BuilderStorage& builderStorage,

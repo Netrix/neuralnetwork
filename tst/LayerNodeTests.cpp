@@ -9,6 +9,7 @@
 #include "LearnUtils.hpp"
 #include "PassThroughLayerNodeFactories/SigmoidLayer.hpp"
 #include "ConnectedLayerNodeFactories/FullyConnectedLayer.hpp"
+#include "NodeBuilders/PassThroughLayerNodeBuilder.hpp"
 #include <chrono>
 
 TEST(LayerNodeTests, ComparingOutputOfLayerNodeVsOldWayWithoutHiddenLayer)

@@ -1,13 +1,7 @@
 #include "FullyConnectedLayerBuilder.hpp"
 #include "FullyConnectedLayerSpecs.hpp"
 #include "InputLayerSpecs.hpp"
-#include "FullyConnectedLayerSpecs.hpp"
-#include "NodeBuilders/UnaryNodeBuilder.hpp"
-#include "NodeBuilders/BinaryNodeBuilder.hpp"   // TODO remove not used includes
 #include "ConnectedLayerNodeFactories/FullyConnectedLayer.hpp"
-#include "PassThroughLayerNodeFactories/SigmoidLayer.hpp"
-#include "PassThroughLayerNodeFactories/ReLULayer.hpp"
-#include "MultipleInputLayerNodeFactories/PassThrough.hpp"
 #include "NodeBuilders/PassThroughLayerNodeBuilder.hpp"
 
 

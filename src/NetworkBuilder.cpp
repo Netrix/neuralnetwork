@@ -1,4 +1,8 @@
 #include "NetworkBuilder.hpp"
+#include "NodeBuilders/BinaryNodeBuilder.hpp"
+#include "NodeBuilders/MultipleInputLayerNodeBuilder.hpp"
+#include "NodeBuilders/ConnectedLayerNodeBuilder.hpp"
+#include "NodeBuilders/PassThroughLayerNodeBuilder.hpp"
 #include <queue>
 #include <vector>
 #include <set>

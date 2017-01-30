@@ -1,5 +1,6 @@
 #include "BinaryNodeBuilder.hpp"
 #include "BuilderStorage.hpp"
+#include "VariableSingleValueNodeBuilder.hpp"
 
 BinaryNodeBuilder::BinaryNodeBuilder(BuilderStorage& builderStorage,
                                      std::unique_ptr<IBinaryOperationNodesFactory<BNN_TYPE>> factory)

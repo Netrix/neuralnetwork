@@ -3,7 +3,7 @@
 #include "VariableNode.hpp"
 
 template<class Type>
-struct VariableSingleValueNode : VariableNode<Type> // Single variable node that inherits from VariablesNode
+struct VariableSingleValueNode : VariableNode<Type>
 {
     VariableSingleValueNode(Type & value, Type & delta)
         : m_value(value)
@@ -29,5 +29,3 @@ private:
     Type & m_value;
     Type & m_delta;
 };
-
-// TODO this can be common with ConstNode, differ by tag

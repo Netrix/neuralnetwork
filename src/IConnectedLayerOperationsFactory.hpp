@@ -12,5 +12,5 @@ struct IConnectedLayerOperationsFactory
                                                         NotNull<VariableNode<Type>> variables,
                                                         std::size_t numOutputs) = 0;
 
-    virtual std::size_t getNumVariables(std::size_t numInputs, std::size_t numOutputs) const = 0;   // TODO try to get rid of this method
+    virtual std::size_t getNumVariables(std::size_t numInputs, std::size_t numOutputs) const = 0;
 };

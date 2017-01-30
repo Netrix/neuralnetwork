@@ -1,5 +1,6 @@
 #include "UnaryNodeBuilder.hpp"
 #include "BuilderStorage.hpp"
+#include "VariableSingleValueNodeBuilder.hpp"
 #include "BinaryNodeBuilder.hpp"
 
 

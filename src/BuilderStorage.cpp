@@ -1,4 +1,15 @@
 #include "BuilderStorage.hpp"
+#include "NodeBuilders/NodeBuilder.hpp"
+#include "NodeBuilders/BinaryNodeBuilder.hpp"
+#include "NodeBuilders/UnaryNodeBuilder.hpp"
+#include "NodeBuilders/ConstSingleValueNodeBuilder.hpp"
+#include "NodeBuilders/ConstBufferNodeBuilder.hpp"
+#include "NodeBuilders/MultipleInputNodeBuilder.hpp"
+#include "NodeBuilders/MultipleInputLayerNodeBuilder.hpp"
+#include "NodeBuilders/ConnectedLayerNodeBuilder.hpp"
+#include "NodeBuilders/VariableSingleValueNodeBuilder.hpp"
+#include "NodeBuilders/VariableBufferNodeBuilder.hpp"
+#include "NodeBuilders/PassThroughLayerNodeBuilder.hpp"
 
 NotNull<MultipleInputNodeBuilder> BuilderStorage::createMultipleInputNodeBuilder(std::unique_ptr<IMultipleInputOperationNodesFactory<BNN_TYPE>> factory)
 {

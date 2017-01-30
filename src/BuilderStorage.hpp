@@ -1,21 +1,28 @@
 #pragma once
 
-#include "NotNull.hpp"
+#include "MultipleInputOperationNodesFactories/IMultipleInputOperationNodesFactory.hpp"
+#include "UnaryOperationNodesFactories/IUnaryOperationNodesFactory.hpp"
+#include "BinaryOperationNodesFactories/IBinaryOperationNodesFactory.hpp"
+#include "IMultipleInputLayerOperationsFactory.hpp"                         // TODO move it to proper directory
+#include "NodeTags.hpp"                                                     // TODO change name to NodeSpecs
+#include "NodeBuilders/ConstNodeBuilder.hpp"
+#include "NodeBuilders/VariableNodeBuilder.hpp"
 #include "NodeBuilders/NodeBuilder.hpp"
-#include "NodeBuilders/BinaryNodeBuilder.hpp"
-#include "NodeBuilders/UnaryNodeBuilder.hpp"
-#include "NodeBuilders/ConstSingleValueNodeBuilder.hpp"
-#include "NodeBuilders/ConstBufferNodeBuilder.hpp"
-#include "NodeBuilders/MultipleInputNodeBuilder.hpp"
-#include "NodeBuilders/MultipleInputLayerNodeBuilder.hpp"
-#include "NodeBuilders/ConnectedLayerNodeBuilder.hpp"
-#include "NodeBuilders/VariableSingleValueNodeBuilder.hpp"
-#include "NodeBuilders/VariableBufferNodeBuilder.hpp"       // TODO forward declare them and move it to cpp
-#include "NodeBuilders/PassThroughLayerNodeBuilder.hpp"
-#include <string>
+#include "NodeBuilders/OperationNodeBuilder.hpp"
+#include "NotNull.hpp"
 #include <vector>
 #include <memory>
 
+struct MultipleInputNodeBuilder;
+struct UnaryNodeBuilder;
+struct BinaryNodeBuilder;
+struct MultipleInputLayerNodeBuilder;
+struct ConnectedLayerNodeBuilder;
+struct PassThroughLayerNodeBuilder;
+struct ConstSingleValueNodeBuilder;
+struct ConstBufferNodeBuilder;
+struct VariableSingleValueNodeBuilder;
+struct VariableBufferNodeBuilder;
 
 struct BuilderStorage
 {
@@ -26,9 +33,9 @@ struct BuilderStorage
     NotNull<ConnectedLayerNodeBuilder> createConnectedLayerNodeBuilder(ConnectedLayerNodeSpecs);
     NotNull<PassThroughLayerNodeBuilder> createPassThroughLayerNodeBuilder(PassThroughLayerNodeSpecs);
     NotNull<ConstSingleValueNodeBuilder> createConstSingleValueNodeBuilder();
+    NotNull<ConstBufferNodeBuilder> createConstBufferNodeBuilder(std::size_t numConsts);
     NotNull<VariableSingleValueNodeBuilder> createVariableSingleValueNodeBuilder();
     NotNull<VariableBufferNodeBuilder> createVariableBufferNodeBuilder(std::size_t numVariables);
-    NotNull<ConstBufferNodeBuilder> createConstBufferNodeBuilder(std::size_t numConsts);
 
     std::size_t getNumConsts() const
     {

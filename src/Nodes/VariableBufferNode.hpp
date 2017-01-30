@@ -35,5 +35,3 @@ private:
     ArrayView<Type> m_values;
     ArrayView<Type> m_deltas;
 };
-
-// TODO this can be common with ConstNode, differ by tag

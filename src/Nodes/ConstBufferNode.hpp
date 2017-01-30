@@ -27,5 +27,3 @@ struct ConstBufferNode : ConstNode<Type>
 private:
     ArrayView<Type> m_values;
 };
-
-// TODO this can be common with ConstNode, differ by tag
