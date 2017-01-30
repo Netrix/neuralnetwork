@@ -11,6 +11,7 @@
 #include "NodeBuilders/ConnectedLayerNodeBuilder.hpp"
 #include "NodeBuilders/VariableSingleValueNodeBuilder.hpp"
 #include "NodeBuilders/VariableBufferNodeBuilder.hpp"       // TODO forward declare them and move it to cpp
+#include "NodeBuilders/PassThroughLayerNodeBuilder.hpp"
 #include <string>
 #include <vector>
 #include <memory>
@@ -23,6 +24,7 @@ struct BuilderStorage
     NotNull<BinaryNodeBuilder> createBinaryNodeBuilder(std::unique_ptr<IBinaryOperationNodesFactory<BNN_TYPE>> factory);
     NotNull<MultipleInputLayerNodeBuilder> createMultipleInputLayerNodeBuilder(std::unique_ptr<IMultipleInputLayerOperationsFactory<BNN_TYPE>> factory);
     NotNull<ConnectedLayerNodeBuilder> createConnectedLayerNodeBuilder(ConnectedLayerNodeSpecs);
+    NotNull<PassThroughLayerNodeBuilder> createPassThroughLayerNodeBuilder(PassThroughLayerNodeSpecs);
     NotNull<ConstSingleValueNodeBuilder> createConstSingleValueNodeBuilder();
     NotNull<VariableSingleValueNodeBuilder> createVariableSingleValueNodeBuilder();
     NotNull<VariableBufferNodeBuilder> createVariableBufferNodeBuilder(std::size_t numVariables);

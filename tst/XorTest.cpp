@@ -7,7 +7,7 @@
 #include "StreamOperators.hpp"
 #include "MathVectorAdapter.hpp"
 #include "NormalDistributionGenerator.hpp"
-#include "ConnectedLayerNodeFactories/TanhLayer.hpp"
+#include "PassThroughLayerNodeFactories/TanhLayer.hpp"
 #include <random>
 #include <iomanip>
 

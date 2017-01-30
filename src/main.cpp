@@ -21,7 +21,7 @@
 #include "NormalDistributionGenerator.hpp"
 #include "MnistPreprocessedDataSet.hpp"
 #include "LearnUtils.hpp"
-#include "ConnectedLayerNodeFactories/ReLULayer.hpp"
+#include "PassThroughLayerNodeFactories/ReLULayer.hpp"
 
 int main()
 {

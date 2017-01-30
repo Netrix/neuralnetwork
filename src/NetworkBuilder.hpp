@@ -23,6 +23,7 @@ struct NetworkBuilder
     NotNull<BinaryNodeBuilder> setRootNode(BinaryNodeSpecs);
     NotNull<UnaryNodeBuilder> setRootNode(UnaryNodeSpecs);
     NotNull<ConnectedLayerNodeBuilder> setRootNode(ConnectedLayerNodeSpecs);
+    NotNull<PassThroughLayerNodeBuilder> setRootNode(PassThroughLayerNodeSpecs);
     NotNull<MultipleInputLayerNodeBuilder> setRootNode(MultipleInputLayerNodeSpecs);
 
     std::unique_ptr<BackPropagationNetwork> buildBackPropagationNetwork(BNN_TYPE learningRate=1.0f) const;   // should verify entire tree and return ready to work tree

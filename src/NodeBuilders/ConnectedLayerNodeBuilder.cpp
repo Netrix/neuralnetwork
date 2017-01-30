@@ -18,12 +18,23 @@ NotNull<MultipleInputLayerNodeBuilder> ConnectedLayerNodeBuilder::setInput(Multi
     return l_builder;
 }
 
-NotNull<ConnectedLayerNodeBuilder> ConnectedLayerNodeBuilder::setInput(ConnectedLayerNodeSpecs specs)  // TODO factory should be taken by name from library
+NotNull<ConnectedLayerNodeBuilder> ConnectedLayerNodeBuilder::setInput(ConnectedLayerNodeSpecs specs)
 {
     assert(m_inputBuilder == nullptr);
     m_variablesNodeBuilder = allocateVariableNodeBuilder(specs.numOutputs, m_specs.numOutputs);
 
     auto l_builder = m_builderStorage.createConnectedLayerNodeBuilder(std::move(specs));
+    m_inputBuilder = l_builder;
+    m_inputOperationBuilder = l_builder;
+    return l_builder;
+}
+
+NotNull<PassThroughLayerNodeBuilder> ConnectedLayerNodeBuilder::setInput(PassThroughLayerNodeSpecs specs)
+{
+    assert(m_inputBuilder == nullptr);
+    m_variablesNodeBuilder = allocateVariableNodeBuilder(specs.numOutputs, m_specs.numOutputs);
+
+    auto l_builder = m_builderStorage.createPassThroughLayerNodeBuilder(std::move(specs));
     m_inputBuilder = l_builder;
     m_inputOperationBuilder = l_builder;
     return l_builder;
@@ -52,6 +63,6 @@ VariableBufferNodeBuilder* ConnectedLayerNodeBuilder::allocateVariableNodeBuilde
 std::unique_ptr<OperationNode<BNN_TYPE>> ConnectedLayerNodeBuilder::build(BuilderToNodeMaps<BNN_TYPE> const& builderToNodeMaps)
 {
     return m_specs.factory->create(builderToNodeMaps.getComputationNodeFromMaps(m_inputBuilder),
-                             builderToNodeMaps.getVariableNodeFromMap(m_variablesNodeBuilder),
-                             m_specs.numOutputs);
+                                   builderToNodeMaps.getVariableNodeFromMap(m_variablesNodeBuilder),
+                                   m_specs.numOutputs);
 }

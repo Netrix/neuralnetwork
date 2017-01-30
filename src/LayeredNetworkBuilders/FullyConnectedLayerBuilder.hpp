@@ -16,7 +16,7 @@ struct InputLayerSpecs;
 
 struct FullyConnectedLayerBuilder : LayerBuilder
 {
-    FullyConnectedLayerBuilder(NotNull<ConnectedLayerNodeBuilder> activationLayer, std::size_t numOutputs);
+    FullyConnectedLayerBuilder(NotNull<PassThroughLayerNodeBuilder> activationLayer, std::size_t numOutputs);
 
     NotNull<FullyConnectedLayerBuilder> setInputLayer(FullyConnectedLayerSpecs specs);
 

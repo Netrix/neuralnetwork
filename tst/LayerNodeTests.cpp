@@ -7,7 +7,7 @@
 #include "MultipleInputLayerNodeFactories/PassThrough.hpp"
 #include "NormalDistributionGenerator.hpp"
 #include "LearnUtils.hpp"
-#include "ConnectedLayerNodeFactories/SigmoidLayer.hpp"
+#include "PassThroughLayerNodeFactories/SigmoidLayer.hpp"
 #include "ConnectedLayerNodeFactories/FullyConnectedLayer.hpp"
 #include <chrono>
 
@@ -23,7 +23,7 @@ TEST(LayerNodeTests, ComparingOutputOfLayerNodeVsOldWayWithoutHiddenLayer)
 
     // New network
     NetworkBuilder networkBuilder;
-    auto outActivationLayer = networkBuilder.setRootNode(ConnectedLayerNodeSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(), 2});
+    auto outActivationLayer = networkBuilder.setRootNode(PassThroughLayerNodeSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(), 2});
     auto outFullyConnected = outActivationLayer->setInput(ConnectedLayerNodeSpecs{std::make_unique<FullyConnectedLayerNodeFactory<BNN_TYPE>>(), 2});
     outFullyConnected->setInput(ConstBufferNodeSpecs{2});
 
@@ -73,9 +73,9 @@ TEST(LayerNodeTests, ComparingOutputOfLayerNodeVsOldWayWithHiddenLayer)
 
     // New network
     NetworkBuilder networkBuilder;
-    auto outActivationLayer = networkBuilder.setRootNode(ConnectedLayerNodeSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(), 2});
+    auto outActivationLayer = networkBuilder.setRootNode(PassThroughLayerNodeSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(), 2});
     auto outFullyConnected = outActivationLayer->setInput(ConnectedLayerNodeSpecs{std::make_unique<FullyConnectedLayerNodeFactory<BNN_TYPE>>(), 2});
-    auto hiddenActivationLayer = outFullyConnected->setInput(ConnectedLayerNodeSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(), 2});
+    auto hiddenActivationLayer = outFullyConnected->setInput(PassThroughLayerNodeSpecs{std::make_unique<SigmoidLayerNodeFactory<BNN_TYPE>>(), 2});
     auto hiddenFullyConnected = hiddenActivationLayer->setInput(ConnectedLayerNodeSpecs{std::make_unique<FullyConnectedLayerNodeFactory<BNN_TYPE>>(), 2});
     hiddenFullyConnected->setInput(ConstBufferNodeSpecs{2});
 

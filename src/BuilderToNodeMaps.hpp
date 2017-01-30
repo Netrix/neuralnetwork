@@ -37,6 +37,7 @@ struct BuilderToNodeMaps
             return variableNode->second.get();
         }
 
+        assert(false);
         throw InvalidComputationGraph("Missing variable node");
     }
 

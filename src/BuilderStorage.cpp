@@ -41,6 +41,15 @@ NotNull<ConnectedLayerNodeBuilder> BuilderStorage::createConnectedLayerNodeBuild
     return l_builderPointer;
 }
 
+NotNull<PassThroughLayerNodeBuilder> BuilderStorage::createPassThroughLayerNodeBuilder(PassThroughLayerNodeSpecs layerNodeSpecs)
+{
+    auto l_builder = std::make_unique<PassThroughLayerNodeBuilder>(*this, std::move(layerNodeSpecs));
+    auto l_builderPointer = l_builder.get();
+    operations.push_back(std::move(l_builder));
+    return l_builderPointer;
+}
+
+
 NotNull<VariableSingleValueNodeBuilder> BuilderStorage::createVariableSingleValueNodeBuilder()
 {
     auto l_builder = std::make_unique<VariableSingleValueNodeBuilder>();

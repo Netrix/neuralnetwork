@@ -51,6 +51,13 @@ NotNull<ConnectedLayerNodeBuilder> NetworkBuilder::setRootNode(ConnectedLayerNod
     return l_builder;
 }
 
+NotNull<PassThroughLayerNodeBuilder> NetworkBuilder::setRootNode(PassThroughLayerNodeSpecs specs)
+{
+    auto l_builder = m_storage.createPassThroughLayerNodeBuilder(std::move(specs));
+    m_root = l_builder;
+    return l_builder;
+}
+
 std::unique_ptr<BackPropagationNetwork> NetworkBuilder::buildBackPropagationNetwork(BNN_TYPE learningRate) const
 {
     auto constStorageBuilder = ConstStorageBuilder<BNN_TYPE>(m_storage.getNumConsts());

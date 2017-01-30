@@ -3,6 +3,7 @@
 #include <memory>
 #include "IMultipleInputLayerOperationsFactory.hpp"
 #include "IConnectedLayerOperationsFactory.hpp"
+#include "IPassThroughLayerOperationsFactory.hpp"
 #include "UnaryOperationNodesFactories/IUnaryOperationNodesFactory.hpp"
 #include "BinaryOperationNodesFactories/IBinaryOperationNodesFactory.hpp"
 #include "MultipleInputOperationNodesFactories/IMultipleInputOperationNodesFactory.hpp"
@@ -26,6 +27,12 @@ struct MultipleInputNodeSpecs
 struct ConnectedLayerNodeSpecs
 {
     std::unique_ptr<IConnectedLayerOperationsFactory<BNN_TYPE>> factory;
+    std::size_t numOutputs;
+};
+
+struct PassThroughLayerNodeSpecs
+{
+    std::unique_ptr<IPassThroughLayerOperationsFactory<BNN_TYPE>> factory;
     std::size_t numOutputs;
 };
 
