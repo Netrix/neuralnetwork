@@ -1,11 +1,7 @@
 #pragma once
-#include "Nodes/OperationNode.hpp"
+#include "Nodes/SingleOutputOperationNode.hpp"
 
 template<class Type>
-struct UnaryOperationNode : OperationNode<Type>
+struct UnaryOperationNode : SingleOutputOperationNode<Type>
 {
-    std::size_t getNumOutputs() const override
-    {
-        return 1;
-    }
 };
