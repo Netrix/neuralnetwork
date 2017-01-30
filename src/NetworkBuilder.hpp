@@ -8,7 +8,7 @@
 #include "ConstStorageBuilder.hpp"
 #include "VariableStorageBuilder.hpp"
 #include "BackPropagationNetwork.hpp"
-#include "IConnectedLayerOperationsFactory.hpp"
+#include "ConnectedLayerNodeFactories/IConnectedLayerNodeFactory.hpp"
 #include <map>
 
 

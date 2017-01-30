@@ -57,6 +57,7 @@ set(FILES
     LayeredNetworkBuilders/FullyConnectedLayerSpecs.hpp
     LayeredNetworkBuilders/InputLayerSpecs.hpp
     MultipleInputLayerNodeFactories/PassThrough.hpp
+    MultipleInputLayerNodeFactories/IMultipleInputLayerOperationsFactory.hpp
     ConnectedLayerNodeFactories/FullyConnectedLayer.hpp
     PassThroughLayerNodeFactories/SigmoidLayer.hpp
     PassThroughLayerNodeFactories/ReLULayer.hpp
@@ -92,8 +93,7 @@ set(FILES
     ConstStorage.hpp
     LayeredNetworkBuilder.cpp
     LayeredNetworkBuilder.hpp
-    IMultipleInputLayerOperationsFactory.hpp
-    IConnectedLayerOperationsFactory.hpp
+    ConnectedLayerNodeFactories/IConnectedLayerNodeFactory.hpp
     IPassThroughLayerOperationsFactory.hpp
     NormalDistributionGenerator.hpp
     MnistPreprocessedDataSet.hpp

@@ -6,7 +6,7 @@
 #include <vector>
 
 template<class Type>
-struct IConnectedLayerOperationsFactory
+struct IConnectedLayerNodeFactory
 {
     virtual std::unique_ptr<OperationNode<Type>> create(NotNull<ComputationNode<Type>> input,
                                                         NotNull<VariableNode<Type>> variables,

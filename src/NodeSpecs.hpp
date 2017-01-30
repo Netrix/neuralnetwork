@@ -1,8 +1,8 @@
 #pragma once
 #include <string>
 #include <memory>
-#include "IMultipleInputLayerOperationsFactory.hpp"
-#include "IConnectedLayerOperationsFactory.hpp"
+#include "MultipleInputLayerNodeFactories/IMultipleInputLayerOperationsFactory.hpp"
+#include "ConnectedLayerNodeFactories/IConnectedLayerNodeFactory.hpp"
 #include "IPassThroughLayerOperationsFactory.hpp"
 #include "UnaryOperationNodesFactories/IUnaryOperationNodesFactory.hpp"
 #include "BinaryOperationNodesFactories/IBinaryOperationNodesFactory.hpp"
@@ -26,7 +26,7 @@ struct MultipleInputNodeSpecs
 
 struct ConnectedLayerNodeSpecs
 {
-    std::unique_ptr<IConnectedLayerOperationsFactory<BNN_TYPE>> factory;
+    std::unique_ptr<IConnectedLayerNodeFactory<BNN_TYPE>> factory;
     std::size_t numOutputs;
 };
 

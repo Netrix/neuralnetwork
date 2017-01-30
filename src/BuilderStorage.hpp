@@ -3,7 +3,7 @@
 #include "MultipleInputOperationNodesFactories/IMultipleInputOperationNodesFactory.hpp"
 #include "UnaryOperationNodesFactories/IUnaryOperationNodesFactory.hpp"
 #include "BinaryOperationNodesFactories/IBinaryOperationNodesFactory.hpp"
-#include "IMultipleInputLayerOperationsFactory.hpp"                         // TODO move it to proper directory
+#include "MultipleInputLayerNodeFactories/IMultipleInputLayerOperationsFactory.hpp"
 #include "NodeSpecs.hpp"
 #include "NodeBuilders/ConstNodeBuilder.hpp"
 #include "NodeBuilders/VariableNodeBuilder.hpp"

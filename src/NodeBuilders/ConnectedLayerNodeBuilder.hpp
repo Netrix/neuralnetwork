@@ -3,7 +3,7 @@
 #include "OperationNodeBuilder.hpp"
 #include "BuilderToNodeMaps.hpp"
 #include "NodeBuilders/MultipleInputLayerNodeBuilder.hpp"
-#include "IConnectedLayerOperationsFactory.hpp"
+#include "ConnectedLayerNodeFactories/IConnectedLayerNodeFactory.hpp"
 #include "NodeSpecs.hpp"
 #include <string>
 

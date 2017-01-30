@@ -1,10 +1,10 @@
 #pragma once
 
-#include "IConnectedLayerOperationsFactory.hpp"
+#include "IConnectedLayerNodeFactory.hpp"
 #include "Nodes/LayerNodes/FullyConnectedLayer.hpp"
 
 template<class Type>
-struct FullyConnectedLayerNodeFactory : IConnectedLayerOperationsFactory<Type>
+struct FullyConnectedLayerNodeFactory : IConnectedLayerNodeFactory<Type>
 {
     std::unique_ptr<OperationNode<Type>> create(NotNull<ComputationNode<Type>> input,
                                                 NotNull<VariableNode<Type>> variables,
