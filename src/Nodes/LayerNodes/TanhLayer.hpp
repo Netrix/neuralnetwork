@@ -5,7 +5,7 @@
 #include <cmath>
 
 template<class Type>
-struct TanhLayerNode : LayerNode<Type>   // TODO add passthrough LayerNode that doesn't need numOutputs because it should get them from parent
+struct TanhLayerNode : LayerNode<Type>
 {
     TanhLayerNode(NotNull<ComputationNode<Type>> inputLayer, std::size_t beta)
         : m_inputLayer(inputLayer)
