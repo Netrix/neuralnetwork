@@ -1,10 +1,10 @@
 #pragma once
 
-#include "IPassThroughLayerOperationsFactory.hpp"
+#include "PassThroughLayerNodeFactories/IPassThroughLayerNodeFactory.hpp"
 #include "Nodes/LayerNodes/TanhLayer.hpp"
 
 template<class Type>
-struct TanhLayerNodeFactory : IPassThroughLayerOperationsFactory<Type>
+struct TanhLayerNodeFactory : IPassThroughLayerNodeFactory<Type>
 {
     TanhLayerNodeFactory(std::size_t beta)
         : m_beta(beta)

@@ -6,7 +6,7 @@
 #include <vector>
 
 template<class Type>
-struct IPassThroughLayerOperationsFactory
+struct IPassThroughLayerNodeFactory
 {
     virtual std::unique_ptr<OperationNode<Type>> create(NotNull<ComputationNode<Type>> input) = 0;
 };

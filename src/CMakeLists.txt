@@ -58,10 +58,10 @@ set(FILES
     LayeredNetworkBuilders/InputLayerSpecs.hpp
     MultipleInputLayerNodeFactories/PassThrough.hpp
     MultipleInputLayerNodeFactories/IMultipleInputLayerOperationsFactory.hpp
-    ConnectedLayerNodeFactories/FullyConnectedLayer.hpp
     PassThroughLayerNodeFactories/SigmoidLayer.hpp
     PassThroughLayerNodeFactories/ReLULayer.hpp
     PassThroughLayerNodeFactories/TanhLayer.hpp
+    PassThroughLayerNodeFactories/IPassThroughLayerNodeFactory.hpp
     Datasets/MnistLoader.cpp
     Datasets/MnistLoader.hpp
     UnaryOperationNodesFactories/IUnaryOperationNodesFactory.hpp
@@ -74,6 +74,8 @@ set(FILES
     BinaryOperationNodesFactories/AddNodeFactory.hpp
     MultipleInputOperationNodesFactories/IMultipleInputOperationNodesFactory.hpp
     MultipleInputOperationNodesFactories/AddNodeFactory.hpp
+    ConnectedLayerNodeFactories/FullyConnectedLayer.hpp
+    ConnectedLayerNodeFactories/IConnectedLayerNodeFactory.hpp
     ArrayView.hpp
     NotNull.hpp
     BuilderStorage.cpp
@@ -93,8 +95,6 @@ set(FILES
     ConstStorage.hpp
     LayeredNetworkBuilder.cpp
     LayeredNetworkBuilder.hpp
-    ConnectedLayerNodeFactories/IConnectedLayerNodeFactory.hpp
-    IPassThroughLayerOperationsFactory.hpp
     NormalDistributionGenerator.hpp
     MnistPreprocessedDataSet.hpp
     LearnUtils.hpp

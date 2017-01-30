@@ -2,12 +2,12 @@
 
 #include <memory>
 #include "NodeBuilders/NodeBuilder.hpp"
-#include "IPassThroughLayerOperationsFactory.hpp"
+#include "PassThroughLayerNodeFactories/IPassThroughLayerNodeFactory.hpp"
 
 struct FullyConnectedLayerSpecs
 {
     FullyConnectedLayerSpecs(
-            std::unique_ptr<IPassThroughLayerOperationsFactory<BNN_TYPE>> activationFactory,
+            std::unique_ptr<IPassThroughLayerNodeFactory<BNN_TYPE>> activationFactory,
             std::size_t numNeurons)
         : activationFactory(std::move(activationFactory))
         , numNeurons(numNeurons)
@@ -15,6 +15,6 @@ struct FullyConnectedLayerSpecs
         assert(numNeurons > 0);
     }
 
-    std::unique_ptr<IPassThroughLayerOperationsFactory<BNN_TYPE>> activationFactory;
+    std::unique_ptr<IPassThroughLayerNodeFactory<BNN_TYPE>> activationFactory;
     std::size_t numNeurons;
 };

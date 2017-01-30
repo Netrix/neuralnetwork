@@ -1,10 +1,10 @@
 #pragma once
 
-#include "IPassThroughLayerOperationsFactory.hpp"
+#include "PassThroughLayerNodeFactories/IPassThroughLayerNodeFactory.hpp"
 #include "Nodes/LayerNodes/ReLULayer.hpp"
 
 template<class Type>
-struct ReLULayerNodeFactory : IPassThroughLayerOperationsFactory<Type>
+struct ReLULayerNodeFactory : IPassThroughLayerNodeFactory<Type>
 {
     std::unique_ptr<OperationNode<Type>> create(NotNull<ComputationNode<Type>> input) override
     {
