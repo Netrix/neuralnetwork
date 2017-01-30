@@ -26,7 +26,6 @@ set(NODES_FILES
     Nodes/LayerNodes/SigmoidLayer.hpp
     Nodes/LayerNodes/ReLULayer.hpp
     Nodes/LayerNodes/TanhLayer.hpp
-    Nodes/LayerNodes/PassThroughLayerNode.hpp
     Nodes/SingleOutputOperationNode.hpp
     )
 
@@ -77,8 +76,6 @@ set(FILES
     MultipleInputOperationNodesFactories/AddNodeFactory.hpp
     ConnectedLayerNodeFactories/FullyConnectedLayer.hpp
     ConnectedLayerNodeFactories/IConnectedLayerNodeFactory.hpp
-    ArrayView.hpp
-    NotNull.hpp
     BuilderStorage.cpp
     BuilderStorage.hpp
     BuilderToNodeMaps.hpp
@@ -89,7 +86,6 @@ set(FILES
     NetworkBuilder.cpp
     NetworkBuilder.hpp
     ScalarStorage.hpp
-    MathVectorAdapter.hpp
     StreamOperators.hpp
     VariableStorage.hpp
     VariableStorageBuilder.hpp
@@ -99,6 +95,11 @@ set(FILES
     NormalDistributionGenerator.hpp
     MnistPreprocessedDataSet.hpp
     LearnUtils.hpp
+    Utils/Math.cpp
+    Utils/Math.hpp
+    Utils/MathVectorAdapter.hpp
+    Utils/ArrayView.hpp
+    Utils/NotNull.hpp
 )
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})

@@ -1,5 +1,5 @@
 #pragma once
-#include "NotNull.hpp"
+#include "Utils/NotNull.hpp"
 #include "NetworkBuilder.hpp"
 #include "LayeredNetworkBuilders/LayerBuilder.hpp"
 

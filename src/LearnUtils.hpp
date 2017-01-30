@@ -1,6 +1,6 @@
 #pragma once
 #include "NodeBuilders/NodeBuilder.hpp"
-#include "MathVectorAdapter.hpp"
+#include "Utils/MathVectorAdapter.hpp"
 #include "NormalDistributionGenerator.hpp"
 #include "BackPropagationNetwork.hpp"
 #include <iostream>

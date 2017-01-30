@@ -4,7 +4,7 @@
 #include "Nodes/ConstNode.hpp"
 #include "Nodes/VariableNode.hpp"
 #include "Nodes/OperationNode.hpp"
-#include "NotNull.hpp"
+#include "Utils/NotNull.hpp"
 
 struct NodeBuilder;
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "MultipleInputLayerNode.hpp"
-#include "NotNull.hpp"
+#include "Utils/NotNull.hpp"
 #include <algorithm>
 
 template<class Type>

@@ -1,6 +1,6 @@
 #pragma once
 #include "Nodes/OperationNode.hpp"
-#include "NotNull.hpp"
+#include "Utils/NotNull.hpp"
 #include <memory>
 #include <vector>
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "UnaryOperationNode.hpp"
-#include "NotNull.hpp"
+#include "Utils/NotNull.hpp"
 #include <cmath>
 
 template<class Type>

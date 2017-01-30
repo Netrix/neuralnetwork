@@ -1,6 +1,6 @@
 #pragma once
 #include "BinaryOperationNode.hpp"
-#include "NotNull.hpp"
+#include "Utils/NotNull.hpp"
 
 template<class Type>
 struct MulBinaryOperationNode : BinaryOperationNode<Type>

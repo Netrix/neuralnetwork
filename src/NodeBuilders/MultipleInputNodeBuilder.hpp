@@ -1,8 +1,8 @@
 #pragma once
 
 #include "NodeBuilder.hpp"
-#include "ArrayView.hpp"
-#include "NotNull.hpp"
+#include "Utils/ArrayView.hpp"
+#include "Utils/NotNull.hpp"
 #include "NodeSpecs.hpp"
 #include <array>
 #include <string>

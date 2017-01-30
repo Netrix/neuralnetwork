@@ -4,7 +4,7 @@
 #include <cassert>
 #include <random>
 #include <iomanip>
-#include "NotNull.hpp"
+#include "Utils/NotNull.hpp"
 #include "NodeSpecs.hpp"
 #include "NodeBuilders/NodeBuilder.hpp"
 #include "NodeBuilders/BinaryNodeBuilder.hpp"
@@ -14,7 +14,7 @@
 #include "LayeredNetworkBuilders/FullyConnectedLayerSpecs.hpp"
 #include "LayeredNetworkBuilders/FullyConnectedLayerBuilder.hpp"
 #include "LayeredNetworkBuilders/InputLayerSpecs.hpp"
-#include "MathVectorAdapter.hpp"
+#include "Utils/MathVectorAdapter.hpp"
 #include "StreamOperators.hpp"
 #include "Datasets/MnistLoader.hpp"
 #include <set>
@@ -41,12 +41,20 @@ int main()
 
     network->setVariables(NormalDistributionGenerator<BNN_TYPE>(17, 0, 1e-1));
 
-    for(auto i = 0u; i < 500u; ++i)
+    using namespace std::chrono;
+    auto start = steady_clock::now();
+
+    BNN_TYPE errorSum{};
+    for(auto i = 0u; i < 100u; ++i)
     {
-        auto errorSum = learnEpochParallel(layeredNetworkBuilder, network, mnistDataset, 256, 0.01f, i);
+        errorSum = learnEpochParallel(layeredNetworkBuilder, network, mnistDataset, 256, 0.01f, i);
         std::cout << "epoch: " << i << " errorSum: " << errorSum <<  std::endl;
 
     }
+
+    auto end = steady_clock::now();
+
+    std::cout << "Time taken: " << duration_cast<seconds>(end - start).count() << "s. errorSum: " << errorSum <<  std::endl;
 
     // TODO
     // 4. abstract backprop

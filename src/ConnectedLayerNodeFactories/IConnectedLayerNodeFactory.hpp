@@ -1,7 +1,7 @@
 #pragma once
 #include "Nodes/OperationNode.hpp"
 #include "Nodes/VariableNode.hpp"
-#include "NotNull.hpp"
+#include "Utils/NotNull.hpp"
 #include <memory>
 #include <vector>
 

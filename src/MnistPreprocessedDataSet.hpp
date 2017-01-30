@@ -1,6 +1,6 @@
 #pragma once
 #include "Datasets/MnistLoader.hpp"
-#include "ArrayView.hpp"
+#include "Utils/ArrayView.hpp"
 #include <algorithm>
 #include <vector>
 

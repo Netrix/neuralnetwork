@@ -1,6 +1,6 @@
 #pragma once
 #include "LayerNode.hpp"
-#include "NotNull.hpp"
+#include "Utils/NotNull.hpp"
 #include <algorithm>
 #include <cmath>
 

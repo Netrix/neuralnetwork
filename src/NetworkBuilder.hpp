@@ -1,6 +1,6 @@
 #pragma once
 
-#include "NotNull.hpp"
+#include "Utils/NotNull.hpp"
 #include "NodeSpecs.hpp"
 #include "BuilderStorage.hpp"
 #include "Nodes/ConstNode.hpp"

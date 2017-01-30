@@ -1,7 +1,7 @@
 #pragma once
 #include "LayerNode.hpp"
 #include "Nodes/VariableNode.hpp"
-#include "NotNull.hpp"
+#include "Utils/NotNull.hpp"
 #include <algorithm>
 
 template<class Type>

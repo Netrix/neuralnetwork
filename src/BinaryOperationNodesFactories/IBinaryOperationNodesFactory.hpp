@@ -1,6 +1,6 @@
 #pragma once
 #include "Nodes/BinaryOperations/BinaryOperationNode.hpp"
-#include "NotNull.hpp"
+#include "Utils/NotNull.hpp"
 #include <memory>
 
 template<class Type>

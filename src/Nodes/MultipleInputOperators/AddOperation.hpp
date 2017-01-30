@@ -1,6 +1,6 @@
 #pragma once
 #include "MultipleInputOperationNode.hpp"
-#include "NotNull.hpp"
+#include "Utils/NotNull.hpp"
 #include <numeric>
 
 template<class Type>

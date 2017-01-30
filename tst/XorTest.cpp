@@ -5,7 +5,7 @@
 #include "LayeredNetworkBuilders/FullyConnectedLayerBuilder.hpp"
 #include "LayeredNetworkBuilders/InputLayerSpecs.hpp"
 #include "StreamOperators.hpp"
-#include "MathVectorAdapter.hpp"
+#include "Utils/MathVectorAdapter.hpp"
 #include "NormalDistributionGenerator.hpp"
 #include "PassThroughLayerNodeFactories/TanhLayer.hpp"
 #include <random>

@@ -1,7 +1,7 @@
 #pragma once
 #include "LayerBuilder.hpp"
-#include "ArrayView.hpp"
-#include "NotNull.hpp"
+#include "Utils/ArrayView.hpp"
+#include "Utils/NotNull.hpp"
 #include "LayerBuilder.hpp"
 #include "NodeBuilders/ConnectedLayerNodeBuilder.hpp"
 #include <vector>

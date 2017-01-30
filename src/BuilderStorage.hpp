@@ -9,7 +9,7 @@
 #include "NodeBuilders/VariableNodeBuilder.hpp"
 #include "NodeBuilders/NodeBuilder.hpp"
 #include "NodeBuilders/OperationNodeBuilder.hpp"
-#include "NotNull.hpp"
+#include "Utils/NotNull.hpp"
 #include <vector>
 #include <memory>
 
