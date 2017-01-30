@@ -16,6 +16,7 @@ struct SigmoidUnaryOperationNode : UnaryOperationNode<Type>
     void forwardPass() override
     {
         m_outputValue = calculateSigmoid(m_input.getOutputValues()[0]);
+        m_error = Type{};
     }
 
     ArrayView<Type const> getOutputValues() const override
@@ -25,8 +26,12 @@ struct SigmoidUnaryOperationNode : UnaryOperationNode<Type>
 
     void backPropagate(ArrayView<Type const> errors) override
     {
-        auto error = (m_beta * m_outputValue * ((Type)1.0 - m_outputValue)) * errors[0];
-        m_input.backPropagate(error);
+        m_error += (m_beta * m_outputValue * ((Type)1.0 - m_outputValue)) * errors[0];
+    }
+
+    void backPropagationPass() override
+    {
+        m_input.backPropagate(m_error);
     }
 
 private:
@@ -39,4 +44,5 @@ private:
     ComputationNode<Type>& m_input;
     Type m_beta;
     Type m_outputValue;
+    Type m_error{};
 };

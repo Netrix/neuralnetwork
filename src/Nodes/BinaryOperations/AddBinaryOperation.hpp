@@ -15,6 +15,7 @@ struct AddBinaryOperationNode : BinaryOperationNode<Type>
     void forwardPass() override
     {
         m_outputValue = m_firstInput.getOutputValues()[0] + m_secondInput.getOutputValues()[0];
+        m_error = 0.0;
     }
 
     ArrayView<Type const> getOutputValues() const override
@@ -24,8 +25,13 @@ struct AddBinaryOperationNode : BinaryOperationNode<Type>
 
     void backPropagate(ArrayView<Type const> errors) override
     {
-        m_firstInput.backPropagate(errors[0]);
-        m_secondInput.backPropagate(errors[0]);
+        m_error += errors[0];
+    }
+
+    void backPropagationPass() override
+    {
+        m_firstInput.backPropagate(m_error);
+        m_secondInput.backPropagate(m_error);
     }
 
 
@@ -33,4 +39,5 @@ private:
     ComputationNode<Type>& m_firstInput;
     ComputationNode<Type>& m_secondInput;
     Type m_outputValue;
+    Type m_error;
 };

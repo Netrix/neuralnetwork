@@ -4,4 +4,7 @@
 template<class Type>
 struct VariableNode : ComputationNode<Type>
 {
+    void backPropagationPass() override
+    {
+    }
 };

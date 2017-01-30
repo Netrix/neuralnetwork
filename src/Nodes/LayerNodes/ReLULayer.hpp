@@ -21,6 +21,7 @@ struct ReLULayerNode : LayerNode<Type>   // add passthrough LayerNode that doesn
         {
             m_outputs[i] = std::max(inputs[i], Type{});
         }
+        std::fill(std::begin(m_errors), std::end(m_errors), Type{});
     }
 
     std::size_t getNumOutputs() const override
@@ -37,9 +38,13 @@ struct ReLULayerNode : LayerNode<Type>   // add passthrough LayerNode that doesn
     {
         for(std::size_t i = 0; i < errors.size(); ++i)
         {
-            m_errors[i] = m_inputLayer->getOutputValues()[i] > 0.0 ? errors[i] : Type{};
+            m_errors[i] += m_inputLayer->getOutputValues()[i] > 0.0 ? errors[i] : Type{};
         }
-        m_inputLayer->backPropagate(m_errors);
+    }
+
+    void backPropagationPass() override
+    {
+        m_inputLayer->backPropagate(m_errors);  // TODO this may go to base class because it is the same for every activation
     }
 
 private:

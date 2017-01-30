@@ -26,6 +26,7 @@ set(NODES_FILES
     Nodes/LayerNodes/SigmoidLayer.hpp
     Nodes/LayerNodes/ReLULayer.hpp
     Nodes/LayerNodes/TanhLayer.hpp
+    Nodes/LayerNodes/PassThroughLayerNode.hpp
     Nodes/SingleOutputOperationNode.hpp
     )
 

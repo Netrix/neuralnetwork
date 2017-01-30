@@ -20,10 +20,6 @@ struct ConstBufferNode : ConstNode<Type>
         return m_values.size();
     }
 
-    void backPropagate(ArrayView<Type const>) override
-    {
-    }
-
 private:
     ArrayView<Type> m_values;
 };

@@ -17,6 +17,7 @@ struct PReLUUnaryOperationNode : UnaryOperationNode<Type>
     {
         auto value = m_input.getOutputValues()[0];
         m_outputValue = std::max(value, value * m_parameter);
+        m_error = Type{};
     }
 
     ArrayView<Type const> getOutputValues() const override
@@ -26,12 +27,17 @@ struct PReLUUnaryOperationNode : UnaryOperationNode<Type>
 
     void backPropagate(ArrayView<Type const> errors) override
     {
-        auto error = m_input.getOutputValues()[0] > 0.0 ? errors[0] : m_parameter;
-        m_input.backPropagate(error);
+        m_error += m_input.getOutputValues()[0] > 0.0 ? errors[0] : m_parameter;
+    }
+
+    void backPropagationPass() override
+    {
+        m_input.backPropagate(m_error);
     }
 
 private:
     ComputationNode<Type>& m_input;
     Type m_parameter;
     Type m_outputValue;
+    Type m_error;
 };

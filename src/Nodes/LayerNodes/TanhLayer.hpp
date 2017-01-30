@@ -22,6 +22,7 @@ struct TanhLayerNode : LayerNode<Type>
         {
             m_outputs[i] = calculateTanh(inputs[i]);
         }
+        std::fill(std::begin(m_errors), std::end(m_errors), Type{});
     }
 
     std::size_t getNumOutputs() const override
@@ -38,8 +39,12 @@ struct TanhLayerNode : LayerNode<Type>
     {
         for(std::size_t i = 0; i < errors.size(); ++i)
         {
-            m_errors[i] = ((Type)1.0 - m_outputs[i] * m_outputs[i]) * errors[i];
+            m_errors[i] += ((Type)1.0 - m_outputs[i] * m_outputs[i]) * errors[i];
         }
+    }
+
+    void backPropagationPass() override
+    {
         m_inputLayer->backPropagate(m_errors);
     }
 

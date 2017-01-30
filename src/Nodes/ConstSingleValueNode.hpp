@@ -19,10 +19,6 @@ struct ConstSingleValueNode : ConstNode<Type>
         return 1;
     }
 
-    void backPropagate(ArrayView<Type const>) override
-    {
-    }
-
 private:
     Type & m_value;
 };

@@ -15,6 +15,8 @@ struct MulBinaryOperationNode : BinaryOperationNode<Type>
     void forwardPass() override
     {
         m_outputValue = m_firstInput.getOutputValues()[0] * m_secondInput.getOutputValues()[0];
+        m_firstError = Type{};
+        m_secondError = Type{};
     }
 
     ArrayView<Type const> getOutputValues() const override
@@ -24,14 +26,21 @@ struct MulBinaryOperationNode : BinaryOperationNode<Type>
 
     void backPropagate(ArrayView<Type const> errors) override
     {
-        Type firstError = errors[0] * m_secondInput.getOutputValues()[0];
-        Type secondError = errors[0] * m_firstInput.getOutputValues()[0];
-        m_firstInput.backPropagate(firstError);
-        m_secondInput.backPropagate(secondError);
+        m_firstError += errors[0] * m_secondInput.getOutputValues()[0];
+        m_secondError += errors[0] * m_firstInput.getOutputValues()[0];
+
+    }
+
+    void backPropagationPass() override
+    {
+        m_firstInput.backPropagate(m_firstError);
+        m_secondInput.backPropagate(m_secondError);
     }
 
 private:
     ComputationNode<Type>& m_firstInput;
     ComputationNode<Type>& m_secondInput;
     Type m_outputValue;
+    Type m_firstError;
+    Type m_secondError;
 };

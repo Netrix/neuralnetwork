@@ -26,6 +26,10 @@ struct CustomComputationNode : ComputationNode<float>
         return 1;
     }
 
+    void backPropagationPass() override
+    {
+    }
+
     float output;
 };
 

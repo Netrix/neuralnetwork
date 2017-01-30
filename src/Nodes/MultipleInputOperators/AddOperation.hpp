@@ -16,6 +16,7 @@ struct AddOperationNode : MultipleInputOperationNode<Type>
         {
             return sum + node->getOutputValues()[0];
         });
+        m_error = Type{};
     }
 
     ArrayView<Type const> getOutputValues() const override
@@ -25,13 +26,18 @@ struct AddOperationNode : MultipleInputOperationNode<Type>
 
     void backPropagate(ArrayView<Type const> errors) override
     {
+        m_error += errors[0];
+    }
+    void backPropagationPass() override
+    {
         for(auto node : m_inputs)
         {
-            node->backPropagate(errors[0]);
+            node->backPropagate(m_error);
         }
     }
 
 private:
     std::vector<NotNull<ComputationNode<Type>>> m_inputs;
     Type m_outputValue;
+    Type m_error;
 };

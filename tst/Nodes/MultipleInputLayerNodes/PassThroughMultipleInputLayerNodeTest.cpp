@@ -26,6 +26,11 @@ struct CustomComputationNode : ComputationNode<float>
         std::cout << "propagated error " << v[0] << std::endl;
     }
 
+    void backPropagationPass() override
+    {
+        std::cout << "backPropagationPass " << std::endl;
+    }
+
     float output;
 };
 

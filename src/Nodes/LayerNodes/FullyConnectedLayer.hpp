@@ -24,6 +24,7 @@ struct FullyConnectedLayerNode : LayerNode<Type>
         {
             m_outputs[i]  = calculateSingleOutput(m_inputLayer->getOutputValues(), getNthLayerWeights(i));
         }
+        resetErrorsForInput();
     }
 
     std::size_t getNumOutputs() const override
@@ -38,13 +39,16 @@ struct FullyConnectedLayerNode : LayerNode<Type>
 
     void backPropagate(ArrayView<Type const> errors) override
     {
-        resetErrorsForInput();
         for(std::size_t i = 0; i < errors.size(); ++i)
         {
             backPropagateSingleError(errors[i], getNthLayerWeights(i), getNthLayerWeightsErrors(i));
         }
+    }
+
+    void backPropagationPass() override
+    {
         m_inputLayer->backPropagate(m_errorsForInput);
-        m_weights->backPropagate(m_errorsForWeights);  // maybe there is a way to update some variables from VariableNode selectively?
+        m_weights->backPropagate(m_errorsForWeights);
     }
 
 private:

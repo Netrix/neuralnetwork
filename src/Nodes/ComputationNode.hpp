@@ -11,4 +11,6 @@ struct ComputationNode  // TODO change it to BackPropagateComputationNode
     virtual std::size_t getNumOutputs() const = 0;
 
     virtual void backPropagate(ArrayView<Type const> errors) = 0;
+
+    virtual void backPropagationPass() = 0;
 };

@@ -14,6 +14,7 @@ struct TanhUnaryOperationNode : UnaryOperationNode<Type>
     void forwardPass() override
     {
         m_outputValue = calculateTanh(m_input.getOutputValues()[0]);
+        m_error = Type{};
     }
 
     ArrayView<Type const> getOutputValues() const override
@@ -23,8 +24,12 @@ struct TanhUnaryOperationNode : UnaryOperationNode<Type>
 
     void backPropagate(ArrayView<Type const> errors) override
     {
-        auto error = ((Type)1.0 - m_outputValue * m_outputValue) * errors[0];
-        m_input.backPropagate(error);
+        m_error += ((Type)1.0 - m_outputValue * m_outputValue) * errors[0];
+    }
+
+    void backPropagationPass() override
+    {
+        m_input.backPropagate(m_error);
     }
 
 private:
@@ -38,4 +43,5 @@ private:
     Type m_beta = 1.0f;
     ComputationNode<Type>& m_input;
     Type m_outputValue;
+    Type m_error;
 };

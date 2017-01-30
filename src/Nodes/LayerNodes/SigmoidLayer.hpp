@@ -22,6 +22,7 @@ struct SigmoidLayerNode : LayerNode<Type>   // add passthrough LayerNode that do
         {
             m_outputs[i]  = calculateSigmoid(inputs[i]);
         }
+        std::fill(std::begin(m_errors), std::end(m_errors), Type{});
     }
 
     std::size_t getNumOutputs() const override
@@ -38,9 +39,13 @@ struct SigmoidLayerNode : LayerNode<Type>   // add passthrough LayerNode that do
     {
         for(std::size_t i = 0; i < errors.size(); ++i)
         {
-            m_errors[i] = (m_beta * m_outputs[i] * ((Type)1.0 - m_outputs[i])) * errors[i];
+            m_errors[i] += (m_beta * m_outputs[i] * ((Type)1.0 - m_outputs[i])) * errors[i];
         }
-        m_inputLayer->backPropagate(m_errors);
+    }
+
+    void backPropagationPass() override
+    {
+        m_inputLayer->backPropagate(m_errors);  // TODO this may go to base class because it is the same for every activation
     }
 
 private:
