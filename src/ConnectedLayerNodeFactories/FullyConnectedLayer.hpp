@@ -11,21 +11,21 @@ struct FullyConnectedLayerNodeFactory : IConnectedLayerNodeFactory<Type>
                                                 NotNull<VariableNode<Type>> variables,
                                                 std::size_t numOutputs) override
     {
-        if((input->getNumOutputs() % 8) == 0 and (numOutputs % 8) == 0)
+        if((input->getNumOutputs() % 8) == 0 and (numOutputs % 8) == 0) // 177s
         {
             return std::make_unique<FullyConnectedLayerNode<Type>>(input,
                                                                    variables,
                                                                    numOutputs,
                                                                    vectorMatrixMultiplyUnalignedFloat8);
         }
-        else if((input->getNumOutputs() % 4) == 0 and (numOutputs % 4) == 0)
+        else if((input->getNumOutputs() % 4) == 0 and (numOutputs % 4) == 0) // 190
         {
             return std::make_unique<FullyConnectedLayerNode<Type>>(input,
                                                                    variables,
                                                                    numOutputs,
                                                                    vectorMatrixMultiplyUnalignedFloat4);
         }
-        else
+        else    // 221s
         {
             return std::make_unique<FullyConnectedLayerNode<Type>>(input,
                                                                    variables,

@@ -58,8 +58,13 @@ int main()
 
     // TODO
     // 4. abstract backprop
+    // 5. Cross validation 1:10
+    // 6. Model saving/loading to/from files
+    // 7. Weights saving/loading for model
     //
     // zero-centering data! mean centering
+    // Shuffle training examples at each new epoch
+    // Normalize input variables (u,o) = (0,1), where u=0
 
     // im2col for convolution
 }
