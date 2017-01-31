@@ -2,6 +2,7 @@
 #include "LayerNode.hpp"
 #include "Nodes/VariableNode.hpp"
 #include "Utils/NotNull.hpp"
+#include "Utils/Math.hpp"
 #include <algorithm>
 
 template<class Type>
@@ -20,10 +21,9 @@ struct FullyConnectedLayerNode : LayerNode<Type>
 
     void forwardPass() override
     {
-        for(auto i = 0u; i < m_outputs.size(); ++i)
-        {
-            m_outputs[i]  = calculateSingleOutput(m_inputLayer->getOutputValues(), getNthLayerWeights(i));
-        }
+        vectorMatrixMultiplyFloat(m_inputLayer->getOutputValues(),
+                                  m_weights->getOutputValues(),
+                                  m_outputs);
         resetErrorsForInput();
     }
 
