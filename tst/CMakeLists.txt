@@ -6,6 +6,7 @@ set(SOURCES main.cpp
     LayerNodeTests.cpp
     Nodes/MultipleInputLayerNodes/PassThroughMultipleInputLayerNodeTest.cpp
     UnaryOperations/SigmoidUnaryOperationTest.cpp
+    Utils/MathTests.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})

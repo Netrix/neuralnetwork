@@ -290,7 +290,7 @@ public:
         return *this;
     }
 
-    auto operator()(int first, int second)
+    auto operator()(std::size_t first, std::size_t second)
     {
         size_t begin = first >= 0 ? first : m_arraySize + first;
         size_t end = second >= 0 ? second : m_arraySize + second;
