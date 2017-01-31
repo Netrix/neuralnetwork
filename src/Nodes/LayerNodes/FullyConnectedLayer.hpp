@@ -5,25 +5,31 @@
 #include "Utils/Math.hpp"
 #include <algorithm>
 
+using MatrixMultiplyFunction = void(ArrayView<float const> inputVector,
+                               ArrayView<float const> weightsMatrix,
+                               ArrayView<float> outputVector);
+
 template<class Type>
 struct FullyConnectedLayerNode : LayerNode<Type>
 {
     FullyConnectedLayerNode(NotNull<ComputationNode<Type>> inputLayer,
                             NotNull<VariableNode<Type>> variables,
-                            std::size_t numOutputs)
+                            std::size_t numOutputs,
+                            MatrixMultiplyFunction* matrixMultiplyFunction)
         : m_inputLayer(inputLayer)
         , m_weights(variables)
         , m_errorsForInput(inputLayer->getNumOutputs())
         , m_errorsForWeights(variables->getNumOutputs())
         , m_outputs(numOutputs)
+        , m_matrixMultiplyFunction(matrixMultiplyFunction)
     {
     }
 
     void forwardPass() override
     {
-        vectorMatrixMultiplyFloat(m_inputLayer->getOutputValues(),
-                                  m_weights->getOutputValues(),
-                                  m_outputs);
+        m_matrixMultiplyFunction(m_inputLayer->getOutputValues(),
+                                 m_weights->getOutputValues(),
+                                 m_outputs);
         resetErrorsForInput();
     }
 
@@ -99,4 +105,5 @@ private:
     std::vector<Type> m_errorsForInput;
     std::vector<Type> m_errorsForWeights;
     std::vector<Type> m_outputs;
+    MatrixMultiplyFunction* m_matrixMultiplyFunction;
 };

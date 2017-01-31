@@ -47,7 +47,7 @@ void vectorMatrixMultiplyUnalignedFloat4(ArrayView<float const> inputVector,
 {
     assert((inputVector.size() % 4) == 0);
     assert((outputVector.size() % 4) == 0);
-    assert((outputVector.size() + 1) * inputVector.size() == weightsMatrix.size());
+    assert((inputVector.size() + 1) * outputVector.size() == weightsMatrix.size());
 
     auto rowSize = inputVector.size() + 1;
     for(auto i = 0u; i < outputVector.size(); i++)

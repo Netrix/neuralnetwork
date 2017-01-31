@@ -2,6 +2,7 @@
 
 #include "IConnectedLayerNodeFactory.hpp"
 #include "Nodes/LayerNodes/FullyConnectedLayer.hpp"
+#include "Utils/Math.hpp"
 
 template<class Type>
 struct FullyConnectedLayerNodeFactory : IConnectedLayerNodeFactory<Type>
@@ -10,7 +11,21 @@ struct FullyConnectedLayerNodeFactory : IConnectedLayerNodeFactory<Type>
                                                 NotNull<VariableNode<Type>> variables,
                                                 std::size_t numOutputs) override
     {
-        return std::make_unique<FullyConnectedLayerNode<Type>>(input, variables, numOutputs);
+        if((input->getNumOutputs() % 4) == 0 and (numOutputs % 4) == 0)
+        {
+            return std::make_unique<FullyConnectedLayerNode<Type>>(input,
+                                                                   variables,
+                                                                   numOutputs,
+                                                                   vectorMatrixMultiplyUnalignedFloat4);
+        }
+        else
+        {
+            return std::make_unique<FullyConnectedLayerNode<Type>>(input,
+                                                                   variables,
+                                                                   numOutputs,
+                                                                   vectorMatrixMultiplyFloat);
+        }
+
     }
 
     std::size_t getNumVariables(std::size_t numInputs, std::size_t numOutputs) const  override
