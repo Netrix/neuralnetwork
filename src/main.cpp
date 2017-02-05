@@ -67,4 +67,13 @@ int main()
     // Normalize input variables (u,o) = (0,1), where u=0
 
     // im2col for convolution
+
+    /* gradient check
+     * http://uvadlc.github.io/lectures/lecture2.pdf
+     *
+     * Most dangerous part for new modules -> get gradients wrong
+     * Compute gradient analytically
+     * Compute gradient computationally
+     * Compare (difference should be in 10^-4, 10^-7)
+*/
 }
