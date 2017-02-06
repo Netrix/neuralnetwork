@@ -116,7 +116,7 @@ auto learnEpoch(Network & network, Dataset const& dataset, std::size_t batchSize
 }
 
 
-template<class Dataset, class NetworkBuilder, class Network>
+template<class Dataset, class NetworkBuilder, class Network, bool printDebug=false>
 auto learnEpochParallel(NetworkBuilder & networkBuilder, Network & mainNetwork, Dataset const& dataset, std::size_t batchSize, float learningRate, std::size_t epoch)
 {
     auto numThreads = std::max(2u, std::thread::hardware_concurrency());
@@ -127,7 +127,10 @@ auto learnEpochParallel(NetworkBuilder & networkBuilder, Network & mainNetwork, 
         jobs.emplace_back(std::make_unique<BatchJob<Dataset, BNN_TYPE>>(dataset, std::move(network)));
     }
 
-    std::cout << "started learnEpochParallel on threads num: " << numThreads << std::endl;
+    if(printDebug)
+    {
+        std::cout << "started learnEpochParallel on threads num: " << numThreads << std::endl;
+    }
 
     while((batchSize % numThreads) != 0)
     {
@@ -138,7 +141,10 @@ auto learnEpochParallel(NetworkBuilder & networkBuilder, Network & mainNetwork, 
 
     auto weightsDelta = make_math_vector_adapter(mainNetwork->getVariables());
 
-    std::cout << "samples to compute: " << dataset.getNumSamples() << std::endl;
+    if(printDebug)
+    {
+        std::cout << "samples to compute: " << dataset.getNumSamples() << std::endl;
+    }
     BNN_TYPE errorSum = 0;
     for(std::size_t i = 0; i < dataset.getNumSamples();)
     {
@@ -157,7 +163,11 @@ auto learnEpochParallel(NetworkBuilder & networkBuilder, Network & mainNetwork, 
                 auto result = jobs[k]->getResults();
                 weightsDelta += result.weightDelta;
                 errorSum += result.error;
-                std::cout << "Epoch: " << epoch << ", finished job: "<< k << " (batchEnd: " << result.batchEnd << "), error: " << result.error << ", sum: " << errorSum << std::endl;
+
+                if(printDebug)
+                {
+                    std::cout << "Epoch: " << epoch << ", finished job: "<< k << " (batchEnd: " << result.batchEnd << "), error: " << result.error << ", sum: " << errorSum << std::endl;
+                }
             }
 
             weightsDelta /= batchSize;
@@ -167,10 +177,16 @@ auto learnEpochParallel(NetworkBuilder & networkBuilder, Network & mainNetwork, 
         }
         else
         {
-            std::cout << "Finishing batch" << std::endl;
+            if(printDebug)
+            {
+                std::cout << "Finishing batch" << std::endl;
+            }
             for(; i < dataset.getNumSamples(); i++)
             {
-                std::cout << "finishing sample: " << i << std::endl;
+                if(printDebug)
+                {
+                    std::cout << "finishing sample: " << i << std::endl;
+                }
                 auto result = make_math_adapter(mainNetwork->forwardPass(dataset.getInputSample(i)));
                 auto expected = make_math_adapter(dataset.getOutputSample(i));
                 auto error = expected - result;
@@ -179,11 +195,12 @@ auto learnEpochParallel(NetworkBuilder & networkBuilder, Network & mainNetwork, 
                 auto squaredError = error * error;
                 errorSum += squaredError.sum();
             }
-            std::cout << "Applying finishing deltas" << std::endl;
+            if(printDebug)
+            {
+                std::cout << "Applying finishing deltas" << std::endl;
+            }
             mainNetwork->applyDeltaOnVariables();
-            std::cout << "Should go out" << std::endl;
         }
     }
-    std::cout << "Done" << std::endl;
     return errorSum;
 }

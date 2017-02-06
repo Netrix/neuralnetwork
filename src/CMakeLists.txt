@@ -95,6 +95,7 @@ set(FILES
     NormalDistributionGenerator.hpp
     MnistPreprocessedDataSet.hpp
     LearnUtils.hpp
+    ModelData.hpp
     Utils/Math.cpp
     Utils/Math.hpp
     Utils/MathVectorAdapter.hpp

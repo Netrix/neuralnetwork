@@ -22,14 +22,21 @@
 #include "MnistPreprocessedDataSet.hpp"
 #include "LearnUtils.hpp"
 #include "PassThroughLayerNodeFactories/ReLULayer.hpp"
+#include "ModelData.hpp"
 
 int main()
 {
     std::string imagesPath = "../../../data/train-images-idx3-ubyte";
     std::string labelsPath = "../../../data/train-labels-idx1-ubyte";
 
+    std::string testImagesPath = "../../../data/t10k-images-idx3-ubyte";
+    std::string testLabelsPath = "../../../data/t10k-labels-idx1-ubyte";
+
     auto mnistDataset = MnistPreprocessedDataSet<float>(loadMnistDataset(imagesPath, labelsPath));
-    std::cout << mnistDataset.getInputSampleSize() << " " << mnistDataset.getNumSamples() << " " << mnistDataset.getOutputSampleSize() << std::endl;
+    std::cout << "Learning set: " << mnistDataset.getInputSampleSize() << " " << mnistDataset.getNumSamples() << " " << mnistDataset.getOutputSampleSize() << std::endl;
+
+    auto testDataset = MnistPreprocessedDataSet<float>(loadMnistDataset(testImagesPath, testLabelsPath));
+    std::cout << "Test set: " << testDataset.getInputSampleSize() << " " << testDataset.getNumSamples() << " " << testDataset.getOutputSampleSize() << std::endl;
 
     LayeredNetworkBuilder layeredNetworkBuilder;
     auto outLayer = layeredNetworkBuilder.setOutputLayer(FullyConnectedLayerSpecs{
@@ -39,7 +46,16 @@ int main()
     hiddenLayer->setInputLayer(InputLayerSpecs{mnistDataset.getInputSampleSize()});
     auto network = layeredNetworkBuilder.buildBackPropagationNetwork(0.01f);
 
-    network->setVariables(NormalDistributionGenerator<BNN_TYPE>(17, 0, 1e-1));
+    if(modelFileExists("model_data.txt"))
+    {
+        ModelData<BNN_TYPE> modelData(network->getVariables().size());
+        modelData.load("model_data.txt");
+        network->setVariables(modelData.getData());
+    }
+    else
+    {
+        network->setVariables(NormalDistributionGenerator<BNN_TYPE>(17, 0, 1e-1));
+    }
 
     using namespace std::chrono;
     auto start = steady_clock::now();
@@ -49,13 +65,15 @@ int main()
     {
         errorSum = learnEpochParallel(layeredNetworkBuilder, network, mnistDataset, 256, 0.01f, i);
         std::cout << "epoch: " << i << " errorSum: " << errorSum <<  std::endl;
-
     }
 
     auto end = steady_clock::now();
 
     std::cout << "Time taken: " << duration_cast<seconds>(end - start).count() << "s. errorSum: " << errorSum <<  std::endl;
 
+    ModelData<BNN_TYPE> modelData(network->getVariables());
+    modelData.save("model_data.txt");
+// 8231
     // TODO
     // 4. abstract backprop
     // 5. Cross validation 1:10
